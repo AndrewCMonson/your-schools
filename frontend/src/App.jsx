@@ -1,25 +1,10 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { Outlet } from 'react-router-dom'
 
-function App() {
-  const [products, setProducts] = useState('')
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await fetch('/api/')
-      const data = await res.text()
-      setProducts(data)
-    }
-    fetchProducts()
-  }
-  , [])
-
-
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">{products}</h1>
-    </>
+    <Outlet />
   )
 }
+
 
 export default App
