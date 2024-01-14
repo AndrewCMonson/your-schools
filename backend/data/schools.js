@@ -1,6 +1,6 @@
 const schools = [
     {
-        name: 'Emmanuael Episcopal Day School',
+        name: 'Emmanuel Episcopal Day School',
         address: '5181 Singleton Way',
         city: 'Virginia Beach',
         state: 'VA',
@@ -34,7 +34,7 @@ const schools = [
         age_range: [2, 5],
         early_enrollment: true,
         min_tuition: 300,
-        max_tuition: 750,
+        max_tuition: 1250,
         days_open: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         days_closed: ['Saturday', 'Sunday'],
         opening_hours: '08:30:00',

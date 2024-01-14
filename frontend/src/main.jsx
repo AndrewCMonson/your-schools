@@ -8,14 +8,15 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen.jsx'
+import SchoolsScreen from './screens/SchoolsScreen.jsx'
 import './index.css'
-import { ThemeProvider } from '@material-tailwind/react'
-
+import { ThemeProvider } from '@material-tailwind/react';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
-      <Route index={true} element={<HomeScreen />} />
+      <Route index={true} path='/' element={<HomeScreen />} />
+      <Route path='/schools' element={<SchoolsScreen />} />
     </Route>
   )
   )

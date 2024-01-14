@@ -4,7 +4,7 @@ import Navbar from './components/NavBar.jsx'
 const App = () => {
   return (
     <>
-      <Navbar />
+      <Navbar fullWidth={true} />
       <Outlet />
     </>
     
