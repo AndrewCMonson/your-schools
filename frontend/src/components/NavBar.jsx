@@ -1,4 +1,5 @@
 import { BellIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import NavButton from './NavButton';
 
 const NavBar = () => {
   return (
@@ -28,36 +29,11 @@ const NavBar = () => {
               {/* Nav Links */}
               <div className="hidden flex items-center sm:flex sm:ml-6">
                 <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Dashboard
-                  </a>
-                  <a
-                    href="/schools"
-                    className="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Schools
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Teachers
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Parents
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Students
-                  </a>
+                  <NavButton name='Schools' link='/schools' />
+                  <NavButton name='Day Care' link='/daycare' />
+                  <NavButton name='After School' link='/afterschool' />
+                  <NavButton name='Summer Programs' link='/summerprograms' />
+                  <NavButton name='Child Care Jobs' link='/jobs' />
                 </div>
               </div>
               
