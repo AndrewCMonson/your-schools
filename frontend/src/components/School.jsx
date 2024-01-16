@@ -2,10 +2,12 @@ const School = ({ school }) => {
 	return (
 		<div
 			key={school.name}
-			className="flex flex-row justify-around border-2 border-gray-200 rounded-lg p-4"
+			className="flex flex-row justify-around border-2 border-gray-200 rounded-lg p-4 mb-3"
 		>
-			<div className="flex flex-col justify-center">
-				<h2 className="underline">{school.name}</h2>
+			<div className="flex flex-col justify-between">
+				<a href={`/schools/${school._id}`}>
+					<h2 className="underline text-2xl">{school.name}</h2>
+				</a>
 				<div className="flex flex-row justify-around">
 					<p>
 						{school.max_tuition < 500

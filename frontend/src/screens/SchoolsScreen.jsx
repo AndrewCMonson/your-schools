@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import School from '../components/School';
+import Schools from '../components/Schools';
 import SearchBar from '../components/SearchBar';
 import  fetchSchoolsByZip from '../utils/fetchSchools';
 
@@ -31,11 +31,7 @@ const SchoolsScreen = () => {
                 <h1 className='text-center text-4xl'>Schools</h1>
             </div>
             <SearchBar setSearchTerm={setSearchTerm} />
-			<div className="container mx-auto">
-				{schools.map(school => (
-					<School key={school.name} school={school} />
-				))}
-			</div>
+			<Schools schools={schools} />
 		</>
 	);
 };
