@@ -24,7 +24,7 @@ const School = ({ school }) => {
 
 			<div className="flex flex-col justify-center">
 				<p>{school.address}</p>
-				<p>{`${school.city}, ${school.state}, ${school.zip}`}</p>
+				<p>{`${school.city}, ${school.state}, ${school.zipcode}`}</p>
 				<p>{school.phone}</p>
 				<p>{school.email}</p>
 			</div>

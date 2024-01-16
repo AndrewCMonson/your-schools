@@ -4,7 +4,7 @@ const fetchSchoolsByZip = async zipcode => {
 	if (!zipcode) {
 		return [];
 	} else {
-		const { data } = await axios.get(`/api/schools/${zipcode}`);
+		const { data } = await axios.get(`/api/schools?zipcode=${zipcode}`);
 		return data;
 	}
 };
