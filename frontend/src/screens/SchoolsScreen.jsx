@@ -19,11 +19,11 @@ const SchoolsScreen = () => {
 
 	return (
 		<>
-			<SearchBar setSearchTerm={setSearchTerm} />
+			
 			<div className='container mx-auto'>
                 <h1 className='text-center text-4xl'>Schools</h1>
             </div>
-            
+            <SearchBar setSearchTerm={setSearchTerm} />
 			<div className="container mx-auto">
 				{schools.map(school => (
 					<School key={school.name} school={school} />
