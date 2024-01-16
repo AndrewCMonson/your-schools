@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import School from '../components/School';
 import SearchBar from '../components/SearchBar';
+import  fetchSchoolsByZip from '../utils/fetchSchools';
 
 const SchoolsScreen = () => {
 	const [schools, setSchools] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 
 	useEffect(() => {
-		const fetchSchools = async () => {
-			const { data } = await axios.get(`/api/schools/${searchTerm}`);
-
-			setSchools(data);
-		};
-
-		fetchSchools();
+		if(searchTerm){
+			fetchSchoolsByZip(searchTerm).then(schools => {
+				setSchools(schools);
+			});
+		}
+		
 	}, [searchTerm]);
 
 	return (

@@ -10,8 +10,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/api', (req, res) => {
-	res.send(schools);
+app.get('/api/schools', (req, res) => {
+    const { city, zipcode } = req.query;
+
+    if (city) {
+        const filteredSchools = schools.filter(school => school.city === city);
+        res.send(filteredSchools);
+    } else if (zipcode) {
+        const filteredSchools = schools.filter(school => school.zip === zipcode);
+        res.send(filteredSchools);
+    } else {
+        res.send(schools);
+    }
 });
 
 app.get('/api/schools/:zipcode', (req, res) => {
