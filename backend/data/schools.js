@@ -1,5 +1,6 @@
 const schools = [
     {
+        id: '1',
         name: 'Emmanuel Episcopal Day School',
         address: '5181 Singleton Way',
         city: 'Virginia Beach',
@@ -23,6 +24,7 @@ const schools = [
 
     },
     {
+        id: '2',
         name: 'St. John the Apostle Catholic School',
         address: '1968 Sandbridge Rd',
         city: 'Virginia Beach',
