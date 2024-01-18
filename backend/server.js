@@ -11,33 +11,35 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/api/schools', (req, res) => {
-	const { city, zipcode } = req.query;
+	const { city, zipcode, asc } = req.query;
 
 	if (city && zipcode) {
 		const filteredSchools = schools.filter(
 			school => school.city === city && school.zipcode === zipcode
 		);
-
+		if (!filteredSchools.length) {
+			res.status(404).send('No schools found');
+		}
 		res.send(filteredSchools);
 	}
 
 	if (city) {
 		const filteredSchools = schools.filter(school => school.city === city);
+
+		if (!filteredSchools.length) {
+			res.status(404).send({message: 'No schools found'});
+		}
 		res.send(filteredSchools);
 	}
 
 	if (zipcode) {
-		const filteredSchools = schools.filter(school => school.zipcode === zipcode);
+		const filteredSchools = schools.filter(
+			school => school.zipcode === zipcode
+		);
 		res.send(filteredSchools);
-	} else {
-		res.send(schools);
 	}
-});
 
-app.get('/api/schools/:zipcode', (req, res) => {
-	const { zipcode } = req.params;
-	const filteredSchools = schools.filter(school => school.zipcode === zipcode);
-	res.send(filteredSchools);
+	res.send(schools);
 });
 
 app.listen(PORT, () => {
