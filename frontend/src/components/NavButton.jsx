@@ -9,5 +9,4 @@ const NavButton = ({ name, link }) => {
 	);
 };
 
-
 export default NavButton;

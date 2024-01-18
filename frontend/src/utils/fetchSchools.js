@@ -1,6 +1,7 @@
 import axios from 'axios';
+import sortSchools from './sortSchools';
 
-const fetchSchoolsByZip = async (zipcode) => {
+const fetchSchoolsByZip = async zipcode => {
 	if (!zipcode) {
 		return [];
 	} else {
@@ -10,4 +11,10 @@ const fetchSchoolsByZip = async (zipcode) => {
 	}
 };
 
-export default fetchSchoolsByZip;
+const fetchAndSort = async (zipcode, sortValue, setSchools) => {
+	const schools = await fetchSchoolsByZip(zipcode);
+	const sortedSchools = sortSchools(schools, sortValue);
+	setSchools(sortedSchools);
+};
+
+export { fetchSchoolsByZip, fetchAndSort };

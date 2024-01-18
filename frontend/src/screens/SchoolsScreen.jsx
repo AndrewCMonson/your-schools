@@ -1,48 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import setMessage from '../utils/setPageMessage';
 import Schools from '../components/Schools';
 import SearchBar from '../components/SearchBar';
+import Sort from '../components/Sort';
 import PageTitle from '../components/PageTitle';
-import fetchSchoolsByZip from '../utils/fetchSchools';
+import { fetchAndSort } from '../utils/fetchSchools';
 
 const SchoolsScreen = () => {
 	const [schools, setSchools] = useState([]);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [pageMessage, setPageMessage] = useState('Search for schools in your zip code');
+	const [sortValue, setSortValue] = useState('name');
+	const [pageMessage, setPageMessage] = useState(
+		'Search for schools in your zip code'
+	);
 
 	useEffect(() => {
-		if (schools.length > 1) {
-			setPageMessage(`Showing ${schools.length} schools in ${searchParams.get('zipcode')} `);
-		}
-		if (schools.length === 1) {
-			setPageMessage(`Showing ${schools.length} school in ${searchParams.get('zipcode')}`);
-		}
-		if (schools.length === 0 && searchParams.get('zipcode')) {
-			setPageMessage('No schools found in your area');
-		}
-	}, [schools, searchParams]);	
+		setMessage(schools, setPageMessage, searchParams)
+	}, [schools, searchParams]);
 
 	useEffect(() => {
-		if (searchParams) {
-			try {
-				fetchSchoolsByZip(searchParams.get('zipcode')).then(schools => {
-					setSchools(schools);
-				});
-			} catch (error) {
-
-				console.error(error);
-			}
-		} 
-	}, [searchParams]);
+		if (searchParams && sortValue) {
+			fetchAndSort(searchParams.get('zipcode'), sortValue, setSchools);
+		}
+	}, [searchParams, sortValue]);
 
 	return (
 		<>
 			<PageTitle title="Schools" />
 			<SearchBar setSearchParams={setSearchParams} />
+			<Sort setSortValue={setSortValue} />
 			<h1 className="text-center text-4xl">{pageMessage}</h1>
 			<Schools schools={schools} />
-			
-			
 		</>
 	);
 };

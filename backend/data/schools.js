@@ -100,6 +100,32 @@ const schools = [
         min_student_teacher_ratio: 5,
         max_student_teacher_ratio: 10,
     },
+    {
+        id: '5',
+        name: 'Test Day School',
+        address: '5181 Singleton Way',
+        city: 'Virginia Beach',
+        state: 'VA',
+        zipcode: '23462',
+        phone: '757-499-7393',
+        website: 'https://www.emmanueldayschoolvb.com',
+        email: 'EEDS@email.com',
+        rating: 4.5,
+        offers_daycare: true,
+        age_range: [2, 5],
+        early_enrollment: true,
+        min_tuition: 150,
+        max_tuition: 200,
+        days_open: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        days_closed: ['Saturday', 'Sunday'],
+        opening_hours: '08:30:00',
+        closing_hours: '15:00:00',
+        min_enrollment: 50,
+        max_enrollment: 100,
+        min_student_teacher_ratio: 5,
+        max_student_teacher_ratio: 10,
+
+    },
 ]
 
 export default schools;
