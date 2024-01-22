@@ -11,12 +11,14 @@ import HomeScreen from './screens/HomeScreen.jsx';
 import SchoolsScreen from './screens/SchoolsScreen.jsx';
 import './index.css';
 import { ThemeProvider } from '@material-tailwind/react';
+// import SchoolScreen from './screens/SchoolScreen.jsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index={true} path="/" element={<HomeScreen />} />
 			<Route path="/schools" element={<SchoolsScreen />} />
+			{/* <Route path="/schools/:id" element={<SchoolScreen />} /> */}
 		</Route>
 	)
 );
