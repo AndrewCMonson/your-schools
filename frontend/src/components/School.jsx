@@ -1,3 +1,5 @@
+import Rating from "./Rating";
+
 const School = ({ school }) => {
 	return (
 		<div
@@ -17,7 +19,7 @@ const School = ({ school }) => {
 							? `$$$`
 							: `$$$$`}
 					</p>
-					<p>{school.rating}</p>
+						<Rating value={school.rating}/>
 					<p>
 						{school.age_range[0] === school.age_range[1]
 							? `${school.age_range[0]} years old`

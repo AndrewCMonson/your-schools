@@ -6,6 +6,8 @@ const SearchBar = ({ setSearchParams }) => {
 	const handleSubmit = event => {
 		event.preventDefault();
 
+		if (!inputValue) return;
+
 		setSearchParams({ zipcode: inputValue });
 	};
 

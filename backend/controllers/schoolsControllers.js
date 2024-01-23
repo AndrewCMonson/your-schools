@@ -1,4 +1,4 @@
-import School from "../models/School.js";
+import School from "../models/SchoolsModel.js";
 
 // @desc    Fetch all schools
 // @route   GET /api/schools
@@ -37,5 +37,7 @@ const getSchoolById = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+
 
 export { getSchools, getSchoolById };

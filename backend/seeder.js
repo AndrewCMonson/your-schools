@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import schools from './data/schools.js';
-import School from './models/School.js';
+import School from './models/SchoolsModel.js';
+import User from './models/UserModel.js';
+import users from './data/user.js';
 dotenv.config();
 import connectDB from './config/db.js';
 
@@ -10,8 +12,10 @@ connectDB();
 const importData = async () => {
     try {
         await School.deleteMany();
+        await User.deleteMany();
 
         await School.insertMany(schools);
+        await User.insertMany(users);
 
         console.log('Data imported');
         process.exit();
@@ -24,6 +28,7 @@ const importData = async () => {
 const destroyData = async () => {
     try {
         await School.deleteMany();
+        await User.deleteMany();
 
         console.log('Data destroyed');
         process.exit();
