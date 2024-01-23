@@ -12,7 +12,8 @@ const Sort = ({ setSortValue }) => {
 			>
 				<option value="name">Name</option>
 				<option value="rating">Rating</option>
-				<option value="tuition">Tuition</option>
+				<option value="tuition-asc">Tuition (low to high)</option>
+				<option value="tuition-desc">Tuition (high to low)</option>
 			</select>
 		</div>
 	);
