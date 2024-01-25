@@ -1,6 +1,5 @@
 const schools = [
     {
-        id: '1',
         name: 'Emmanuel Episcopal Day School',
         address: '5181 Singleton Way',
         city: 'Virginia Beach',
@@ -26,7 +25,6 @@ const schools = [
 
     },
     {
-        id: '2',
         name: 'St. John the Apostle Catholic School',
         address: '1968 Sandbridge Rd',
         city: 'Virginia Beach',
@@ -51,7 +49,6 @@ const schools = [
         max_student_teacher_ratio: 10,
     },
     {
-        id: '3',
         name: 'St. Gregory the Great Catholic School',
         address: '5345 Virginia Beach Blvd',
         city: 'Virginia Beach',
@@ -76,7 +73,6 @@ const schools = [
         max_student_teacher_ratio: 10,
     },
     {
-        id: '4',
         name: 'St. Matthew\'s School',
         address: '3316 Sandra Ln',
         city: 'Virginia Beach',
@@ -101,7 +97,6 @@ const schools = [
         max_student_teacher_ratio: 10,
     },
     {
-        id: '5',
         name: 'Mary Magdalene Catholic School',
         address: '1232 Culver Ln',
         city: 'Suffolk',
@@ -124,8 +119,55 @@ const schools = [
         max_enrollment: 124,
         min_student_teacher_ratio: 8,
         max_student_teacher_ratio: 12,
-
     },
+    {
+        name: "Sunnydale Montessori Academy",
+        address: "456 Oak St",
+        city: "Suffolk",
+        state: "VA",
+        zipcode: "23462",
+        phone: "757-555-1234",
+        website: "https://www.sunnydalemontessori.org",
+        email: "info@sunnydalemontessori.org",
+        rating: 4.0,
+        offers_daycare: true,
+        age_range: [2, 6],
+        early_enrollment: true,
+        min_tuition: 200,
+        max_tuition: 550,
+        days_open: ["Monday", "Wednesday", "Friday"],
+        days_closed: ["Saturday", "Sunday"],
+        opening_hours: "09:00:00",
+        closing_hours: "17:30:00",
+        min_enrollment: 50,
+        max_enrollment: 120,
+        min_student_teacher_ratio: 7,
+        max_student_teacher_ratio: 11
+    },
+    {
+        name: "Harmony Learning Center",
+        address: "789 Maple Ave",
+        city: "Suffolk",
+        state: "VA",
+        zipcode: "23462",
+        phone: "757-555-5678",
+        website: "https://www.harmonylearningcenter.com",
+        email: "info@harmonylearningcenter.com",
+        rating: 4.2,
+        offers_daycare: true,
+        age_range: [1, 4],
+        early_enrollment: false,
+        min_tuition: 180,
+        max_tuition: 520,
+        days_open: ["Monday", "Wednesday", "Friday"],
+        days_closed: ["Saturday", "Sunday"],
+        opening_hours: "08:00:00",
+        closing_hours: "18:30:00",
+        min_enrollment: 45,
+        max_enrollment: 110,
+        min_student_teacher_ratio: 6,
+        max_student_teacher_ratio: 10
+    }
 ]
 
 export default schools;
