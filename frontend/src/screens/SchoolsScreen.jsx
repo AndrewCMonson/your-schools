@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import setMessage from '../utils/setPageMessage';
 import Schools from '../components/Schools';
 import Sort from '../components/Sort';
 import PageTitle from '../components/PageTitle';
 import { fetchSchools } from '../utils/fetchSchools';
-import setLocalStorage from '../utils/localStorage';
+
+
 
 
 const SchoolsScreen = () => {
@@ -13,33 +13,32 @@ const SchoolsScreen = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [sort, setSort] = useState(searchParams.get('sort') || 'name');
 	const [zipcode, setZipcode] = useState(searchParams.get('zipcode') || '');
-	const [pageMessage, setPageMessage] = useState(
-		'Search for schools in your zip code'
-	);
 
 	const getSchools = useCallback(async () => {
 		// fetch schools with sort and zipcode
+		console.log(zipcode)
 		if (zipcode.length !== 5) return;
-
 		const schools = await fetchSchools({ sort, zipcode });
+		// store sort and zipcode in url
 		setSearchParams({ sort, zipcode });
+		// set schools
 		setSchools(schools);
-		setMessage(schools, setPageMessage, zipcode);
-		setLocalStorage(schools, zipcode)
 	}, [sort, zipcode, setSearchParams]);
 
+	const handleSubmit = event => {
+		event.preventDefault();
+		getSchools();
+	};
+	
 	const handleFormInputChange = event => {
 		if (isNaN(event.target.value)) return;
-
-		setZipcode(event.target.value);
+		setZipcode(event.target.value);		
 	};
-
-
 
 	return (
 		<>
 			<PageTitle title="Schools" />
-			<div className='container flex justify-center'>
+			<form onSubmit={handleSubmit} className='container flex justify-center'>
 				<input
 					type="text"
 					name="zipcode"
@@ -51,14 +50,13 @@ const SchoolsScreen = () => {
 				/>
 				<button
 					type="submit"
-					onClick={getSchools}
 					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Search
 				</button>		
-			</div>
-			<Sort setSort={setSort} />
-			<h1 className="text-center text-4xl">{pageMessage}</h1>
+			</form>
+			<Sort setSort={setSort} sort={sort} />
+			{schools.length === 0 && <p className="text-center">We Couldn&apos;t Find Any Schools in That Zipcode</p>}
 			<Schools schools={schools} />
 		</>
 	);
