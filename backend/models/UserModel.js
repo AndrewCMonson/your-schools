@@ -13,11 +13,11 @@ const userSchema = mongoose.Schema({
     favorites: [
         {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "School",
+        ref: "school",
         },
     ],
     });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('user', userSchema);
 
 export default User;

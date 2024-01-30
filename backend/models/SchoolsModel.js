@@ -70,6 +70,6 @@ const schoolsSchema = mongoose.Schema({
     },
 });
 
-const School = mongoose.model('School', schoolsSchema);
+const School = mongoose.model('school', schoolsSchema);
 
 export default School;

@@ -1,4 +1,4 @@
-import { School, User } from '../models/index.js';	
+import { School, User } from '../models/index.js';
 
 // @desc get all users
 // @route GET /api/users
@@ -12,6 +12,29 @@ const getUsers = async (req, res) => {
 		}
 
 		res.json(users);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: 'Server Error' });
+	}
+};
+
+// @desc create user
+// @route POST /api/users
+// @access Public
+const createUser = async (req, res) => {
+	try {
+		const { username, password } = req.body;
+
+		const query = User.where({ username: username });
+		const existingUser = await query.findOne();
+
+		if (existingUser) {
+			return res.status(400).json({ message: 'User already exists' });
+		}
+
+		const user = await User.create({ username, password });
+
+		res.json(user);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: 'Server Error' });
@@ -83,4 +106,4 @@ const addToFavorites = async (req, res) => {
 	}
 };
 
-export { getUsers, getUserById, addToFavorites, getUserFavorites };
+export { getUsers, getUserById, addToFavorites, getUserFavorites, createUser };
