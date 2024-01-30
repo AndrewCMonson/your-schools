@@ -59,7 +59,7 @@ const getUserFavorites = async (req, res) => {
 };
 
 // @desc   Add school to user favorites
-// @route  put /api/users/:id/favorites
+// @route  put /api/users/:id/favorites/:schoolId
 // @access Private
 const addToFavorites = async (req, res) => {
 	try {

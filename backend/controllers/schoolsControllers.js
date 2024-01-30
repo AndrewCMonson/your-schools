@@ -1,6 +1,24 @@
 import School from '../models/SchoolsModel.js';
 
-// @desc    Fetch all schools
+// @desc	Fetch all schools
+// @route	GET /api/schools/all
+// @access	Public
+const getAllSchools = async (req, res) => {
+	try {
+		const schools = await School.find({});
+
+		if (!schools) {
+			return res.status(404).json({ message: 'No schools found' });
+		}
+
+		res.json(schools);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: 'Server Error' });
+	}
+};
+
+// @desc    Fetch schools sorted by search and sort criteria
 // @route   GET /api/schools
 // @access  Public
 const getSchools = async (req, res) => {
@@ -95,4 +113,4 @@ const getSchoolById = async (req, res) => {
 	}
 };
 
-export { getSchools, getSchoolById };
+export { getSchools, getSchoolById, getAllSchools };
