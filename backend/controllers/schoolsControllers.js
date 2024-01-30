@@ -1,4 +1,4 @@
-import School from '../models/SchoolsModel.js';
+import { School } from '../models/index.js';
 
 // @desc	Fetch all schools
 // @route	GET /api/schools/all

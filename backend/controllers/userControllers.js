@@ -1,5 +1,4 @@
-import User from '../models/UserModel.js';
-import School from '../models/SchoolsModel.js';
+import { School, User } from '../models/index.js';	
 
 // @desc get all users
 // @route GET /api/users
