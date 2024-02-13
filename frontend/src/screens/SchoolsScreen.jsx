@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Schools from '../components/Schools';
 import Sort from '../components/Sort';
 import PageTitle from '../components/PageTitle';
 import { fetchSchools } from '../utils/fetchSchools';
+import School from '../components/School';
+import { Input, Button } from '@material-tailwind/react';
 
 const SchoolsScreen = () => {
 	const [schools, setSchools] = useState([]);
@@ -35,30 +36,37 @@ const SchoolsScreen = () => {
 	return (
 		<>
 			<PageTitle title="Schools" />
-			<form onSubmit={handleSubmit} className="container flex justify-center">
-				<input
+			<form
+				onSubmit={handleSubmit}
+				className="container mx-auto relative flex w-full max-w-[24rem]"
+			>
+				<Input
 					type="text"
 					name="zipcode"
-					placeholder="Search by Zip Code"
-					className="border-2 border-gray-200 rounded-lg p-4"
+					label="Zip Code"
+					size="md"
 					value={zipcode}
 					maxLength={5}
 					onChange={handleFormInputChange}
 				/>
-				<button
+				<Button
 					type="submit"
-					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					size="sm"
+					color="blue"
+					className="!absolute right-1 top-1 rounded"
 				>
 					Search
-				</button>
+				</Button>
 			</form>
 			<Sort setSort={setSort} sort={sort} />
-			{schools.length === 0 && (
-				<p className="text-center">
-					We Couldn&apos;t Find Any Schools in That Zipcode
-				</p>
-			)}
-			<Schools schools={schools} />
+			<div className="flex">
+				<div className="sm:w-1/2 md:w-1/3  p-4">
+					{schools.map(school => (
+						<School key={school.name} school={school} />
+					))}
+				</div>
+				<div className="sm:w-1/2 md:w-2/3 p-4 text-center">Map PlaceHolder</div>
+			</div>
 		</>
 	);
 };

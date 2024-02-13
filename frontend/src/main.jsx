@@ -10,7 +10,6 @@ import {
 import HomeScreen from './screens/HomeScreen.jsx';
 import SchoolsScreen from './screens/SchoolsScreen.jsx';
 import './index.css';
-import { ThemeProvider } from '@material-tailwind/react';
 // import SchoolScreen from './screens/SchoolScreen.jsx';
 
 const router = createBrowserRouter(
@@ -25,8 +24,6 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<ThemeProvider>
 			<RouterProvider router={router} />
-		</ThemeProvider>
 	</React.StrictMode>
 );
