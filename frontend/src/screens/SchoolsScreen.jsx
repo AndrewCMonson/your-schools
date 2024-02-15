@@ -1,49 +1,68 @@
-import { useState, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+// import { useSearchParams } from 'react-router-dom';
 import Schools from '../components/Schools';
-import Sort from '../components/Sort';
+// import Sort from '../components/Sort';
 import PageTitle from '../components/PageTitle';
-import { fetchSchools } from '../utils/fetchSchools';
+// import { fetchSchools } from '../utils/fetchSchools';
+import { gql, useQuery } from '@apollo/client';
 
 const SchoolsScreen = () => {
-	const [schools, setSchools] = useState([]);
-	const [searchParams, setSearchParams] = useSearchParams();
-	const [sort, setSort] = useState(searchParams.get('sort') || 'name');
-	const [zipcode, setZipcode] = useState(searchParams.get('zipcode') || '');
+	const [zipcode, setZipcode] = useState('');
 
-	const getSchools = useCallback(async () => {
-		// fetch schools with sort and zipcode
-		console.log(zipcode);
-		if (zipcode.length !== 5) return;
-		const schools = await fetchSchools({ sort, zipcode });
-		// store sort and zipcode in url
-		setSearchParams({ sort, zipcode });
-		// set schools
-		setSchools(schools);
-	}, [sort, zipcode, setSearchParams]);
+	
+	const GET_SCHOOLS = gql`
+		query Schools($zipcode: String) {
+			schools(zipcode: $zipcode) {
+				id
+				name
+				address
+				city
+				state
+				zipcode
+				phone
+				website
+				email
+				rating
+				offers_daycare
+				age_range
+				early_enrollment
+				min_tuition
+				max_tuition
+				days_open
+				days_closed
+				opening_hours
+				closing_hours
+				min_enrollment
+				max_enrollment
+				min_student_teacher_ratio
+				max_student_teacher_ratio
+			}
+		}
+	`;
+	
+	const { loading, error, data } = useQuery(GET_SCHOOLS, {
+		variables: { zipcode },
+	});
 
-	const handleSubmit = event => {
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error: {error.message}</p>;
+
+	const handleFormSubmit = event => {
 		event.preventDefault();
-		getSchools();
-	};
-
-	const handleFormInputChange = event => {
-		if (isNaN(event.target.value)) return;
-		setZipcode(event.target.value);
-	};
+		setZipcode(event.target.zipcode.value);
+	}
+	
 
 	return (
 		<>
 			<PageTitle title="Schools" />
-			<form onSubmit={handleSubmit} className="container flex justify-center">
+			<form onSubmit={handleFormSubmit} className="container flex justify-center">
 				<input
 					type="text"
 					name="zipcode"
 					placeholder="Search by Zip Code"
 					className="border-2 border-gray-200 rounded-lg p-4"
-					value={zipcode}
 					maxLength={5}
-					onChange={handleFormInputChange}
 				/>
 				<button
 					type="submit"
@@ -52,13 +71,9 @@ const SchoolsScreen = () => {
 					Search
 				</button>
 			</form>
-			<Sort setSort={setSort} sort={sort} />
-			{schools.length === 0 && (
-				<p className="text-center">
-					We Couldn&apos;t Find Any Schools in That Zipcode
-				</p>
-			)}
-			<Schools schools={schools} />
+			{/* <Sort setSort={setSort} sort={sort} /> */}
+			
+			<Schools schools={data.schools} />
 		</>
 	);
 };
