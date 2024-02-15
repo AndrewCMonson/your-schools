@@ -2,7 +2,6 @@ import {
 	Card,
 	CardBody,
 	CardFooter,
-	Typography,
 	Button,
 } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
@@ -12,29 +11,24 @@ const School = ({ school }) => {
 	return (
 		<Card color="white" className="w-full my-4">
 			<CardBody>
-				<Typography color="blueGray" className="">
-					{school.name}
-				</Typography>
-				<Typography color="blueGray" className="">
-					{school.address}
-				</Typography>
-				<Typography color="blueGray" className="">
+				<div className="">{school.name}</div>
+				<div className="">{school.address}</div>
+				<div className="">
 					{school.city}, {school.state} {school.zipcode}
-				</Typography>
-				<Typography color="blueGray" className="">
-					{school.phone}
-				</Typography>
-				<Typography color="blueGray" className="">
-					{school.type}
-				</Typography>
-				<Typography color="blueGray" className="">
+				</div>
+				<div className="">{school.phone}</div>
+				<div className="">{school.type}</div>
+				<div className="">
 					<Rating value={school.rating} />
-				</Typography>
+				</div>
+				<div className="">{school.max_tuition > 1000 ? '$$$$' : '$$$'}</div>
 			</CardBody>
 			<CardFooter>
-				<Button color="blue" buttonType="link" ripple="light">
-					<Link to={`/schools/${school._id}`}>Visit School</Link>
-				</Button>
+				<Link to={`/schools/${school.id}`}>
+					<Button color="blue" ripple={true}>
+						Visit School
+					</Button>
+				</Link>
 			</CardFooter>
 		</Card>
 	);
