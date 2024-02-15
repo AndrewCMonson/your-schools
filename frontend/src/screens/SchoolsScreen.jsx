@@ -46,7 +46,7 @@ const SchoolsScreen = () => {
 
 	return (
 		<>
-			<div className="flex flex-col items-center container mx-auto">
+			<div id="schoolsScreen" className="flex flex-col items-center w-100">
 				<PageTitle title="Schools" />
 				<form
 					onSubmit={handleFormSubmit}
@@ -76,12 +76,12 @@ const SchoolsScreen = () => {
 						{data.schools.length} Schools Found
 					</p>
 				</div>
-			</div>
-			<div className='flex'>
-				<div className="flex flex-wrap justify-center container mx-auto">
-					{data.schools.map(school => (
-						<School key={school.id} school={school} />
-					))}
+				<div>
+					<div className="flex flex-wrap justify-center container mx-auto w-1/2">
+						{data.schools.map(school => (
+							<School key={school.id} school={school} />
+						))}
+					</div>
 				</div>
 			</div>
 		</>

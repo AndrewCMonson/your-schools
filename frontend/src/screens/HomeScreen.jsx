@@ -3,6 +3,7 @@ import HomeSection from '../components/HomeSection';
 const HomeScreen = () => {
 	return (
 		<>
+		<section id="homeScreen" className="flex flex-col items-center h-full w-100">
 			<HomeSection>
 				<div className="container my-4 mx-auto">
 					<h1 className="text-center text-4xl">Welcome to Your Schools</h1>
@@ -42,6 +43,7 @@ const HomeScreen = () => {
 					</div>
 				</div>
 			</HomeSection>
+		</section>
 		</>
 	);
 };

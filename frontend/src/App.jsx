@@ -6,7 +6,7 @@ const App = () => {
 	return (
 		<>
 			<Navbar />
-			<main className="py-3 flex-auto">
+			<main className="py-3 flex-auto w-100">
 				<Outlet />
 			</main>
 			<Footer />

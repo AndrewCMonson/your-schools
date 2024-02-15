@@ -6,7 +6,7 @@ const GoogleMap = ({location}) => {
 
   return (
 		<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-			<div className="h-1/2 w-96">
+			<div className="h-full w-96">
 				<Map zoom={12} center={position} mapId={import.meta.env.VITE_GOOGLE_MAPS_ID} gestureHandling={'greedy'} disableDefaultUI={true}  >
                     <AdvancedMarker anchor="top" position={position}>
                         <Pin  />
