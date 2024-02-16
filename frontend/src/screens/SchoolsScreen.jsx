@@ -3,50 +3,40 @@ import { useSearchParams } from 'react-router-dom';
 import School from '../components/School';
 import { Button, Input } from '@material-tailwind/react';
 import PageTitle from '../components/PageTitle';
-import { gql, useQuery} from '@apollo/client';
-
+import { useQuery } from '@apollo/client';
+import { GET_SCHOOLS } from '../utils/queries';
+import LoadingScreen from './LoadingScreen';
 
 const SchoolsScreen = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [zipcode, setZipcode] = useState(searchParams.get('zipcode') || '');
-
-	const GET_SCHOOLS = gql`
-		query Schools($zipcode: String) {
-			schools(zipcode: $zipcode) {
-				id
-				name
-				address
-				city
-				state
-				zipcode
-				latitude
-				longitude
-				phone
-				website
-				email
-				rating
-				max_tuition
-			}
-		}
-	`;
+	const [search, setSearch] = useState(false);
 
 	const handleFormSubmit = event => {
 		event.preventDefault();
 		setZipcode(event.target.zipcode.value);
 		setSearchParams({ zipcode: event.target.zipcode.value });
+		setSearch(true);
 	};
-	
+
 	const { loading, error, data } = useQuery(GET_SCHOOLS, {
 		variables: { zipcode },
 	});
 
-
-	if (loading) return <p>Loading...</p>;
+	if (loading)
+		return (
+			<div>
+				<LoadingScreen />
+			</div>
+		);
 	if (error) return <p>Error: {error.message}</p>;
 
 	return (
 		<>
-			<div id="schoolsScreen" className="flex flex-col items-center w-100">
+			<div
+				id="schoolsScreen"
+				className="flex flex-col items-center overflow-auto w-100 pr-8"
+			>
 				<PageTitle title="Schools" />
 				<form
 					onSubmit={handleFormSubmit}
@@ -71,18 +61,16 @@ const SchoolsScreen = () => {
 						Search
 					</Button>
 				</form>
-				<div>
-					<p className="text-2xl font-semibold text-gray-600">
-						{data.schools.length} Schools Found
-					</p>
-				</div>
-				<div>
-					<div className="flex flex-wrap justify-center container mx-auto w-1/2">
+
+				{!data.schools.length && search ? (
+					<div className="text-center text-2xl mt-8">No schools found</div>
+				) : (
+					<div>
 						{data.schools.map(school => (
 							<School key={school.id} school={school} />
 						))}
 					</div>
-				</div>
+				)}
 			</div>
 		</>
 	);

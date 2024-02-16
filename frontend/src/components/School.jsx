@@ -1,15 +1,10 @@
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	Button,
-} from '@material-tailwind/react';
+import { Card, CardBody, CardFooter, Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
 
 const School = ({ school }) => {
 	return (
-		<Card color="white" className="w-full my-4">
+		<Card className="w-full my-4">
 			<CardBody>
 				<div className="">{school.name}</div>
 				<div className="">{school.address}</div>
@@ -26,7 +21,7 @@ const School = ({ school }) => {
 			<CardFooter>
 				<Link to={`/schools/${school.id}`}>
 					<Button color="blue" ripple={true}>
-						Visit School
+						Visit School Page
 					</Button>
 				</Link>
 			</CardFooter>

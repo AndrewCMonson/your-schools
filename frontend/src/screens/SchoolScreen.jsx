@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import {
     Card,
     CardHeader,
@@ -9,41 +9,10 @@ import {
 } from '@material-tailwind/react';
 import GoogleMap from "../components/Map";
 import Rating from "../components/Rating";
+import { GET_SCHOOL } from "../utils/queries";
 
 const SchoolScreen = () => {
     const { id } = useParams();
-
-    const GET_SCHOOL = gql`
-        query School($id: ID!) {
-            school(id: $id) {
-                id
-                name
-                address
-                city
-                state
-                zipcode
-                latitude
-                longitude
-                phone
-                website
-                email
-                rating
-                offers_daycare
-                age_range
-                early_enrollment
-                min_tuition
-                max_tuition
-                days_open
-                days_closed
-                opening_hours
-                closing_hours
-                min_enrollment
-                max_enrollment
-                min_student_teacher_ratio
-                max_student_teacher_ratio
-            }
-        }
-    `;
 
     const {loading, error, data} = useQuery(GET_SCHOOL, {
         variables: {id}
@@ -69,7 +38,7 @@ const SchoolScreen = () => {
                         </CardBody>
                         <CardFooter className="pt-2">
                             <Button color="blue" ripple={true}>
-                                Visit School
+                                Contact
                             </Button>
                         </CardFooter>
                     </Card>

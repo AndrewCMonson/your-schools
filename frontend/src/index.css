@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
 #schoolsScreen {
     background: url('../public/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
     background-size: cover;
@@ -16,6 +21,12 @@
 
 #homeScreen {
     background: url('../public/images/pexels-pavel-danilyuk-8422207.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}
+
+#loadingScreen {
+    background: url('../public/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
 }
