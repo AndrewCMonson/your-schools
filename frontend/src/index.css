@@ -8,25 +8,25 @@
 }
 
 #schoolsScreen {
-    background: url('../public/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
+    background: url('./assets/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
 }
 
 #schoolScreen {
-    background: url('../public/images/pexels-yan-krukau-8613089.jpg') no-repeat center center;
+    background: url('./assets/images/pexels-yan-krukau-8613089.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
 }
 
 #homeScreen {
-    background: url('../public/images/pexels-pavel-danilyuk-8422207.jpg') no-repeat center center;
+    background: url('./assets/images/pexels-pavel-danilyuk-8422207.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
 }
 
 #loadingScreen {
-    background: url('../public/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
+    background: url('./assets/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
 }

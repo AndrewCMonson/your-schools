@@ -12,7 +12,6 @@ import userRoutes from './routes/userRoutes.js';
 
 const PORT = process.env.PORT || 3005;
 const server = new ApolloServer({ typeDefs, resolvers });
-connectDB();
 
 const app = express();
 
@@ -41,6 +40,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-
-
