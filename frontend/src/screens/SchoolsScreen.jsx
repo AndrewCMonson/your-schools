@@ -35,7 +35,7 @@ const SchoolsScreen = () => {
 		<>
 			<div
 				id="schoolsScreen"
-				className="flex flex-col items-center overflow-auto w-100 pr-8"
+				className="flex flex-col items-center overflow-auto w-100 pt-5"
 			>
 				<PageTitle title="Schools" />
 				<form
@@ -61,7 +61,6 @@ const SchoolsScreen = () => {
 						Search
 					</Button>
 				</form>
-
 				{!data.schools.length && search ? (
 					<div className="text-center text-2xl mt-8">No schools found</div>
 				) : (

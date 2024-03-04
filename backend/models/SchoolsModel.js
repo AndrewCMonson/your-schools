@@ -1,5 +1,18 @@
 import mongoose from 'mongoose';
 
+const imageSchema = mongoose.Schema({
+	url: {
+		type: String,
+	},
+	alt: {
+		type: String,
+	},
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'School',
+	}
+});
+
 const schoolsSchema = mongoose.Schema({
 	name: {
 		type: String,
@@ -31,6 +44,9 @@ const schoolsSchema = mongoose.Schema({
 		type: String,
 	},
 	email: {
+		type: String,
+	},
+	description: {
 		type: String,
 	},
 	rating: {
@@ -75,8 +91,8 @@ const schoolsSchema = mongoose.Schema({
 	max_student_teacher_ratio: {
 		type: Number,
 	},
+	images: [imageSchema],
 });
-
 
 const School = mongoose.model('school', schoolsSchema);
 

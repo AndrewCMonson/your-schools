@@ -2,8 +2,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import schools from './data/schools.js';
 import School from './models/SchoolsModel.js';
+import images from './data/images.js';
 import User from './models/UserModel.js';
 import users from './data/user.js';
+
 dotenv.config();
 import connectDB from './config/db.js';
 
@@ -14,7 +16,21 @@ const importData = async () => {
         await School.deleteMany();
         await User.deleteMany();
 
-        await School.insertMany(schools);
+        
+
+        const createdSchools = await School.insertMany(schools);
+
+        const imagesWithOwner = images.map(image => {
+            return { ...image, owner: createdSchools[0]._id };
+        });
+
+        const updatedSchools = await School.findByIdAndUpdate(
+            createdSchools[0]._id,
+            { images: imagesWithOwner },
+            { new: true }
+        );
+
+
         await User.insertMany(users);
 
         console.log('Data imported');

@@ -4,7 +4,7 @@ import Skeleton from '../components/Skeleton'
 
 const LoadingScreen = () => {
   return (
-    <div id="schoolsScreen" className="flex flex-col items-center overflow-auto w-100 pr-8">
+    <div id="schoolsScreen" className="flex flex-col items-center overflow-auto w-100 pt-5">
 				<PageTitle title="Schools" />
 				<form
 					className="container mx-auto relative flex w-full max-w-[24rem]"

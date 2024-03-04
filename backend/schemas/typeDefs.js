@@ -1,5 +1,11 @@
 const typedefs = `
-  type School {
+type Image {
+    url: String
+    alt: String
+    owner: String
+}  
+
+type School {
     id: ID
     name: String
     address: String
@@ -11,6 +17,7 @@ const typedefs = `
     phone: String
     website: String
     email: String
+    description: String
     rating: Float
     offers_daycare: Boolean
     age_range: [Int]
@@ -25,6 +32,7 @@ const typedefs = `
     max_enrollment: Int
     min_student_teacher_ratio: Float
     max_student_teacher_ratio: Float
+    images: [Image]
   }
   
   type Query {

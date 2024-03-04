@@ -34,6 +34,7 @@ export const GET_SCHOOL = gql`
 			phone
 			website
 			email
+			description
 			rating
 			offers_daycare
 			age_range
@@ -48,6 +49,11 @@ export const GET_SCHOOL = gql`
 			max_enrollment
 			min_student_teacher_ratio
 			max_student_teacher_ratio
+			images {
+				url
+				alt
+				owner
+			}
 		}
 	}
 `;
