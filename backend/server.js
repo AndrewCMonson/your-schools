@@ -6,15 +6,11 @@ import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import cors from 'cors';
-// import schools from './data/schools.js';
-import schoolRoutes from './routes/schoolRoutes.js';
-import userRoutes from './routes/userRoutes.js';
+import path from 'path';
 
 const PORT = process.env.PORT || 3005;
-const server = new ApolloServer({ typeDefs, resolvers });
-
 const app = express();
-
+const server = new ApolloServer({ typeDefs, resolvers });
 
 const startServer = async () => {
 	await server.start();

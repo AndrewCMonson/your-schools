@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
-// import School from "./SchoolsModel.js";
 
 const userSchema = mongoose.Schema({
     username: {
+        type: String,
+        required: true,
+    },
+    email: {
         type: String,
         required: true,
     },
@@ -17,6 +20,19 @@ const userSchema = mongoose.Schema({
         },
     ],
     });
+
+userSchema.pre('save', async function (next) {
+    if (this.isNew || this.isModified('password')) {
+        const saltRounds = 12;
+    }
+    this.password = await bcrypt.hash(this.password, saltRounds);
+
+    next();
+});
+
+userSchema.methods.isCorrectPassword = async function (password) {
+    return bcrypt.compare(password, this.password);
+};
 
 const User = mongoose.model('user', userSchema);
 
