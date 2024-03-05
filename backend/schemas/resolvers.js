@@ -1,16 +1,89 @@
 import { School, User } from '../models/index.js';
+import { AuthenticationError } from 'apollo-server-express';
+import { signToken } from '../utils/auth.js';
 
 const resolvers = {
-    Query: {
-        schools: async (parent, args) => {
-            const schools = await School.find({ zipcode: args.zipcode});
-            return schools;
+	Query: {
+		schools: async (parent, args) => {
+			const schools = await School.find({ zipcode: args.zipcode });
+			return schools;
+		},
+		school: async (parent, { id }) => {
+			const school = await School.findById(id);
+			return school;
+		},
+        me: async (parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({ _id: context.user._id })
+                    .select('-__v -password');
+
+                return userData;
+            }
+
+            throw new AuthenticationError('Not logged in');
         },
-        school: async (parent, { id }) => {
-            const school = await School.findById(id);
-            return school;
+        getFavorites: async (parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({ _id: context.user._id })
+                    .select('-__v -password')
+                    .populate('favorites');
+
+                return userData.favorites;
+            }
+
+            throw new AuthenticationError('Not logged in');
+        }
+	},
+	Mutation: {
+		addUser: async (parent, { username, email, password }) => {
+			const user = await User.create({ username, email, password });
+			const token = signToken(user);
+
+			return { token, user };
+		},
+		login: async (parent, { email, password }) => {
+			const user = await User.findOne({ email });
+
+			if (!user) {
+				throw new AuthenticationError('Incorrect credentials');
+			}
+
+			const correctPw = await user.isCorrectPassword(password);
+
+			if (!correctPw) {
+				throw new AuthenticationError('Incorrect credentials');
+			}
+
+			const token = signToken(user);
+			return { token, user };
+		},
+        addToFavorites: async (parent, { schoolId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { favorites: schoolId } },
+                    { new: true }
+                );
+
+                return updatedUser;
+            }
+
+            throw new AuthenticationError('You need to be logged in!');
         },
-    },
-    }
+        removeFromFavorites: async (parent, { schoolId }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { favorites: schoolId } },
+                    { new: true }
+                );
+
+                return updatedUser;
+            }
+
+            throw new AuthenticationError('You need to be logged in!');
+        }
+	},
+};
 
 export default resolvers;

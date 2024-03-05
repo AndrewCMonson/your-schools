@@ -1,5 +1,6 @@
-import { BellIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import NavButton from './NavButton';
+import Auth from '../utils/auth';
+
 
 const NavBar = () => {
 	return (
@@ -30,31 +31,22 @@ const NavBar = () => {
 							<div className="hidden flex items-center sm:flex sm:ml-6">
 								<div className="flex space-x-4">
 									<NavButton name="Schools" link="/schools" />
-									<NavButton name="Day Care" link="/daycare" />
-									<NavButton name="After School" link="/afterschool" />
-									<NavButton name="Summer Programs" link="/summerprograms" />
-									<NavButton name="Child Care Jobs" link="/jobs" />
 								</div>
 							</div>
 						</div>
 						{/* Right Nav */}
 						<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-							{/* Notifications */}
-							<button
-								type="button"
-								className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none"
-							>
-								<span className="sr-only">View notifications</span>
-								<BellIcon className="h-6 w-6" aria-hidden="true" />
-							</button>
-							{/* Settings */}
-							<button
-								type="button"
-								className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none"
-							>
-								<span className="sr-only">Open settings</span>
-								<Cog6ToothIcon className="h-6 w-6" aria-hidden="true" />
-							</button>
+							{Auth.loggedIn() ? (
+								<>
+									<NavButton name="Favorites" link="/favorites" />
+									<NavButton name="Profile" link="/profile" />
+									<NavButton name="Logout" link="/logout" />
+								</>
+							) : (
+								<>
+									<NavButton name="Login/Signup" link="/login" />
+								</>
+							)}
 						</div>
 					</div>
 				</div>

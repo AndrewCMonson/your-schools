@@ -10,6 +10,7 @@ import {
 import HomeScreen from './screens/HomeScreen.jsx';
 import SchoolsScreen from './screens/SchoolsScreen.jsx';
 import SchoolScreen from './screens/SchoolScreen.jsx';
+import LoginSignup from './screens/LoginSignupScreen.jsx';
 import './index.css';
 import { ThemeProvider } from '@material-tailwind/react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
 			<Route index={true} path="/" element={<HomeScreen />} />
 			<Route path="/schools" element={<SchoolsScreen />} />
 			<Route path="/schools/:id" element={<SchoolScreen />} />
+			<Route path="/login" element={<LoginSignup />} />
 		</Route>
 	)
 );

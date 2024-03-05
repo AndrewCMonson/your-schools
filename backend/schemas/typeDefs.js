@@ -3,7 +3,20 @@ type Image {
     url: String
     alt: String
     owner: String
-}  
+} 
+
+type Auth {
+    token: ID!
+    user: User
+  }
+  
+  type User {
+    _id: ID
+    username: String
+    email: String
+    password: String
+    favorites: [School]
+  }
 
 type School {
     id: ID
@@ -38,6 +51,15 @@ type School {
   type Query {
     schools(zipcode: String): [School]
     school(id: ID!): School
+    me: User
+    getFavorites: [School]
+  }
+
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addToFavorites(schoolId: ID!): User
+    removeFromFavorites(schoolId: ID!): User
   }
   `;
 
