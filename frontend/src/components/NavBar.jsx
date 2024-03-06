@@ -40,7 +40,7 @@ const NavBar = () => {
 								<>
 									<NavButton name="Favorites" link="/favorites" />
 									<NavButton name="Profile" link="/profile" />
-									<NavButton name="Logout" link="/logout" />
+									<NavButton name="Logout" link="/" onClick={Auth.logout} />
 								</>
 							) : (
 								<>

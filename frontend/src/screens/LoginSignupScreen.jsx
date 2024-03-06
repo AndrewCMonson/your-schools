@@ -3,12 +3,12 @@ import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 
 const LoginSignup = () => {
-  const [screenSelected, setScreenSelected] = useState('login')
+  const [screenSelected, setScreenSelected] = useState('signin')
 
   return (
 		<>
       <section className="flex justify-center items-center h-full">
-			{screenSelected === 'login' ? (
+			{screenSelected === 'signin' ? (
         <SignInForm setScreenSelected={setScreenSelected} />
       ) : (
         <SignUpForm setScreenSelected={setScreenSelected} screenSelected={screenSelected} />
