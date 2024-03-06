@@ -11,7 +11,7 @@ type Auth {
   }
   
   type User {
-    _id: ID
+    id: ID
     username: String
     email: String
     password: String
@@ -52,7 +52,7 @@ type School {
     schools(zipcode: String): [School]
     school(id: ID!): School
     me: User
-    getFavorites: [School]
+    getFavorites(username: String): [User]
   }
 
   type Mutation {

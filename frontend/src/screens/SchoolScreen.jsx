@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import {
 	Card,
 	CardHeader,
@@ -10,6 +10,8 @@ import {
 import GoogleMap from '../components/Map';
 import Rating from '../components/Rating';
 import { GET_SCHOOL } from '../utils/queries';
+import { ADD_FAVORITE } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const SchoolScreen = () => {
 	const { id } = useParams();
@@ -18,8 +20,29 @@ const SchoolScreen = () => {
 		variables: { id },
 	});
 
+	const [addToFavorites] = useMutation(ADD_FAVORITE);
+
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
+
+	const handleAddToFavorites = async () => {
+		const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+		if (!token) {
+			return false;
+		}
+
+		console.log(id);
+
+		try {
+			console.log('got to my try')
+			await addToFavorites({
+				variables: { schoolId: `${id}` },
+			});
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
 	return (
 		<>
@@ -35,6 +58,9 @@ const SchoolScreen = () => {
 							<div className="flex flex-row justify-between w-full md:flex-col">
 								<Rating value={data.school.rating} />
 								<div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
+								<button onClick={handleAddToFavorites}>
+									Add to Favorites
+								</button>
 							</div>
 							<div className="h-0.5 bg-black my-6"></div>
 							<div className="lg:flex">

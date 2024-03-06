@@ -11,13 +11,29 @@ import HomeScreen from './screens/HomeScreen.jsx';
 import SchoolsScreen from './screens/SchoolsScreen.jsx';
 import SchoolScreen from './screens/SchoolScreen.jsx';
 import LoginSignup from './screens/LoginSignupScreen.jsx';
+import Favorites from './screens/Favorites.jsx';
 import './index.css';
 import { ThemeProvider } from '@material-tailwind/react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 // import SchoolScreen from './screens/SchoolScreen.jsx';
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
 	uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+	const token = localStorage.getItem('id_token');
+	return {
+		headers: {
+			...headers,
+			authorization: token ? `Bearer ${token}` : '',
+		},
+	};
+});
+
+const client = new ApolloClient({
+	link: authLink.concat(httpLink),
 	cache: new InMemoryCache(),
 });
 
@@ -28,6 +44,7 @@ const router = createBrowserRouter(
 			<Route path="/schools" element={<SchoolsScreen />} />
 			<Route path="/schools/:id" element={<SchoolScreen />} />
 			<Route path="/login" element={<LoginSignup />} />
+			<Route path="/favorites" element={<Favorites />} />
 		</Route>
 	)
 );

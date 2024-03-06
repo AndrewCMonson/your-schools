@@ -1,6 +1,7 @@
 import { School, User } from '../models/index.js';
 import { AuthenticationError } from 'apollo-server-express';
 import { signToken } from '../utils/auth.js';
+import { ObjectId } from 'mongoose';
 
 const resolvers = {
 	Query: {
@@ -12,27 +13,21 @@ const resolvers = {
 			const school = await School.findById(id);
 			return school;
 		},
-        me: async (parent, args, context) => {
-            if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id })
-                    .select('-__v -password');
+		me: async (parent, args, context) => {
+			if (context.user) {
+				const userData = await User.findOne({ _id: context.user._id }).select(
+					'-__v -password'
+				);
 
-                return userData;
-            }
+				return userData;
+			}
 
-            throw new AuthenticationError('Not logged in');
-        },
-        getFavorites: async (parent, args, context) => {
-            if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id })
-                    .select('-__v -password')
-                    .populate('favorites');
-
-                return userData.favorites;
-            }
-
-            throw new AuthenticationError('Not logged in');
-        }
+			throw new AuthenticationError('Not logged in');
+		},
+		getFavorites: async (parent, { username }) => {
+			const params = username ? { username } : {};
+			return User.find(params).populate('favorites');
+		},
 	},
 	Mutation: {
 		addUser: async (parent, { username, email, password }) => {
@@ -57,32 +52,42 @@ const resolvers = {
 			const token = signToken(user);
 			return { token, user };
 		},
-        addToFavorites: async (parent, { schoolId }, context) => {
-            if (context.user) {
-                const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { favorites: schoolId } },
-                    { new: true }
-                );
+		addToFavorites: async (parent, { schoolId }, context) => {
+			if (context.user) {
+				// const school = await School.findById(schoolId);
+				const updatedUser = await User.findOneAndUpdate(
+					{ _id: context.user.id },
+					{ $addToSet: { favorites: schoolId } },
+					{ new: true }
+				);
 
-                return updatedUser;
-            }
+				return updatedUser;
+			}
 
-            throw new AuthenticationError('You need to be logged in!');
-        },
-        removeFromFavorites: async (parent, { schoolId }, context) => {
-            if (context.user) {
-                const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user._id },
-                    { $pull: { favorites: schoolId } },
-                    { new: true }
-                );
+			if (!context.user) {
+				throw new AuthenticationError('You need to be logged in!');
+			}
+		},
+		removeFromFavorites: async (parent, { schoolId }, context) => {
+			if (context.user) {
+				const updatedUser = await User.findByIdAndUpdate(
+					{ _id: context.user._id },
+					{ $pull: { favorites: schoolId } },
+					{ new: true }
+				);
 
-                return updatedUser;
-            }
+				return updatedUser;
+			}
 
-            throw new AuthenticationError('You need to be logged in!');
-        }
+			throw new AuthenticationError('You need to be logged in!');
+		},
+	},
+	User: {
+		id: parent => parent._id,
+		favorites: async parent =>
+			School.find({
+				_id: { $in: parent.favorites },
+			}),
 	},
 };
 

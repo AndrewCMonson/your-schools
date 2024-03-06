@@ -5,7 +5,7 @@ export const LOGIN_USER = gql`
         login(email: $email, password: $password) {
             token
             user {
-                _id
+                id
                 username
             }
         }
@@ -17,7 +17,7 @@ export const ADD_USER = gql`
         addUser(username: $username, email: $email, password: $password) {
             token
             user {
-                _id
+                id
                 username
             }
         }
@@ -27,10 +27,10 @@ export const ADD_USER = gql`
 export const ADD_FAVORITE = gql`
     mutation addToFavorites($schoolId: ID!) {
         addToFavorites(schoolId: $schoolId) {
-            _id
+            id
             username
             favorites {
-                _id
+                id
                 name
             }
         }
@@ -40,10 +40,10 @@ export const ADD_FAVORITE = gql`
 export const REMOVE_FAVORITE = gql`
     mutation removeFromFavorites($schoolId: ID!) {
         removeFromFavorites(schoolId: $schoolId) {
-            _id
+            id
             username
             favorites {
-                _id
+                id
                 name
             }
         }

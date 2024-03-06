@@ -57,3 +57,28 @@ export const GET_SCHOOL = gql`
 		}
 	}
 `;
+
+export const GET_ME = gql`
+	query me {
+		me {
+			id
+			username
+			email
+			favorites {
+				id
+				name
+				address
+				city
+				state
+				zipcode
+				latitude
+				longitude
+				phone
+				website
+				email
+				rating
+				max_tuition
+			}
+		}
+	}
+`;
