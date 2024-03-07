@@ -1,5 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
+import React from 'react';
 import App from './App.jsx';
 import {
 	createBrowserRouter,
@@ -16,7 +16,7 @@ import './index.css';
 import { ThemeProvider } from '@material-tailwind/react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-// import SchoolScreen from './screens/SchoolScreen.jsx';
+
 
 const httpLink = createHttpLink({
 	uri: '/graphql',

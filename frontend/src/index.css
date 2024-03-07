@@ -30,3 +30,9 @@
     background-size: cover;
     height: 100vh;
 }
+
+#favoritesScreen {
+    background: url('./assets/images/ps-stock.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}

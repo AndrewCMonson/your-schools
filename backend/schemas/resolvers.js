@@ -15,7 +15,7 @@ const resolvers = {
 		},
 		me: async (parent, args, context) => {
 			if (context.user) {
-				const userData = await User.findOne({ _id: context.user._id }).select(
+				const userData = await User.findOne({ _id: context.user.id }).select(
 					'-__v -password'
 				);
 
@@ -71,7 +71,7 @@ const resolvers = {
 		removeFromFavorites: async (parent, { schoolId }, context) => {
 			if (context.user) {
 				const updatedUser = await User.findByIdAndUpdate(
-					{ _id: context.user._id },
+					{ _id: context.user.id },
 					{ $pull: { favorites: schoolId } },
 					{ new: true }
 				);

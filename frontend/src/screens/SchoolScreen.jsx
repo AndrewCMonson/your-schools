@@ -31,11 +31,8 @@ const SchoolScreen = () => {
 		if (!token) {
 			return false;
 		}
-
-		console.log(id);
-
+		
 		try {
-			console.log('got to my try')
 			await addToFavorites({
 				variables: { schoolId: `${id}` },
 			});

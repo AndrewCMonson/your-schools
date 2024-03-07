@@ -1,41 +1,80 @@
-import { GET_ME } from "../utils/queries"
-import { REMOVE_FAVORITE } from "../utils/mutations"
-import { useQuery, useMutation } from '@apollo/client'
-import Auth from '../utils/auth'
+import { GET_ME } from '../utils/queries';
+import { REMOVE_FAVORITE } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import PageTitle from '../components/PageTitle';
+import Rating from '../components/Rating';
+import { useState } from 'react';
+import {
+	Card,
+	CardBody,
+	CardFooter,
+	Button,
+} from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
+import { useSortedFavorites } from '../utils/useSort';
+
+
 
 const Favorites = () => {
-    const { loading, data } = useQuery(GET_ME)
-    const [removeFavorite] = useMutation(REMOVE_FAVORITE)
-    const userData = data?.me || {}
+	const [removeFavorite] = useMutation(REMOVE_FAVORITE);
+  const [sort, setSort] = useState('');
+  const { loading, sortedFavorites } = useSortedFavorites(sort);
 
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
+	const handleRemoveFavorite = async schoolId => {
+		try {
+			await removeFavorite({
+				variables: { schoolId },
+				refetchQueries: [{ query: GET_ME }],
+			});
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
-    const handleRemoveFavorite = async (schoolId) => {
-        try {
-            await removeFavorite({
-                variables: { schoolId },
-                refetchQueries: [{ query: GET_ME }]
-            })
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-  return (
-    <div>
-      <h2>{userData.username}'s Favorites</h2>
-      <div>
-        {userData.favorites.map((school) => (
-          <div key={school.id}>
-            <p>{school.name}</p>
-            <button onClick={() => handleRemoveFavorite(school.id)}>Remove</button>
-          </div>
-        ))}
+	return (
+		<section
+			id="favoritesScreen"
+			className="flex flex-col items-center overflow-auto w-100 pt-5"
+		>
+			<PageTitle title="Favorites" />
+      <div className="flex justify-center">
+        <select
+          className="p-2"
+          value={sort}
+          onChange={e => setSort(e.target.value)}
+        >
+          <option value="">Sort By</option>
+          <option value="rating">Rating</option>
+          <option value="price">Price</option>
+        </select>
       </div>
-    </div>
-  )
-}
-export default Favorites
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto">
+				{sortedFavorites.map(school => (
+					<Card key={school.id} color="white" className="my-6">
+						<CardBody>
+							<h2 className='text-2xl'>{school.name}</h2>
+							<Rating value={school.rating} />
+							<Link to={`/schools/${school.id}`}>
+								<div className="text-blue-500">Visit School Page</div>
+							</Link>
+						</CardBody>
+						<CardFooter>
+							<Button
+								color="red"
+								size="lg"
+								onClick={() => handleRemoveFavorite(school.id)}
+							>
+								Remove
+							</Button>
+						</CardFooter>
+					</Card>
+				))}
+			</div>
+		</section>
+	);
+};
+export default Favorites;

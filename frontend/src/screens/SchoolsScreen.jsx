@@ -33,7 +33,7 @@ const SchoolsScreen = () => {
 
 	return (
 		<>
-			<div
+			<section
 				id="schoolsScreen"
 				className="flex flex-col items-center overflow-auto w-100 pt-5"
 			>
@@ -70,7 +70,7 @@ const SchoolsScreen = () => {
 						))}
 					</div>
 				)}
-			</div>
+			</section>
 		</>
 	);
 };
