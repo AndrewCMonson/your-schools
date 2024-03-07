@@ -10,11 +10,16 @@ export const useSortedFavorites = sort => {
 		if (sort === 'rating') {
 			return userData.me.favorites.toSorted((a, b) => b.rating - a.rating);
 		}
-		if (sort === 'price') {
+		if (sort === 'price_desc') {
 			return userData.me.favorites.toSorted(
 				(a, b) => a.max_tuition - b.max_tuition
 			);
 		}
+        if (sort === 'price_asc') {
+            return userData.me.favorites.toSorted(
+                (a, b) => b.max_tuition - a.max_tuition
+            );
+        }
 		return userData.me.favorites;
 	}, [sort, userData]);
 

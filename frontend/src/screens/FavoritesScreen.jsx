@@ -4,21 +4,14 @@ import { useMutation } from '@apollo/client';
 import PageTitle from '../components/PageTitle';
 import Rating from '../components/Rating';
 import { useState } from 'react';
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	Button,
-} from '@material-tailwind/react';
+import { Card, CardBody, CardFooter, Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import { useSortedFavorites } from '../utils/useSort';
 
-
-
-const Favorites = () => {
+const FavoritesScreen = () => {
 	const [removeFavorite] = useMutation(REMOVE_FAVORITE);
-  const [sort, setSort] = useState('');
-  const { loading, sortedFavorites } = useSortedFavorites(sort);
+	const [sort, setSort] = useState('');
+	const { loading, sortedFavorites } = useSortedFavorites(sort);
 
 	if (loading) {
 		return <div>Loading...</div>;
@@ -41,22 +34,23 @@ const Favorites = () => {
 			className="flex flex-col items-center overflow-auto w-100 pt-5"
 		>
 			<PageTitle title="Favorites" />
-      <div className="flex justify-center">
-        <select
-          className="p-2"
-          value={sort}
-          onChange={e => setSort(e.target.value)}
-        >
-          <option value="">Sort By</option>
-          <option value="rating">Rating</option>
-          <option value="price">Price</option>
-        </select>
-      </div>
+			<div className="flex justify-center">
+				<select
+					className="p-2"
+					value={sort}
+					onChange={e => setSort(e.target.value)}
+				>
+					<option value="">Sort By</option>
+					<option value="rating">Rating</option>
+					<option value="price_desc">Price(High to Low)</option>
+					<option value="price_asc">Price(Low to High)</option>
+				</select>
+			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto">
 				{sortedFavorites.map(school => (
 					<Card key={school.id} color="white" className="my-6">
 						<CardBody>
-							<h2 className='text-2xl'>{school.name}</h2>
+							<h2 className="text-2xl">{school.name}</h2>
 							<Rating value={school.rating} />
 							<Link to={`/schools/${school.id}`}>
 								<div className="text-blue-500">Visit School Page</div>
@@ -77,4 +71,4 @@ const Favorites = () => {
 		</section>
 	);
 };
-export default Favorites;
+export default FavoritesScreen;

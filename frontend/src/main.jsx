@@ -11,7 +11,7 @@ import HomeScreen from './screens/HomeScreen.jsx';
 import SchoolsScreen from './screens/SchoolsScreen.jsx';
 import SchoolScreen from './screens/SchoolScreen.jsx';
 import LoginSignup from './screens/LoginSignupScreen.jsx';
-import Favorites from './screens/Favorites.jsx';
+import Favorites from './screens/FavoritesScreen.jsx';
 import './index.css';
 import { ThemeProvider } from '@material-tailwind/react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
