@@ -7,7 +7,7 @@ import {
 	Route,
 	RouterProvider,
 } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen.jsx';
+import {HomeScreen} from './screens/HomeScreen.jsx';
 import SchoolsScreen from './screens/SchoolsScreen.jsx';
 import SchoolScreen from './screens/SchoolScreen.jsx';
 import LoginSignup from './screens/LoginSignupScreen.jsx';

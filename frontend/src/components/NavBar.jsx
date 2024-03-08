@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navbar, Collapse, IconButton } from '@material-tailwind/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import YourSchools from '../assets/images/your-schools-logo.png'
 import Auth from '../utils/auth';
 import NavButton from './NavButton';
 
@@ -39,11 +40,11 @@ export const NavBar = () => {
 
 	return (
 		<>
-			<Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+			<Navbar className="mx-auto max-w-full rounded-none px-6 py-3 lg:px-8 lg:py-4">
 				<div className="flex items-center justify-between text-blue-gray-900">
 					<Link to="/">
 						<img
-							src="../../public/images/YourSchool.png"
+							src={YourSchools}
 							alt="YourSchools Logo"
 							className="h-8 w-8"
 							href="/"

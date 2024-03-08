@@ -1,28 +1,64 @@
-import HomeSection from '../components/HomeSection';
+import {
+	Button,
+	Input,
+} from '@material-tailwind/react';
+import { useNavigate } from 'react-router-dom';
 
-const HomeScreen = () => {
+export const HomeScreen = () => {
+
+	const navigate = useNavigate();
+
+	const handleSearchSubmit = event => {
+		event.preventDefault();
+
+		navigate(`/schools?zipcode=${event.target.zipcode.value}`);
+	}
+
 	return (
 		<>
 			<section
 				id="homeScreen"
 				className="flex flex-col items-center h-full w-100 pt-5"
 			>
-				<HomeSection>
+				<div className="container mx-auto flex flex-col justify-center h-1/3">
 					<div className="container my-4 mx-auto">
-						<h1 className="text-center text-white text-4xl">Welcome to Your Schools</h1>
+						<h1 className="text-center text-white text-4xl">
+							Welcome to Your Schools
+						</h1>
 						<p className="text-center text-white text-2xl">
 							Find the best schools for your child
 						</p>
 					</div>
 					<div className="container mx-auto flex flex-row justify-center">
-						<a href="/schools">
-							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-								Start Your Search
-							</button>
-						</a>
+						
+							<form
+								onSubmit={handleSearchSubmit}
+								className="container mx-auto relative flex w-full max-w-[24rem]"
+								label="Search"
+							>
+								<Input
+									type="text"
+									name="zipcode"
+									label="Zipcode"
+									className="pr-20"
+									color='white'
+									maxLength={5}
+									containerProps={{ className: 'min-w-0' }}
+								/>
+								<Button
+									type="submit"
+									size="sm"
+									color="blue"
+									className="!absolute right-1 top-1 rounded"
+									label="Search"
+								>
+									Search
+								</Button>
+							</form>
+						
 					</div>
-				</HomeSection>
-				<HomeSection>
+				</div>
+				<div className="container mx-auto flex flex-col justify-center h-1/3">
 					<div className="container my-4 mx-auto">
 						<h1 className="text-center text-white text-4xl">Why Choose YS?</h1>
 						<div className="flex flex-col my-4 justify-around md:flex-row">
@@ -32,7 +68,7 @@ const HomeScreen = () => {
 							</p>
 						</div>
 					</div>
-				</HomeSection>
+				</div>
 				<div className="container mx-auto flex flex-col justify-center h-1/3">
 					<div className="container my-4 mx-auto">
 						<h1 className="text-center text-white text-4xl">How it Works</h1>
@@ -50,5 +86,3 @@ const HomeScreen = () => {
 		</>
 	);
 };
-
-export default HomeScreen;
