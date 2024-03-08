@@ -1,58 +1,75 @@
-import NavButton from './NavButton';
+import { useState, useEffect } from 'react';
+import { Navbar, Collapse, IconButton } from '@material-tailwind/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import NavButton from './NavButton';
 
-
-const NavBar = () => {
+const NavList = () => {
 	return (
-		<>
-			<nav className="bg-white shadow-lg">
-				<div className="max-w-7xl container mx-auto px-2 sm:px-6 lg:px-8">
-					<div className="relative flex justify-between h-16">
-						{/* Left Nav */}
-						<div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-							<div className="flex-shrink-0 flex items-center">
-								{/* Logo */}
-								<a href="/">
-									<img
-										className="block lg:hidden h-9 w-auto"
-										src="../images/YourSchool.png"
-										alt="YourSchool"
-									/>
-								</a>
-								<a href="/">
-									<img
-										className="hidden lg:block h-9 w-auto"
-										src="../images/YourSchool.png"
-										alt="YourSchool"
-									/>
-								</a>
-							</div>
-							{/* Nav Links */}
-							<div className="hidden flex items-center sm:flex sm:ml-6">
-								<div className="flex space-x-4">
-									<NavButton name="Schools" link="/schools" />
-								</div>
-							</div>
-						</div>
-						{/* Right Nav */}
-						<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-							{Auth.loggedIn() ? (
-								<>
-									<NavButton name="Favorites" link="/favorites" />
-									<NavButton name="Profile" link="/profile" />
-									<NavButton name="Logout" link="/" onClick={Auth.logout} />
-								</>
-							) : (
-								<>
-									<NavButton name="Login/Signup" link="/login" />
-								</>
-							)}
-						</div>
-					</div>
-				</div>
-			</nav>
-		</>
+		<ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+			{Auth.loggedIn() ? (
+				<>
+					<NavButton name="Schools" link="/schools" />
+					<NavButton name="Favorites" link="/favorites" />
+					<NavButton name="Logout" link="/" onClick={Auth.logout} />
+				</>
+			) : (
+				<>
+					<NavButton name="Login/Signup" link="/login" />
+				</>
+			)}
+		</ul>
 	);
 };
 
-export default NavBar;
+export const NavBar = () => {
+	const [openNav, setOpenNav] = useState(false);
+
+	const handleWindowResize = () =>
+		window.innerWidth >= 960 && setOpenNav(false);
+
+	useEffect(() => {
+		window.addEventListener('resize', handleWindowResize);
+
+		return () => {
+			window.removeEventListener('resize', handleWindowResize);
+		};
+	}, []);
+
+	return (
+		<>
+			<Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+				<div className="flex items-center justify-between text-blue-gray-900">
+					<Link to="/">
+						<img
+							src="../../public/images/YourSchool.png"
+							alt="YourSchools Logo"
+							className="h-8 w-8"
+							href="/"
+						/>
+					</Link>
+
+					<div className="hidden lg:block">
+						<NavList />
+					</div>
+					<IconButton
+						variant="text"
+						className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+						ripple={false}
+						onClick={() => setOpenNav(!openNav)}
+					>
+						{openNav ? (
+							<XMarkIcon className="h-6 w-6" strokeWidth={2} />
+						) : (
+							<Bars3Icon className="h-6 w-6" strokeWidth={2} />
+						)}
+					</IconButton>
+				</div>
+				<Collapse open={openNav}>
+					<NavList />
+				</Collapse>
+			</Navbar>
+		</>
+	);
+};

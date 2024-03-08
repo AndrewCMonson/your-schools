@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/NavBar.jsx';
 import Footer from './components/Footer.jsx'
+import { NavBar } from './components/Navbar.jsx';
 
 const App = () => {
 	return (
 		<>
-			<Navbar />
+			<NavBar />
 			<main className="flex-auto w-100">
 				<Outlet />
 			</main>
