@@ -28,6 +28,24 @@ const FavoritesScreen = () => {
 		}
 	};
 
+	if(sortedFavorites.length === 0) {
+		return (
+			<section
+				id="favoritesScreen"
+				className="flex flex-col items-center overflow-auto w-100 pt-5"
+			>
+				<PageTitle title="Favorites" />
+				<div className="text-2xl text-center">
+					You don&apos;t have any favorites yet. Add some from the{' '}
+					<span className='underline italic'>
+						<Link to="/schools">schools page</Link>
+					</span>
+					.
+				</div>
+			</section>
+		);
+	}
+
 	return (
 		<section
 			id="favoritesScreen"
