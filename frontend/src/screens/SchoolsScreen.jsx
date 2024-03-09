@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { GET_SCHOOLS } from '../utils/queries';
 import LoadingScreen from './LoadingScreen';
 
+
 const SchoolsScreen = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [zipcode, setZipcode] = useState(searchParams.get('zipcode') || '');
