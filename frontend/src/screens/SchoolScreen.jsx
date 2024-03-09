@@ -13,6 +13,13 @@ import { GET_SCHOOL } from '../utils/queries';
 import { ADD_FAVORITE } from '../utils/mutations';
 import Auth from '../utils/auth';
 
+/* 
+TODO: add a GET_ME query to determine if the user has the school in their favorites already
+TODO: if already in favorites, remove the add to favorites button, or add a toast message that notifies it is already in favorites
+
+TODO: add a toast message that notifies an unauthenticated user that they need to log in to add to favorites
+*/
+
 const SchoolScreen = () => {
 	const { id } = useParams();
 
@@ -31,7 +38,7 @@ const SchoolScreen = () => {
 		if (!token) {
 			return false;
 		}
-		
+
 		try {
 			await addToFavorites({
 				variables: { schoolId: `${id}` },
@@ -52,19 +59,20 @@ const SchoolScreen = () => {
 					>
 						<h1 className="text-lg md:text-2xl p-6">{data.school.name}</h1>
 						<CardBody className="flex flex-col">
-							<div className="flex flex-row justify-between w-full md:flex-col">
+							<div className="flex flex-col justify-between w-full md:flex-col">
 								<Rating value={data.school.rating} />
 								<div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
-								<button onClick={handleAddToFavorites}>
+								<Button
+									className="w-1/2 lg:w-1/3"
+									onClick={handleAddToFavorites}
+								>
 									Add to Favorites
-								</button>
+								</Button>
 							</div>
 							<div className="h-0.5 bg-black my-6"></div>
 							<div className="lg:flex">
 								<div className="lg:w-1/2 mb-6 lg:mr-6">
-									<div className="mb-2">
-										{data.school.description}
-									</div>
+									<div className="mb-2">{data.school.description}</div>
 									<div className="">
 										<div className="text-lg font-bold">Tuition</div>
 										<div>{`$${data.school.min_tuition} - $${data.school.max_tuition}`}</div>
@@ -72,7 +80,7 @@ const SchoolScreen = () => {
 									<div className="">
 										<div className="text-lg font-bold">Enrollment</div>
 										<div>
-										{`${data.school.min_enrollment} - ${data.school.max_enrollment} students`}
+											{`${data.school.min_enrollment} - ${data.school.max_enrollment} students`}
 										</div>
 										{data.school.early_enrollment && (
 											<div>Early enrollment available</div>
@@ -81,7 +89,7 @@ const SchoolScreen = () => {
 									<div className="">
 										<div className="text-lg font-bold">Days Open</div>
 										<div>{data.school.days_open.join(', ')}</div>
-										</div>
+									</div>
 								</div>
 
 								<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
