@@ -52,12 +52,12 @@ const SchoolScreen = () => {
 					>
 						<h1 className="text-lg md:text-2xl p-6">{data.school.name}</h1>
 						<CardBody className="flex flex-col">
-							<div className="flex flex-row justify-between w-full md:flex-col">
+							<div className="flex flex-col justify-between w-full md:flex-col">
 								<Rating value={data.school.rating} />
 								<div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
-								<button onClick={handleAddToFavorites}>
+								<Button className='w-1/2 lg:w-1/3' onClick={handleAddToFavorites}>
 									Add to Favorites
-								</button>
+								</Button>
 							</div>
 							<div className="h-0.5 bg-black my-6"></div>
 							<div className="lg:flex">
