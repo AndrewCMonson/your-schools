@@ -9,7 +9,7 @@ import {
 } from '@material-tailwind/react';
 import GoogleMap from '../components/Map';
 import Rating from '../components/Rating';
-import { GET_SCHOOL } from '../utils/queries';
+import { GET_SCHOOL, GET_ME } from '../utils/queries';
 import { ADD_FAVORITE } from '../utils/mutations';
 import Auth from '../utils/auth';
 
@@ -26,6 +26,8 @@ const SchoolScreen = () => {
 	const { loading, error, data } = useQuery(GET_SCHOOL, {
 		variables: { id },
 	});
+
+	const { data: userData } = useQuery(GET_ME);
 
 	const [addToFavorites] = useMutation(ADD_FAVORITE);
 
@@ -48,6 +50,14 @@ const SchoolScreen = () => {
 		}
 	};
 
+	const isFavorite = () => {
+		if (userData) {
+			const favorites = userData.me.favorites.map(favorite => favorite.id);
+			return favorites.includes(id);
+		}
+		return false;
+	};
+
 	return (
 		<>
 			<section id="schoolScreen" className="h-full w-full pt-5 flex flex-row">
@@ -62,12 +72,19 @@ const SchoolScreen = () => {
 							<div className="flex flex-col justify-between w-full md:flex-col">
 								<Rating value={data.school.rating} />
 								<div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
-								<Button
-									className="w-1/2 lg:w-1/3"
-									onClick={handleAddToFavorites}
-								>
-									Add to Favorites
-								</Button>
+
+								{isFavorite() ? (
+									<Button className="w-1/2 lg:w-1/3" disabled>
+										Favorited
+									</Button>
+								) : (
+									<Button
+										className="w-1/2 lg:w-1/3"
+										onClick={handleAddToFavorites}
+									>
+										Add to Favorites
+									</Button>
+								)}
 							</div>
 							<div className="h-0.5 bg-black my-6"></div>
 							<div className="lg:flex">

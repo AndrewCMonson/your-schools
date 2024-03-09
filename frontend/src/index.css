@@ -20,7 +20,7 @@
 }
 
 #homeScreen {
-    background: url('./assets/images/pexels-pavel-danilyuk-8422207.jpg') no-repeat center center;
+    background: url('./assets/images/homePicture.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
 }

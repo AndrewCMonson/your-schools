@@ -67,7 +67,7 @@ const FavoritesScreen = () => {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto">
 				{sortedFavorites.map(school => (
 					<Card key={school.id} color="white" className="my-6">
-						<CardBody>
+						<CardBody >
 							<h2 className="text-2xl">{school.name}</h2>
 							<Rating value={school.rating} />
 							<Link to={`/schools/${school.id}`}>

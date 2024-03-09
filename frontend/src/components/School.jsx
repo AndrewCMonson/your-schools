@@ -5,18 +5,22 @@ import Rating from './Rating';
 const School = ({ school }) => {
 	return (
 		<Card className="w-full my-4">
-			<CardBody>
-				<div className="">{school.name}</div>
-				<div className="">{school.address}</div>
-				<div className="">
-					{school.city}, {school.state} {school.zipcode}
+			<CardBody className="flex flex-col p-4">
+				<div>
+					<div className="text-lg text-bold">{school.name}</div>
 				</div>
-				<div className="">{school.phone}</div>
-				<div className="">{school.type}</div>
-				<div className="">
-					<Rating value={school.rating} />
+				<div className='mt-2 self-baseline '>
+					<div className="">{school.address}</div>
+					<div className="">
+						{school.city}, {school.state} {school.zipcode}
+					</div>
+					<div className="">{school.phone}</div>
+					<div className="">{school.type}</div>
+					<div className="">
+						<Rating value={school.rating} />
+					</div>
+					<div className="">{school.max_tuition > 1000 ? '$$$$' : '$$$'}</div>
 				</div>
-				<div className="">{school.max_tuition > 1000 ? '$$$$' : '$$$'}</div>
 			</CardBody>
 			<CardFooter>
 				<Link to={`/schools/${school.id}`}>
