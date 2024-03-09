@@ -91,9 +91,9 @@ const SignUpForm = () => {
 						sign up
 					</Button>
 					<div className="mt-4 text-center font-normal">
-						Don&apos;t have an account?{' '}
+						Already have an account?{' '}
 						<a href="/login" className="font-medium text-gray-900">
-							Sign Up
+							Sign In
 						</a>
 					</div>
 				</form>

@@ -78,7 +78,7 @@ const SignInForm = ({setScreenSelected}) => {
 					sign in
 				</Button>
 				<div className="mt-4 text-center font-normal">
-					Already have an account?{' '}
+					Don&apos;t have an account?{' '}
 					<a onClick={setScreenSelected} className="cursor-pointer">
 						Sign Up
 					</a>
