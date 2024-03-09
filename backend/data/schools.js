@@ -1,3 +1,5 @@
+import images from './images.js';
+
 const schools = [
 	{
 		name: 'Emmanuel Episcopal Day School',
@@ -26,6 +28,7 @@ const schools = [
 		max_enrollment: 100,
 		min_student_teacher_ratio: 5,
 		max_student_teacher_ratio: 10,
+		images: images,
 	},
 	{
 		name: 'St. John the Apostle Catholic School',
@@ -54,6 +57,7 @@ const schools = [
 		max_enrollment: 100,
 		min_student_teacher_ratio: 5,
 		max_student_teacher_ratio: 10,
+		images: images,
 	},
 	{
 		name: 'St. Gregory the Great Catholic School',
@@ -82,6 +86,7 @@ const schools = [
 		max_enrollment: 100,
 		min_student_teacher_ratio: 5,
 		max_student_teacher_ratio: 10,
+		images: images,
 	},
 	{
 		name: "St. Matthew's School",
@@ -110,6 +115,7 @@ const schools = [
 		max_enrollment: 100,
 		min_student_teacher_ratio: 5,
 		max_student_teacher_ratio: 10,
+		images: images,
 	},
 	{
 		name: 'Mary Magdalene Catholic School',
@@ -138,6 +144,7 @@ const schools = [
 		max_enrollment: 124,
 		min_student_teacher_ratio: 8,
 		max_student_teacher_ratio: 12,
+		images: images,
 	},
 	{
 		name: 'Sunnydale Montessori Academy',
@@ -166,6 +173,7 @@ const schools = [
 		max_enrollment: 120,
 		min_student_teacher_ratio: 7,
 		max_student_teacher_ratio: 11,
+		images: images,
 	},
 	{
 		name: 'Harmony Learning Center',
@@ -194,6 +202,7 @@ const schools = [
 		max_enrollment: 110,
 		min_student_teacher_ratio: 6,
 		max_student_teacher_ratio: 10,
+		images: images,
 	},
 ];
 
