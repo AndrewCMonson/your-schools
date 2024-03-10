@@ -65,7 +65,9 @@ const SchoolScreen = () => {
 						className="my-6
                     mx-5 h-auto"
 					>
-						<h1 className="text-lg md:text-2xl p-6">{data.school.name}</h1>
+						<h1 className="text-indigo-800 font-bold text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl p-6">
+							{data.school.name}
+						</h1>
 						<CardBody className="flex flex-col">
 							<div className="flex flex-col justify-between w-full md:flex-col">
 								<Rating value={data.school.rating} />
@@ -78,7 +80,7 @@ const SchoolScreen = () => {
 									</Button>
 								) : (
 									<Button
-										className="w-1/2 lg:w-1/3"
+										className="w-1/2 lg:w-1/4 2xl:w-1/6"
 										onClick={handleAddToFavorites}
 										color="green"
 										variant="outlined"
@@ -88,25 +90,35 @@ const SchoolScreen = () => {
 								)}
 							</div>
 							<div className="h-0.5 bg-black my-6"></div>
-							<div className="lg:flex">
+							<div className="lg:flex lg:justify-between">
 								<div className="lg:w-1/2 mb-6 lg:mr-6">
-									<div className="mb-2">{data.school.description}</div>
-									<div className="">
-										<div className="text-lg font-bold">Tuition</div>
-										<div>{`$${data.school.min_tuition} - $${data.school.max_tuition}`}</div>
+									<div className="mb-2 2xl:text-xl">
+										{data.school.description}
 									</div>
-									<div className="">
-										<div className="text-lg font-bold">Enrollment</div>
-										<div>
+									<div className="my-2">
+										<div className="text-lg font-bold 2xl:text-2xl">
+											Tuition
+										</div>
+										<div className="2xl:text-xl">{`$${data.school.min_tuition} - $${data.school.max_tuition}`}</div>
+									</div>
+									<div className="my-2">
+										<div className="text-lg font-bold 2xl:text-2xl">
+											Enrollment
+										</div>
+										<div className="2xl:text-xl">
 											{`${data.school.min_enrollment} - ${data.school.max_enrollment} students`}
 										</div>
 										{data.school.early_enrollment && (
 											<div>Early enrollment available</div>
 										)}
 									</div>
-									<div className="">
-										<div className="text-lg font-bold">Days Open</div>
-										<div>{data.school.days_open.join(', ')}</div>
+									<div className="my-2">
+										<div className="text-lg font-bold 2xl:text-2xl">
+											Days Open
+										</div>
+										<div className="2xl:text-xl">
+											{data.school.days_open.join(', ')}
+										</div>
 									</div>
 								</div>
 

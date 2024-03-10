@@ -81,8 +81,8 @@ const LoginSignup = () => {
 					id="loginSignupScreen"
 					className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
 				>
-					<Card color="transparent" shadow={false}>
-						<div className="text-2xl">Sign In</div>
+					<Card color="transparent" shadow={false} className='text-black'>
+						<div className="text-2xl 2xl:text-4xl font-bold text-indigo-800">Sign In</div>
 						<form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
 							<div className="mb-1 flex flex-col gap-6">
 								<div className="-mb-3">Your Email</div>
@@ -141,8 +141,8 @@ const LoginSignup = () => {
 					id="loginSignupScreen"
 					className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
 				>
-					<Card color="transparent" shadow={false}>
-						<div className="text-2xl">Create an account</div>
+					<Card color="transparent" shadow={false} className='text-black'>
+						<div className="text-2xl 2xl:text-4xl font-bold text-indigo-800">Create an account</div>
 						<form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
 							<div className="mb-1 flex flex-col gap-6">
 								<div className="-mb-3">Your Username</div>
@@ -184,7 +184,7 @@ const LoginSignup = () => {
 								className="mt-6"
 								onClick={handleSignupFormSubmit}
 								fullWidth
-                color='indigo'
+								color="indigo"
 							>
 								sign up
 							</Button>

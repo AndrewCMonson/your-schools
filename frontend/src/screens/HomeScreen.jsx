@@ -99,7 +99,7 @@ export const HomeScreen = () => {
 							<span className="font-bold">About Us</span>
 						</h1>
 						<p className="text-center text-sm sm:text-base 3xl:text-lg mt-6">
-							Founded by parents, for parents. We understand the struggle of finding childcare that is both affordable and high quality. Our platform allows you to see the full picture, including reviews, tuition, and more. We are here to help you make the best decision for your family.
+							Founded by parents, for parents. We understand the struggle of finding childcare that is both affordable and high quality. Our platform allows you to see the full picture, including photos, tuition, and more. We are here to help you make the best decision for your family.
 						</p>
 					</div>
 				</div>
