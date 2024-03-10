@@ -24,7 +24,7 @@ const School = ({ school }) => {
 			</CardBody>
 			<CardFooter>
 				<Link to={`/schools/${school.id}`}>
-					<Button color="blue" ripple={true}>
+					<Button color="indigo" ripple={true}>
 						Visit School Page
 					</Button>
 				</Link>

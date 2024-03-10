@@ -142,7 +142,7 @@ const SchoolScreen = () => {
 						</CardBody>
 						<CardFooter className="flex">
 							<Button
-								color="blue"
+								color="indigo"
 								ripple={true}
 								onClick={() =>
 									(window.location = `mailto:${data.school.website}`)
@@ -155,7 +155,7 @@ const SchoolScreen = () => {
 								target="_blank"
 								rel="noreferrer noopener"
 							>
-								<Button color="blue" ripple={true} className="ml-2">
+								<Button color="indigo" ripple={true} className="ml-2">
 									Website
 								</Button>
 							</Link>

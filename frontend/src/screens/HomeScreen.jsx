@@ -48,7 +48,7 @@ export const HomeScreen = () => {
 								<Button
 									type="submit"
 									size="sm"
-									color="blue"
+									color="indigo"
 									className="!absolute right-1 top-1 rounded"
 									label="Search"
 								>
