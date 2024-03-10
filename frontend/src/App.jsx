@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer.jsx'
 import { NavBar } from './components/Navbar.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 	return (
@@ -9,6 +11,7 @@ const App = () => {
 			<main className="flex-auto w-100">
 				<Outlet />
 			</main>
+			<ToastContainer />
 			<Footer />
 		</>
 	);

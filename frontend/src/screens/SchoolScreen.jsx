@@ -11,7 +11,6 @@ import GoogleMap from '../components/Map';
 import Rating from '../components/Rating';
 import { GET_SCHOOL, GET_ME } from '../utils/queries';
 import { ADD_FAVORITE } from '../utils/mutations';
-import { ToastContainer } from 'react-toastify';
 import { notify } from '../utils/notify';
 import Auth from '../utils/auth';
 
@@ -163,7 +162,6 @@ const SchoolScreen = () => {
 						</CardFooter>
 					</Card>
 				</div>
-				<ToastContainer />
 			</section>
 		</>
 	);
