@@ -62,15 +62,17 @@ const SchoolsScreen = () => {
 						Search
 					</Button>
 				</form>
+				
 				{!data.schools.length && search ? (
 					<div className="text-center text-2xl mt-8">No schools found</div>
 				) : (
-					<div>
+					<div className='flex flex-col min-w-1/2'>
 						{data.schools.map(school => (
 							<School key={school.id} school={school} />
 						))}
 					</div>
 				)}
+				
 			</section>
 		</>
 	);

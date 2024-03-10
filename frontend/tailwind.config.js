@@ -13,6 +13,7 @@ export default withMT({
       }
     },
     screens: {
+      'xs': '475px',
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
 
@@ -26,7 +27,12 @@ export default withMT({
       // => @media (min-width: 1280px) { ... }
 
       '2xl': '1536px',
-    }// => @media (min-width: 1536px) { ... }
+
+      '3xl': '1920px',
+
+      '4xl': '2560px',
+    }
+
   },
   plugins: [],
 })
