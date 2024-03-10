@@ -11,14 +11,9 @@ import GoogleMap from '../components/Map';
 import Rating from '../components/Rating';
 import { GET_SCHOOL, GET_ME } from '../utils/queries';
 import { ADD_FAVORITE } from '../utils/mutations';
+import { ToastContainer } from 'react-toastify';
+import { notify } from '../utils/notify';
 import Auth from '../utils/auth';
-
-/* 
-TODO: add a GET_ME query to determine if the user has the school in their favorites already
-TODO: if already in favorites, remove the add to favorites button, or add a toast message that notifies it is already in favorites
-
-TODO: add a toast message that notifies an unauthenticated user that they need to log in to add to favorites
-*/
 
 const SchoolScreen = () => {
 	const { id } = useParams();
@@ -38,6 +33,7 @@ const SchoolScreen = () => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
 
 		if (!token) {
+			notify('error', 'Please login to add to favorites.');
 			return false;
 		}
 
@@ -60,7 +56,10 @@ const SchoolScreen = () => {
 
 	return (
 		<>
-			<section id="schoolScreen" className="h-full w-full pt-5 flex flex-row">
+			<section
+				id="schoolScreen"
+				className="h-full w-full pt-5 flex flex-row overflow-scroll"
+			>
 				<div className="container mx-auto md:flex md:flex-row md:justify-center">
 					<Card
 						color="white"
@@ -73,6 +72,7 @@ const SchoolScreen = () => {
 								<Rating value={data.school.rating} />
 								<div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
 
+								{}
 								{isFavorite() ? (
 									<Button className="w-1/2 lg:w-1/3" disabled>
 										Favorited
@@ -81,6 +81,8 @@ const SchoolScreen = () => {
 									<Button
 										className="w-1/2 lg:w-1/3"
 										onClick={handleAddToFavorites}
+										color="green"
+										variant="outlined"
 									>
 										Add to Favorites
 									</Button>
@@ -111,9 +113,9 @@ const SchoolScreen = () => {
 
 								<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
 									{data.school.images.map(({ url }, index) => (
-										<div key={index}>
+										<div className="flex justify-center" key={index}>
 											<img
-												className="h-40 w-full max-w-full rounded-lg object-cover object-center"
+												className="h-40 w-40 max-w-full rounded-lg object-cover object-center"
 												src={url}
 												alt="gallery-photo"
 											/>
@@ -161,6 +163,7 @@ const SchoolScreen = () => {
 						</CardFooter>
 					</Card>
 				</div>
+				<ToastContainer />
 			</section>
 		</>
 	);

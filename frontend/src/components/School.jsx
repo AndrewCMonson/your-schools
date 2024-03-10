@@ -7,9 +7,9 @@ const School = ({ school }) => {
 		<Card className="w-full my-4">
 			<CardBody className="flex flex-col p-4">
 				<div>
-					<div className="text-lg text-bold">{school.name}</div>
+					<div className="text-lg font-bold">{school.name}</div>
 				</div>
-				<div className='mt-2 self-baseline '>
+				<div className='mt-2 self-baseline'>
 					<div className="">{school.address}</div>
 					<div className="">
 						{school.city}, {school.state} {school.zipcode}
