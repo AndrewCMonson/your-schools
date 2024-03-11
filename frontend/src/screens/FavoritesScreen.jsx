@@ -28,7 +28,7 @@ const FavoritesScreen = () => {
 		}
 	};
 
-	if(sortedFavorites.length === 0) {
+	if (sortedFavorites.length === 0) {
 		return (
 			<section
 				id="favoritesScreen"
@@ -37,10 +37,11 @@ const FavoritesScreen = () => {
 				<PageTitle title="Favorites" />
 				<div className="text-2xl text-center">
 					You don&apos;t have any favorites yet. Add some from the{' '}
-					<span className='underline italic'>
-						<Link to="/schools">schools page</Link>
+					<span className="underline italic">
+						<Link to="/schools" className="hover:text-gray-400">
+							schools page
+						</Link>
 					</span>
-					.
 				</div>
 			</section>
 		);
@@ -67,18 +68,22 @@ const FavoritesScreen = () => {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto">
 				{sortedFavorites.map(school => (
 					<Card key={school.id} color="white" className="my-6">
-						<CardBody >
-							<h2 className="text-2xl">{school.name}</h2>
+						<CardBody className="flex flex-col">
+							<h2 className="text-2xl mb-2 text-indigo-800 font-bold">{school.name}</h2>
 							<Rating value={school.rating} />
-							<Link to={`/schools/${school.id}`}>
-								<div className="text-blue-500">Visit School Page</div>
-							</Link>
+							<p>Max Tuition ${school.max_tuition}</p>
 						</CardBody>
 						<CardFooter>
+							<Link to={`/schools/${school.id}`}>
+								<Button color="indigo" size="lg" className="mr-3">
+									Visit
+								</Button>
+							</Link>
 							<Button
 								color="red"
 								size="lg"
 								onClick={() => handleRemoveFavorite(school.id)}
+								className='mr-3'
 							>
 								Remove
 							</Button>

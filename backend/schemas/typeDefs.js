@@ -10,13 +10,13 @@ type Auth {
     user: User
   }
   
-  type User {
+type User {
     id: ID
     username: String
     email: String
     password: String
     favorites: [School]
-  }
+}
 
 type School {
     id: ID

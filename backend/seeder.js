@@ -1,8 +1,6 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import schools from './data/schools.js';
 import { School } from './models/SchoolsModel.js';
-import images from './data/images.js';
 import { User } from './models/UserModel.js';
 import users from './data/user.js';
 
