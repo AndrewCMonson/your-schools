@@ -6,6 +6,7 @@ import {
 	CardBody,
 	CardFooter,
 	Button,
+	Spinner,
 } from '@material-tailwind/react';
 import GoogleMap from '../components/Map';
 import Rating from '../components/Rating';
@@ -25,8 +26,12 @@ const SchoolScreen = () => {
 
 	const [addToFavorites] = useMutation(ADD_FAVORITE);
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error.message}</p>;
+	if (loading) return (
+		<div className="flex justify-center items-center h-screen">
+			<Spinner color="indigo" size="xl" className='h-48 w-48' />
+		</div>
+	);
+	if (error) return `Error! ${error.message}`;
 
 	const handleAddToFavorites = async () => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -59,7 +64,7 @@ const SchoolScreen = () => {
 				id="schoolScreen"
 				className="h-full w-full pt-5 flex flex-row overflow-scroll"
 			>
-				<div className="container mx-auto md:flex md:flex-row md:justify-center">
+				<div className="container mx-auto md:flex md:flex-row md:justify-center mb-auto">
 					<Card
 						color="white"
 						className="my-6
@@ -75,7 +80,7 @@ const SchoolScreen = () => {
 
 								{}
 								{isFavorite() ? (
-									<Button className="w-1/2 lg:w-1/3" disabled>
+									<Button className="w-1/2 lg:w-1/4 2xl:w-1/6" disabled>
 										Favorited
 									</Button>
 								) : (
@@ -121,7 +126,6 @@ const SchoolScreen = () => {
 										</div>
 									</div>
 								</div>
-
 								<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
 									{data.school.images.map(({ url }, index) => (
 										<div className="flex justify-center" key={index}>

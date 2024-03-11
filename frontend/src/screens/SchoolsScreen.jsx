@@ -63,7 +63,7 @@ const SchoolsScreen = () => {
 					</Button>
 				</form>
 				
-				{!data.schools.length && search ? (
+				{data.schools.length === 0 && search ? (
 					<div className="text-center text-2xl mt-8">No schools found</div>
 				) : (
 					<div className='flex flex-col min-w-1/2 '>
@@ -72,7 +72,6 @@ const SchoolsScreen = () => {
 						))}
 					</div>
 				)}
-				
 			</section>
 		</>
 	);
