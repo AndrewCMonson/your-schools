@@ -6,10 +6,15 @@ import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authMiddleware } from './utils/auth.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors';
 import path from 'path';
 
 const PORT = process.env.PORT || 3005;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const startServer = async () => {
 	const app = express();
@@ -27,9 +32,9 @@ const startServer = async () => {
 	);
 
 	if (process.env.NODE_ENV === 'production') {
-		app.use(express.static('frontend/build'));
+		app.use(express.static(path.join(__dirname, '../frontend/dist')));
 		app.get('*', (req, res) => {
-			res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+			res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
 		});
 	}
 

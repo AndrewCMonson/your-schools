@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "build": "cd frontend && vite build",
-    "install": "cd backend && npm install && cd ../frontend && npm install --production=false",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "render-build": "npm install && npm run build",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
