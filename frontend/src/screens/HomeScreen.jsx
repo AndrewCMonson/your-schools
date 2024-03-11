@@ -14,11 +14,6 @@ export const HomeScreen = () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(position => {
 				const { latitude, longitude } = position.coords;
-				console.log(
-					`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${
-						import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-					}`
-				);
 				fetch(
 					`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${
 						import.meta.env.VITE_GOOGLE_MAPS_API_KEY
