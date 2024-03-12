@@ -1,7 +1,6 @@
 import { School, User } from '../models/index.js';
 import { AuthenticationError } from 'apollo-server-express';
 import { signToken } from '../utils/auth.js';
-import { ObjectId } from 'mongoose';
 
 const resolvers = {
 	Query: {
