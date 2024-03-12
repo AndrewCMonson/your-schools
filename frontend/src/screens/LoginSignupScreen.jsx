@@ -23,10 +23,10 @@ const LoginSignup = () => {
 	const handleLoginFormSubmit = async event => {
 		event.preventDefault();
 
-    if (!userFormData.email || !userFormData.password) {
-      toast.error('Please fill out all fields');
-      return;
-    }
+		if (!userFormData.email || !userFormData.password) {
+			toast.error('Please fill out all fields');
+			return;
+		}
 
 		try {
 			const { data } = await login({
@@ -81,9 +81,14 @@ const LoginSignup = () => {
 					id="loginSignupScreen"
 					className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
 				>
-					<Card color="transparent" shadow={false} className='text-black'>
-						<div className="text-2xl 2xl:text-4xl font-bold text-indigo-800">Sign In</div>
-						<form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+					<Card color="transparent" shadow={false} className="text-black">
+						<div className="text-2xl 2xl:text-4xl font-bold text-indigo-800">
+							Sign In
+						</div>
+						<form
+							id="signin-form"
+							className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+						>
 							<div className="mb-1 flex flex-col gap-6">
 								<div className="-mb-3">Your Email</div>
 								<Input
@@ -113,7 +118,9 @@ const LoginSignup = () => {
 								className="mt-6"
 								onClick={handleLoginFormSubmit}
 								fullWidth
-                color='indigo'
+								color="indigo"
+								form='signin-form'
+								type='submit'
 							>
 								sign in
 							</Button>
@@ -122,7 +129,6 @@ const LoginSignup = () => {
 								<span
 									onClick={() => setScreenSelected('signup')}
 									className="cursor-pointer hover:underline"
-                  
 								>
 									Sign Up
 								</span>
@@ -141,9 +147,11 @@ const LoginSignup = () => {
 					id="loginSignupScreen"
 					className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
 				>
-					<Card color="transparent" shadow={false} className='text-black'>
-						<div className="text-2xl 2xl:text-4xl font-bold text-indigo-800">Create an account</div>
-						<form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+					<Card color="transparent" shadow={false} className="text-black">
+						<div className="text-2xl 2xl:text-4xl font-bold text-indigo-800">
+							Create an account
+						</div>
+						<form id='signup-form' className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
 							<div className="mb-1 flex flex-col gap-6">
 								<div className="-mb-3">Your Username</div>
 								<Input
@@ -185,6 +193,8 @@ const LoginSignup = () => {
 								onClick={handleSignupFormSubmit}
 								fullWidth
 								color="indigo"
+								type='submit'
+								form='signup-form'
 							>
 								sign up
 							</Button>
