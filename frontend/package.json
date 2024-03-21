@@ -6,7 +6,7 @@
   "proxy": "http://localhost:3005",
   "scripts": {
     "start": "vite --host",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "host": "vite --host"
@@ -25,8 +25,8 @@
     "react-toastify": "^10.0.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.55.0",
