@@ -2,7 +2,22 @@ import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
-const School = ({ school }) => {
+interface SchoolProps {
+  school: {
+    id: number;
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    zipcode: string;
+    phone: string;
+    type: string;
+    rating: number;
+    max_tuition: number;
+  };
+  }
+
+const School = ({ school }: SchoolProps ) => {
   return (
     <Card className="w-100 h-full my-4 mx-4">
       <CardBody className="flex flex-col p-4">
@@ -10,16 +25,16 @@ const School = ({ school }) => {
           <div className="text-lg font-bold">{school.name}</div>
         </div>
         <div className="mt-2 self-baseline">
-          <div className="">{school.address}</div>
-          <div className="">
+          <div>{school.address}</div>
+          <div>
             {school.city}, {school.state} {school.zipcode}
           </div>
-          <div className="">{school.phone}</div>
-          <div className="">{school.type}</div>
-          <div className="">
+          <div>{school.phone}</div>
+          <div>{school.type}</div>
+          <div>
             <Rating value={school.rating} />
           </div>
-          <div className="">{school.max_tuition > 1000 ? "$$$$" : "$$$"}</div>
+          <div>{school.max_tuition > 1000 ? "$$$$" : "$$$"}</div>
         </div>
       </CardBody>
       <CardFooter>
