@@ -1,7 +1,7 @@
 import { Button, Typography } from "@material-tailwind/react";
 import { Card, CardBody, CardFooter } from "@material-tailwind/react";
 
-const Skeleton = () => {
+const Skeleton = (): JSX.Element => {
   return (
     <Card className="mt-6 w-96 animate-pulse">
       <CardBody>

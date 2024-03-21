@@ -6,7 +6,7 @@ import YourSchools from "../assets/images/your-schools-logo.png";
 import Auth from "../utils/auth";
 import NavButton from "./NavButton";
 
-const NavList = () => {
+const NavList = (): JSX.Element => {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       {Auth.loggedIn() ? (
@@ -24,8 +24,8 @@ const NavList = () => {
   );
 };
 
-export const NavBar = () => {
-  const [openNav, setOpenNav] = useState(false);
+export const NavBar = (): JSX.Element => {
+  const [openNav, setOpenNav] = useState<boolean>(false);
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
@@ -50,7 +50,6 @@ export const NavBar = () => {
               src={YourSchools}
               alt="YourSchools Logo"
               className="h-8 w-8"
-              href="/"
             />
           </Link>
 
