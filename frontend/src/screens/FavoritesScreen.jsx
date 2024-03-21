@@ -2,7 +2,7 @@ import { GET_ME } from "../utils/queries";
 import { REMOVE_FAVORITE } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import PageTitle from "../components/PageTitle";
-import Rating from "../components/Rating";
+import { Rating } from "../components/Rating";
 import { useState } from "react";
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";

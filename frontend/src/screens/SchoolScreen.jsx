@@ -8,8 +8,8 @@ import {
   Button,
   Spinner,
 } from "@material-tailwind/react";
-import GoogleMap from "../components/Map";
-import Rating from "../components/Rating";
+import { GoogleMap } from "../components/Map";
+import { Rating } from "../components/Rating";
 import { GET_SCHOOL, GET_ME } from "../utils/queries";
 import { ADD_FAVORITE } from "../utils/mutations";
 import { notify } from "../utils/notify";

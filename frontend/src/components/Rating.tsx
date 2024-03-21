@@ -4,7 +4,7 @@ interface RatingProps {
   value: number;
 }
 
-const Rating = ({ value }: RatingProps) => {
+export const Rating = ({ value }: RatingProps) => {
   return (
     <div className="rating flex">
       <span>
@@ -56,4 +56,3 @@ const Rating = ({ value }: RatingProps) => {
   );
 };
 
-export default Rating;

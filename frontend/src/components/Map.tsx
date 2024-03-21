@@ -6,7 +6,16 @@ import {
   InfoWindow,
 } from "@vis.gl/react-google-maps";
 
-const GoogleMap = ({ location }) => {
+interface GoogleMapProps {
+  location: {
+    name: string;
+    address: string;
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export const GoogleMap = ({ location }: GoogleMapProps) => {
   const position = { lat: location.latitude, lng: location.longitude };
 
   return (
@@ -19,7 +28,7 @@ const GoogleMap = ({ location }) => {
           gestureHandling={"greedy"}
           disableDefaultUI={true}
         >
-          <AdvancedMarker anchor="top" position={position}>
+          <AdvancedMarker position={position}>
             <Pin />
             <InfoWindow>
               <div>
@@ -33,4 +42,3 @@ const GoogleMap = ({ location }) => {
     </APIProvider>
   );
 };
-export default GoogleMap;
