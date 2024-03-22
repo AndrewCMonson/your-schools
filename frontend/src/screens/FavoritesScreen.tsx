@@ -1,23 +1,29 @@
 import { GET_ME } from "../utils/queries";
 import { REMOVE_FAVORITE } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import PageTitle from "../components/PageTitle";
-import { Rating } from "../components/Rating";
+import { PageTitle, Rating } from "../components";
 import { useState } from "react";
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useSortedFavorites } from "../utils/useSort";
 
-const FavoritesScreen = () => {
+interface School {
+  id: string;
+  name: string;
+  rating: number;
+  max_tuition: number;
+}
+
+const FavoritesScreen = (): JSX.Element => {
   const [removeFavorite] = useMutation(REMOVE_FAVORITE);
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState<string>("");
   const { loading, sortedFavorites } = useSortedFavorites(sort);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  const handleRemoveFavorite = async (schoolId) => {
+  const handleRemoveFavorite = async (schoolId: string) => {
     try {
       await removeFavorite({
         variables: { schoolId },
@@ -66,7 +72,7 @@ const FavoritesScreen = () => {
         </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-        {sortedFavorites.map((school) => (
+        {sortedFavorites.map((school: School) => (
           <Card key={school.id} color="white" className="my-6 ">
             <CardBody className="flex flex-col">
               <h2 className="text-2xl mb-2 text-indigo-800 font-bold">

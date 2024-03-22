@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import School from "../components/School";
+import { School } from "../components/School";
 import { Button, Input } from "@material-tailwind/react";
-import PageTitle from "../components/PageTitle";
+import { PageTitle } from "../components/PageTitle";
 import { useQuery } from "@apollo/client";
 import { GET_SCHOOLS } from "../utils/queries";
 import LoadingScreen from "./LoadingScreen";

@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import YourSchools from "../assets/images/your-schools-logo.png";
 import Auth from "../utils/auth";
-import NavButton from "./NavButton";
+import { NavButton } from "./NavButton";
 
 const NavList = (): JSX.Element => {
   return (

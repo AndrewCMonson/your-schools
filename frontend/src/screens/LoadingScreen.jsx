@@ -1,4 +1,4 @@
-import PageTitle from "../components/PageTitle";
+import { PageTitle } from "../components/PageTitle";
 import { Input, Button } from "@material-tailwind/react";
 import Skeleton from "../components/Skeleton";
 

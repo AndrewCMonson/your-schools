@@ -6,7 +6,7 @@ interface NavButtonProps extends Pick<HTMLAttributes<HTMLDivElement>, "onClick">
   link: string;
 }
 
-const NavButton = ({ name, link }: NavButtonProps) => {
+export const NavButton = ({ name, link }: NavButtonProps) => {
   return (
     <div className="flex items-center">
       <Link
@@ -19,4 +19,3 @@ const NavButton = ({ name, link }: NavButtonProps) => {
   );
 };
 
-export default NavButton;

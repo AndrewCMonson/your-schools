@@ -11,7 +11,7 @@ import { HomeScreen } from "./screens/HomeScreen.jsx";
 import SchoolsScreen from "./screens/SchoolsScreen.jsx";
 import SchoolScreen from "./screens/SchoolScreen.jsx";
 import LoginSignup from "./screens/LoginSignupScreen.jsx";
-import Favorites from "./screens/FavoritesScreen.jsx";
+import Favorites from "./screens/FavoritesScreen";
 import FourOhFourScreen from "./screens/FourOhFourScreen.jsx";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";

@@ -1,6 +1,6 @@
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import Rating from "./Rating";
+import { Rating } from "./Rating";
 
 interface SchoolProps {
   school: {
@@ -17,7 +17,7 @@ interface SchoolProps {
   };
   }
 
-const School = ({ school }: SchoolProps ) => {
+export const School = ({ school }: SchoolProps ) => {
   return (
     <Card className="w-100 h-full my-4 mx-4">
       <CardBody className="flex flex-col p-4">
@@ -47,5 +47,3 @@ const School = ({ school }: SchoolProps ) => {
     </Card>
   );
 };
-
-export default School;
