@@ -15,8 +15,25 @@ import { ADD_FAVORITE } from "../utils/mutations";
 import { notify } from "../utils/notify";
 import Auth from "../utils/auth";
 
-const SchoolScreen = () => {
-  const { id } = useParams();
+interface FData {
+    address: string;
+    age_range: number[];
+    city: string;
+    email: string;
+    id: string;
+    latitude: number;
+    longitude: number;
+    max_tuition: number;
+    name: string;
+    phone: string;
+    rating: number;
+    website: string;
+    zipcode: string;
+    __typename: string;
+}
+
+export const SchoolScreen = (): JSX.Element => {
+  const { id } = useParams<string>();
 
   const { loading, error, data } = useQuery(GET_SCHOOL, {
     variables: { id },
@@ -29,12 +46,12 @@ const SchoolScreen = () => {
   if (loading)
     return (
       <div className="flex justify-center items-center h-screen">
-        <Spinner color="indigo" size="xl" className="h-48 w-48" />
+        <Spinner color="indigo" className="h-48 w-48" />
       </div>
     );
-  if (error) return `Error! ${error.message}`;
+  if (error) return <div>`Error! ${error.message}`</div>;
 
-  const handleAddToFavorites = async () => {
+  const handleAddToFavorites = async (): Promise<false | unknown> => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -46,14 +63,14 @@ const SchoolScreen = () => {
       await addToFavorites({
         variables: { schoolId: `${id}` },
       });
-    } catch (e) {
+    } catch (e: unknown) {
       console.error(e);
     }
   };
 
-  const isFavorite = () => {
+  const isFavorite = (): boolean => {
     if (userData) {
-      const favorites = userData.me.favorites.map((favorite) => favorite.id);
+      const favorites = userData.me.favorites.map((favorite: FData) => favorite.id);
       return favorites.includes(id);
     }
     return false;
@@ -128,7 +145,7 @@ const SchoolScreen = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {data.school.images.map(({ url }, index) => (
+                  {data.school.images.map(({ url }: { url: string }, index: number) => (
                     <div className="flex justify-center" key={index}>
                       <img
                         className="h-40 w-40 max-w-full rounded-lg object-cover object-center"
@@ -162,7 +179,7 @@ const SchoolScreen = () => {
                 color="indigo"
                 ripple={true}
                 onClick={() =>
-                  (window.location = `mailto:${data.school.website}`)
+                  (window.location.href = `mailto:${data.school.website}`)
                 }
               >
                 Email
@@ -183,4 +200,3 @@ const SchoolScreen = () => {
     </>
   );
 };
-export default SchoolScreen;

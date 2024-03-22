@@ -8,9 +8,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import SchoolsScreen from "./screens/SchoolsScreen.jsx";
-import SchoolScreen from "./screens/SchoolScreen.jsx";
 import LoginSignup from "./screens/LoginSignupScreen.jsx";
-import { FavoritesScreen, FourOhFourScreen, HomeScreen } from "./screens";
+import {
+  FavoritesScreen,
+  FourOhFourScreen,
+  HomeScreen,
+  SchoolScreen,
+} from "./screens";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
 import {
