@@ -4,14 +4,13 @@ import { Rating } from "./Rating";
 
 interface SchoolProps {
   school: {
-    id: number;
+    id: string;
     name: string;
     address: string;
     city: string;
     state: string;
     zipcode: string;
     phone: string;
-    type: string;
     rating: number;
     max_tuition: number;
   };
@@ -30,7 +29,6 @@ export const School = ({ school }: SchoolProps ) => {
             {school.city}, {school.state} {school.zipcode}
           </div>
           <div>{school.phone}</div>
-          <div>{school.type}</div>
           <div>
             <Rating value={school.rating} />
           </div>

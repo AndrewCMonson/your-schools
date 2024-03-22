@@ -7,13 +7,13 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import SchoolsScreen from "./screens/SchoolsScreen.jsx";
 import {
   FavoritesScreen,
   FourOhFourScreen,
   HomeScreen,
   SchoolScreen,
   LoginSignupScreen,
+  SchoolsScreen,
 } from "./screens";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
@@ -57,12 +57,15 @@ const router = createBrowserRouter(
   ),
 );
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <ApolloProvider client={client}>
-        <RouterProvider router={router} />
-      </ApolloProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
-);
+const rootElement = document.getElementById("root");
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <ThemeProvider>
+        <ApolloProvider client={client}>
+          <RouterProvider router={router} />
+        </ApolloProvider>
+      </ThemeProvider>
+    </React.StrictMode>,
+  );
+}

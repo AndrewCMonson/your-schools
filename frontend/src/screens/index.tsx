@@ -4,6 +4,7 @@ import { LoadingScreen } from "./LoadingScreen";
 import { HomeScreen } from "./HomeScreen";
 import { SchoolScreen } from "./SchoolScreen";
 import { LoginSignupScreen } from "./LoginSignupScreen";
+import { SchoolsScreen } from "./SchoolsScreen";
 
 export {
   FourOhFourScreen,
@@ -12,4 +13,5 @@ export {
   HomeScreen,
   SchoolScreen,
   LoginSignupScreen,
+  SchoolsScreen,
 };
