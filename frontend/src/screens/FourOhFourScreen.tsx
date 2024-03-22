@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const FourOhFourScreen = () => {
+export const FourOhFourScreen = (): JSX.Element => {
   return (
     <>
       <section
@@ -19,4 +19,4 @@ const FourOhFourScreen = () => {
     </>
   );
 };
-export default FourOhFourScreen;
+

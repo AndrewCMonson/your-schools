@@ -11,8 +11,7 @@ import { HomeScreen } from "./screens/HomeScreen.jsx";
 import SchoolsScreen from "./screens/SchoolsScreen.jsx";
 import SchoolScreen from "./screens/SchoolScreen.jsx";
 import LoginSignup from "./screens/LoginSignupScreen.jsx";
-import Favorites from "./screens/FavoritesScreen";
-import FourOhFourScreen from "./screens/FourOhFourScreen.jsx";
+import { FavoritesScreen, FourOhFourScreen } from "./screens";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
 import {
@@ -49,7 +48,7 @@ const router = createBrowserRouter(
       <Route path="/schools" element={<SchoolsScreen />} />
       <Route path="/schools/:id" element={<SchoolScreen />} />
       <Route path="/login" element={<LoginSignup />} />
-      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/favorites" element={<FavoritesScreen />} />
       <Route path="*" element={<FourOhFourScreen />} />
     </Route>,
   ),

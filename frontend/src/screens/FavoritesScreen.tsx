@@ -14,7 +14,7 @@ interface School {
   max_tuition: number;
 }
 
-const FavoritesScreen = (): JSX.Element => {
+export const FavoritesScreen = (): JSX.Element => {
   const [removeFavorite] = useMutation(REMOVE_FAVORITE);
   const [sort, setSort] = useState<string>("");
   const { loading, sortedFavorites } = useSortedFavorites(sort);
@@ -102,4 +102,3 @@ const FavoritesScreen = (): JSX.Element => {
     </section>
   );
 };
-export default FavoritesScreen;
