@@ -60,4 +60,4 @@ export const Skeleton = (): JSX.Element => {
     </Card>
   );
 };
-export default Skeleton;
+

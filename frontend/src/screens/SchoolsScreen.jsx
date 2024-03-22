@@ -5,7 +5,7 @@ import { Button, Input } from "@material-tailwind/react";
 import { PageTitle } from "../components/PageTitle";
 import { useQuery } from "@apollo/client";
 import { GET_SCHOOLS } from "../utils/queries";
-import LoadingScreen from "./LoadingScreen";
+import { LoadingScreen } from "./LoadingScreen";
 
 const SchoolsScreen = () => {
   const [searchParams, setSearchParams] = useSearchParams();
