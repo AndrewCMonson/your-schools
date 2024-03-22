@@ -1,16 +1,26 @@
 import { Button, Input } from "@material-tailwind/react";
+import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const HomeScreen = () => {
+type LDataProps = {
+  long_name: string;
+  short_name: string;
+  types: string[];
+}
+
+export const HomeScreen = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const handleSearchSubmit = (event) => {
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    navigate(`/schools?zipcode=${event.target.zipcode.value}`);
+    const target = event.target as HTMLFormElement;
+    const zipcode = target.zipcode.value;
+
+    navigate(`/schools?zipcode=${zipcode}`);
   };
 
-  const handleUseLocationClick = () => {
+  const handleUseLocationClick = (): void => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
@@ -21,9 +31,12 @@ export const HomeScreen = () => {
         )
           .then((response) => response.json())
           .then((data) => {
+            console.log(data.results[0]?.address_components)
             const zipcode = data.results[0]?.address_components.find(
-              (component) => component.types.includes("postal_code"),
+              (component: LDataProps) => component.types.includes("postal_code"),
             ).long_name;
+
+            
             if (!zipcode) {
               navigate("/schools");
               return;
@@ -55,9 +68,8 @@ export const HomeScreen = () => {
 
           <div className="container mx-auto flex flex-row justify-center mt-4">
             <form
-              onSubmit={handleSearchSubmit}
+              onSubmit={(event: FormEvent<HTMLFormElement>) => handleSearchSubmit(event)}
               className="container mx-auto relative flex w-full max-w-[24rem]"
-              label="Search"
             >
               <Input
                 type="text"
@@ -66,13 +78,13 @@ export const HomeScreen = () => {
                 className="pr-20"
                 maxLength={5}
                 containerProps={{ className: "min-w-0" }}
+                crossOrigin={""}
               />
               <Button
                 type="submit"
                 size="sm"
                 color="indigo"
                 className="!absolute right-1 top-1 rounded"
-                label="Search"
               >
                 Search
               </Button>
