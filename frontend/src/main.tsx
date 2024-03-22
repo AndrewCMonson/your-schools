@@ -1,6 +1,9 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
 import App from "./App";
+import './index.css';
+import { ThemeProvider } from '@material-tailwind/react';
+import { setContext } from '@apollo/client/link/context';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -15,15 +18,12 @@ import {
   LoginSignupScreen,
   SchoolsScreen,
 } from "./screens";
-import "./index.css";
-import { ThemeProvider } from "@material-tailwind/react";
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
