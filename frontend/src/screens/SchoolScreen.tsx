@@ -13,7 +13,7 @@ import { Rating } from "../components/Rating";
 import { GET_SCHOOL, GET_ME } from "../utils/queries";
 import { ADD_FAVORITE } from "../utils/mutations";
 import { toast } from "react-toastify";
-import Auth from "../utils/auth";
+import { loggedIn, getToken } from "../utils/auth";
 
 export interface FavoritesData {
     address: string;
@@ -51,7 +51,7 @@ export const SchoolScreen = (): JSX.Element => {
   if (error) return <div>`Error! ${error.message}`</div>;
 
   const handleAddToFavorites = async (): Promise<false | unknown> => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const token = loggedIn() ? getToken() : null;
 
     if (!token) {
       toast.error("Please login to add to favorites.");

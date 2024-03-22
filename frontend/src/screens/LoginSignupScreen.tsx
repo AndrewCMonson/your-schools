@@ -4,7 +4,7 @@ import { FormEvent, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Auth from "../utils/auth";
+import { login as loginUser } from "../utils/auth";
 
 interface UserFormData {
   username: string;
@@ -42,7 +42,7 @@ export const LoginSignupScreen = () => {
 				variables: { ...userFormData },
 			});
 
-			Auth.login(data.login.token);
+			loginUser(data.login.token);
 		} catch (e) {
 			toast.error('Invalid credentials');
 		}
@@ -71,7 +71,7 @@ export const LoginSignupScreen = () => {
         variables: { ...userFormData },
       });
 
-      Auth.login(data.addUser.token);
+      loginUser(data.addUser.token);
     } catch (e) {
       console.error(e);
     }

@@ -3,17 +3,17 @@ import { Navbar, Collapse, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import YourSchools from "../assets/images/your-schools-logo.png";
-import Auth from "../utils/auth";
+import { logout, loggedIn } from "../utils/auth";
 import { NavButton } from "./NavButton";
 
 const NavList = (): JSX.Element => {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {Auth.loggedIn() ? (
+      {loggedIn() ? (
         <>
           <NavButton name="Schools" link="/schools" />
           <NavButton name="Favorites" link="/favorites" />
-          <NavButton name="Logout" link="/login" onClick={Auth.logout} />
+          <NavButton name="Logout" link="/login" onClick={logout} />
         </>
       ) : (
         <>
