@@ -12,10 +12,10 @@ import { GoogleMap } from "../components/Map";
 import { Rating } from "../components/Rating";
 import { GET_SCHOOL, GET_ME } from "../utils/queries";
 import { ADD_FAVORITE } from "../utils/mutations";
-import { notify } from "../utils/notify";
+import { toast } from "react-toastify";
 import Auth from "../utils/auth";
 
-interface FData {
+export interface FavoritesData {
     address: string;
     age_range: number[];
     city: string;
@@ -29,7 +29,6 @@ interface FData {
     rating: number;
     website: string;
     zipcode: string;
-    __typename: string;
 }
 
 export const SchoolScreen = (): JSX.Element => {
@@ -55,7 +54,7 @@ export const SchoolScreen = (): JSX.Element => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
-      notify("error", "Please login to add to favorites.");
+      toast.error("Please login to add to favorites.");
       return false;
     }
 
@@ -68,10 +67,10 @@ export const SchoolScreen = (): JSX.Element => {
     }
   };
 
-  const isFavorite = (): boolean => {
+  const isFavorite = (id?: string): boolean => {
     if (userData) {
-      const favorites = userData.me.favorites.map((favorite: FData) => favorite.id);
-      return favorites.includes(id);
+      const favorite = userData.me.favorites.find((favorite: FavoritesData) => favorite.id === id);
+      return !!favorite
     }
     return false;
   };
@@ -97,7 +96,7 @@ export const SchoolScreen = (): JSX.Element => {
                 <div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
 
                 {}
-                {isFavorite() ? (
+                {isFavorite(id) ? (
                   <Button className="w-1/2 lg:w-1/4 2xl:w-1/6" disabled>
                     Favorited
                   </Button>

@@ -7,7 +7,6 @@ import { GET_SCHOOLS } from "../utils/queries";
 import { LoadingScreen } from ".";
 
 interface SchoolData {
-	
 		address: string;
 		city: string;
 		email: string;
