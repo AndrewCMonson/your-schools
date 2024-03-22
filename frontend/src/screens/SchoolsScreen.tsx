@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { useState, FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import { School, PageTitle } from "../components";
@@ -23,7 +24,7 @@ interface SchoolData {
 		__typename: string;
 }
 
-export const SchoolsScreen = () => {
+export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [zipcode, setZipcode] = useState<string>(searchParams.get("zipcode") || "");
   const [search, setSearch] = useState<boolean>(false);

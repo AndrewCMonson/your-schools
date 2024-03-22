@@ -2,7 +2,7 @@ import { Card, Input, Button } from "@material-tailwind/react";
 import { LOGIN_USER, ADD_USER } from "../utils/mutations";
 import { FormEvent, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { toast } from "react-toastify";
 import { login as loginUser } from "../utils/auth";
 
@@ -12,7 +12,7 @@ interface UserFormData {
   password: string;
 }
 
-export const LoginSignupScreen = () => {
+export const LoginSignupScreen = (): ReactElement => {
   const [screenSelected, setScreenSelected] = useState<string>("login");
   const [userFormData, setUserFormData] = useState<UserFormData>({
     username: "",
@@ -83,9 +83,12 @@ export const LoginSignupScreen = () => {
     });
   };
 
-  if (screenSelected === "login") {
+
+  // TODO: change if statements to conditional rendering
+  // if (screenSelected === "login") {
     return (
       <>
+       {screenSelected === "login" && (
         <section
           id="loginSignupScreen"
           className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
@@ -147,13 +150,8 @@ export const LoginSignupScreen = () => {
             </form>
           </Card>
         </section>
-      </>
-    );
-  }
-
-  if (screenSelected === "signup") {
-    return (
-      <>
+       )}
+       {screenSelected === "signup" && (
         <section
           id="loginSignupScreen"
           className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
@@ -227,7 +225,8 @@ export const LoginSignupScreen = () => {
             </form>
           </Card>
         </section>
+        )}
       </>
     );
   }
-};
+      

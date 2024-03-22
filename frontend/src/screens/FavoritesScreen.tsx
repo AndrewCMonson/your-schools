@@ -2,7 +2,7 @@ import { GET_ME } from "../utils/queries";
 import { REMOVE_FAVORITE } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { PageTitle, Rating } from "../components";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useSortedFavorites } from "../utils/useSort";
@@ -14,7 +14,7 @@ interface School {
   max_tuition: number;
 }
 
-export const FavoritesScreen = (): JSX.Element => {
+export const FavoritesScreen = (): ReactElement => {
   const [removeFavorite] = useMutation(REMOVE_FAVORITE);
   const [sort, setSort] = useState<string>("");
   const { loading, sortedFavorites } = useSortedFavorites(sort);

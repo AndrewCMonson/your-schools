@@ -1,7 +1,8 @@
+import { ReactElement } from "react";
 import { PageTitle, Skeleton } from "../components";
 import { Input, Button } from "@material-tailwind/react";
 
-export const LoadingScreen = (): JSX.Element => {
+export const LoadingScreen = (): ReactElement => {
   return (
 		<div
 			id="schoolsScreen"

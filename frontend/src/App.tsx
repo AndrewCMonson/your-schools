@@ -1,10 +1,10 @@
+import { ReactElement } from "react";
 import { Outlet } from "react-router-dom";
-import { Footer } from "./components/Footer";
-import { NavBar } from "./components/NavBar";
+import { Footer, NavBar } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const App = () => {
+const App = (): ReactElement => {
   return (
     <>
       <NavBar />

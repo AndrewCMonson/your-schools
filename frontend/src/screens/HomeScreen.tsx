@@ -1,5 +1,5 @@
 import { Button, Input } from "@material-tailwind/react";
-import { FormEvent } from "react";
+import { ReactElement, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 type LDataProps = {
@@ -8,7 +8,7 @@ type LDataProps = {
   types: string[];
 }
 
-export const HomeScreen = (): JSX.Element => {
+export const HomeScreen = (): ReactElement => {
   const navigate = useNavigate();
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {

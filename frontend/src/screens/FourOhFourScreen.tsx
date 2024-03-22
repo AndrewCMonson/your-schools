@@ -1,6 +1,7 @@
+import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
-export const FourOhFourScreen = (): JSX.Element => {
+export const FourOhFourScreen = (): ReactElement => {
   return (
     <>
       <section

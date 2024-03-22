@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import {
@@ -8,8 +9,7 @@ import {
   Button,
   Spinner,
 } from "@material-tailwind/react";
-import { GoogleMap } from "../components/Map";
-import { Rating } from "../components/Rating";
+import { GoogleMap, Rating } from "../components";
 import { GET_SCHOOL, GET_ME } from "../utils/queries";
 import { ADD_FAVORITE } from "../utils/mutations";
 import { toast } from "react-toastify";
@@ -31,7 +31,7 @@ export interface FavoritesData {
     zipcode: string;
 }
 
-export const SchoolScreen = (): JSX.Element => {
+export const SchoolScreen = (): ReactElement => {
   const { id } = useParams<string>();
 
   const { loading, error, data } = useQuery(GET_SCHOOL, {
