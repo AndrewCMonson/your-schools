@@ -13,7 +13,7 @@ const NavList = (): JSX.Element => {
         <>
           <NavButton name="Schools" link="/schools" />
           <NavButton name="Favorites" link="/favorites" />
-          <NavButton name="Logout" link="/" onClick={Auth.logout} />
+          <NavButton name="Logout" link="/login" onClick={Auth.logout} />
         </>
       ) : (
         <>
