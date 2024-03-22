@@ -1,13 +1,20 @@
 import { Card, Input, Button } from "@material-tailwind/react";
 import { LOGIN_USER, ADD_USER } from "../utils/mutations";
+import { FormEvent, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Auth from "../utils/auth";
 
-const LoginSignup = () => {
-  const [screenSelected, setScreenSelected] = useState("login");
-  const [userFormData, setUserFormData] = useState({
+interface UserFormData {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export const LoginSignupScreen = () => {
+  const [screenSelected, setScreenSelected] = useState<string>("login");
+  const [userFormData, setUserFormData] = useState<UserFormData>({
     username: "",
     email: "",
     password: "",
@@ -15,37 +22,39 @@ const LoginSignup = () => {
   const [login] = useMutation(LOGIN_USER);
   const [addUser] = useMutation(ADD_USER);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.target as HTMLInputElement;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleLoginFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleLoginFormSubmit = async (
+		event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>
+	) => {
+		event.preventDefault();
 
-    if (!userFormData.email || !userFormData.password) {
-      toast.error("Please fill out all fields");
-      return;
-    }
+		if (!userFormData.email || !userFormData.password) {
+			toast.error('Please fill out all fields');
+			return;
+		}
 
-    try {
-      const { data } = await login({
-        variables: { ...userFormData },
-      });
+		try {
+			const { data } = await login({
+				variables: { ...userFormData },
+			});
 
-      Auth.login(data.login.token);
-    } catch (e) {
-      toast.error("Invalid credentials");
-    }
+			Auth.login(data.login.token);
+		} catch (e) {
+			toast.error('Invalid credentials');
+		}
 
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
-  };
+		setUserFormData({
+			username: '',
+			email: '',
+			password: '',
+		});
+	};
 
-  const handleSignupFormSubmit = async (event) => {
+  const handleSignupFormSubmit = async (event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (
@@ -100,6 +109,7 @@ const LoginSignup = () => {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
+                  crossOrigin={""}
                 />
                 <div className="-mb-3">Password</div>
                 <Input
@@ -112,6 +122,7 @@ const LoginSignup = () => {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
+                  crossOrigin={""}
                 />
               </div>
               <Button
@@ -166,6 +177,7 @@ const LoginSignup = () => {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
+                  crossOrigin={""}
                 />
                 <div className="-mb-3">Your Email</div>
                 <Input
@@ -177,6 +189,7 @@ const LoginSignup = () => {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
+                  crossOrigin={""}
                 />
                 <div className="-mb-3">Password</div>
                 <Input
@@ -189,6 +202,7 @@ const LoginSignup = () => {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
+                  crossOrigin={""}
                 />
               </div>
               <Button
@@ -217,4 +231,3 @@ const LoginSignup = () => {
     );
   }
 };
-export default LoginSignup;

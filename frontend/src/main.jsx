@@ -8,12 +8,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import SchoolsScreen from "./screens/SchoolsScreen.jsx";
-import LoginSignup from "./screens/LoginSignupScreen.jsx";
 import {
   FavoritesScreen,
   FourOhFourScreen,
   HomeScreen,
   SchoolScreen,
+  LoginSignupScreen,
 } from "./screens";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
@@ -50,7 +50,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/schools" element={<SchoolsScreen />} />
       <Route path="/schools/:id" element={<SchoolScreen />} />
-      <Route path="/login" element={<LoginSignup />} />
+      <Route path="/login" element={<LoginSignupScreen />} />
       <Route path="/favorites" element={<FavoritesScreen />} />
       <Route path="*" element={<FourOhFourScreen />} />
     </Route>,
