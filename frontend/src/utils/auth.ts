@@ -35,11 +35,3 @@ export const isAuthenticated = (): boolean => {
   return !!getToken();
 }
 
-export const Auth = {
-  getToken,
-  loggedIn,
-  isTokenExpired,
-  login,
-  logout,
-  isAuthenticated
-}
