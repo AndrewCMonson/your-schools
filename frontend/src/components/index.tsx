@@ -1,4 +1,4 @@
-import { Footer } from './Footer';
+import { Footer } from './Footer/Footer';
 import { GoogleMap } from './Map';
 import { NavBar } from './NavBar';
 import { NavButton } from './NavButton';
