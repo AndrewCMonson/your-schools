@@ -1,4 +1,4 @@
-import { GET_ME } from "./queries";
+import { GET_ME } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import { useMemo } from "react";
 import { FavoritesData } from "../screens/SchoolScreen";

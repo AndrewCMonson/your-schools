@@ -5,7 +5,7 @@ import { PageTitle, Rating } from "../components";
 import { useState, ReactElement } from "react";
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useSortedFavorites } from "../utils/useSort";
+import { useSortedFavorites } from "../hooks/useSort";
 
 interface School {
   id: string;
