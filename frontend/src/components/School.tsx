@@ -2,7 +2,7 @@ import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { Rating } from "./Rating";
 
-interface SchoolProps {
+export interface SchoolProps {
   school: {
     id: string;
     name: string;
@@ -32,7 +32,7 @@ export const School = ({ school }: SchoolProps ) => {
           <div>
             <Rating value={school.rating} />
           </div>
-          <div>{school.max_tuition > 1000 ? "$$$$" : "$$$"}</div>
+          <div>{school.max_tuition >= 1000 ? "$$$$" : "$$$"}</div>
         </div>
       </CardBody>
       <CardFooter>
