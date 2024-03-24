@@ -1,6 +1,6 @@
 import { getToken, loggedIn, isTokenExpired, login, logout, isAuthenticated } from "../../utils/auth";
 import { describe, expect, it } from "vitest";
-import { jwtDecode as decode } from "jwt-decode";
+import  jwt from "jsonwebtoken";
 
 describe("getToken", () => {
   it("should return null if token is not set", () => {
@@ -14,6 +14,23 @@ describe("loggedIn", () => {
   });
 });
 
+describe("getToken", () => {
+  it("should return token if token is set", () => {
+    localStorage.setItem("id_token", "token");
+    expect(getToken()).toBe("token");
+  });
+});
+
+describe("loggedIn", () => {
+  it("should return true if token is set and not expired", () => {
+    const data = 'data';
+    const secret = 'secret123';
+    const token = jwt.sign({ data, exp: Math.floor(Date.now() / 1000) + 60 * 60, }, secret);
+    localStorage.setItem("id_token", token);
+    expect(loggedIn()).toBe(true);
+  });
+});
+
 describe("isTokenExpired", () => {
   it("should return false if token is not set", () => {
     expect(isTokenExpired("")).toBe(false);
@@ -21,8 +38,10 @@ describe("isTokenExpired", () => {
 });
 
 describe("isTokenExpired", () => {
-  it("should check if token is expired", () => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzIwNzQ4MzYsImlhdCI6MTYzMjA3NDgzNiwiaXNzIjoiYXV0aCIsInN1YiI6InVzZXIifQ.7"
+  it("should return true if token is expired", () => {
+    const data = 'data';
+    const secret = 'secret123';
+    const token = jwt.sign({ data, exp: Math.floor(Date.now() / 1000) - 60 * 60 }, secret);
     expect(isTokenExpired(token)).toBe(true);
   })
 });
@@ -44,5 +63,12 @@ describe("logout", () => {
 describe("isAuthenticated", () => {
   it("should return false if token is not set", () => {
     expect(isAuthenticated()).toBe(false);
+  });
+});
+
+describe("isAuthenticated", () => {
+  it("should return true if token is set", () => {
+    login("token");
+    expect(isAuthenticated()).toBe(true);
   });
 });
