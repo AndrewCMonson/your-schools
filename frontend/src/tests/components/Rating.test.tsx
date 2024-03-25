@@ -8,4 +8,3 @@ describe('Rating', () => {
     render(<Rating value={ratingData} />);
   });
 });
-
