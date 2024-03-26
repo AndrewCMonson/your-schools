@@ -17,7 +17,6 @@
     "@heroicons/react": "^2.1.1",
     "@material-tailwind/react": "^2.1.8",
     "@vis.gl/react-google-maps": "^0.7.1",
-    "full-stack-vite-project": "file:..",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
