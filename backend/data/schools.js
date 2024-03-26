@@ -6,7 +6,7 @@ const schools = [
 		address: '5181 Singleton Way',
 		city: 'Virginia Beach',
 		state: 'VA',
-		zipcode: '23462',
+		zipcode: '23465',
 		latitude: 36.82669,
 		longitude: -76.16245,
 		phone: '757-499-7393',

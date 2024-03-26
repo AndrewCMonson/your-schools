@@ -10,7 +10,7 @@
     "render-build": "npm install && npm run build",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:import": "node backend/seeder.js",
+    "data:import": "tsx backend/seeder.js",
     "data:destroy": "node backend/seeder.js -d"
   },
   "keywords": [],
@@ -33,6 +33,7 @@
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.4.3"
   }
 }

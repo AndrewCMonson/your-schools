@@ -1,6 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, Types } from 'mongoose';
 
-const imageSchema = mongoose.Schema({
+interface Image {
+	url: string;
+	alt: string;
+	owner: Types.ObjectId;
+}
+
+const imageSchema = new Schema<Image>({
 	url: {
 		type: String,
 	},
@@ -8,12 +14,41 @@ const imageSchema = mongoose.Schema({
 		type: String,
 	},
 	owner: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'School',
 	}
 });
 
-const schoolsSchema = mongoose.Schema({
+interface Schools {
+	name: string;
+	address: string;
+	city: string;
+	state: string;
+	zipcode: string;
+	latitude: number;
+	longitude: number;
+	phone: string;
+	website: string;
+	email: string;
+	description: string;
+	rating: number;
+	offers_daycare: boolean;
+	age_range: Array<string>;
+	early_enrollment: boolean;
+	min_tuition: number;
+	max_tuition: number;
+	days_open: Array<string>;
+	days_closed: Array<string>;
+	opening_hours: string;
+	closing_hours: string;
+	min_enrollment: number;
+	max_enrollment: number;
+	min_student_teacher_ratio: number;
+	max_student_teacher_ratio: number;
+	images: Array<Image>;
+}
+
+const schoolsSchema = new Schema<Schools>({
 	name: {
 		type: String,
 		required: true,
@@ -56,7 +91,7 @@ const schoolsSchema = mongoose.Schema({
 		type: Boolean,
 	},
 	age_range: {
-		type: Array,
+		type: [String],
 	},
 	early_enrollment: {
 		type: Boolean,
@@ -68,10 +103,10 @@ const schoolsSchema = mongoose.Schema({
 		type: Number,
 	},
 	days_open: {
-		type: Array,
+		type: [String],
 	},
 	days_closed: {
-		type: Array,
+		type: [String],
 	},
 	opening_hours: {
 		type: String,

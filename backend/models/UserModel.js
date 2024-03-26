@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { schoolsSchema } from "./SchoolsModel.js";
+
 
 const userSchema = mongoose.Schema({
     username: {

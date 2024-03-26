@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 import schools from './data/schools.js';
-import { School } from './models/SchoolsModel.js';
+import { School } from './models/SchoolsModel.ts';
 import { User } from './models/UserModel.js';
 import users from './data/user.js';
 
 dotenv.config();
-import connectDB from './config/db.js';
+import connectDB from './config/db.ts';
 
 connectDB();
 
@@ -14,7 +14,7 @@ const importData = async () => {
 		await School.deleteMany();
 		await User.deleteMany();
 
-		const createdSchools = await School.insertMany(schools);
+		await School.insertMany(schools);
 
 		await User.insertMany(users);
 
