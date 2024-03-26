@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 interface Image {
   url: string;
@@ -129,6 +129,6 @@ const schoolsSchema = new Schema<Schools>({
   images: [imageSchema],
 });
 
-const School = mongoose.model("school", schoolsSchema);
+const School = model("school", schoolsSchema);
 
 export { School, schoolsSchema };

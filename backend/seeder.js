@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import process from "process";
 import schools from "./data/schools.js";
 import { School } from "./models/SchoolsModel.ts";
-import { User } from "./models/UserModel.js";
+import { User } from "./models/UserModel.ts";
 import users from "./data/user.js";
 
 dotenv.config();

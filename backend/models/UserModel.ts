@@ -1,7 +1,14 @@
-import mongoose from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-const userSchema = mongoose.Schema({
+interface User {
+  username: string;
+  email: string;
+  password: string;
+  favorites: Array<Types.ObjectId>;
+}
+
+const userSchema = new Schema<User>({
   username: {
     type: String,
     required: true,
@@ -19,7 +26,7 @@ const userSchema = mongoose.Schema({
   },
   favorites: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "School",
     },
   ],
@@ -34,10 +41,10 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.isCorrectPassword = async function (password) {
+userSchema.methods.isCorrectPassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model("user", userSchema);
+const User = model("user", userSchema);
 
 export { User, userSchema };
