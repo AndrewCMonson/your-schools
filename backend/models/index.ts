@@ -1,4 +1,4 @@
-import { School } from "./SchoolsModel.js";
-import { User } from "./UserModel.js";
+import { School } from "./SchoolsModel.ts";
+import { User } from "./UserModel.ts";
 
 export { School, User };
