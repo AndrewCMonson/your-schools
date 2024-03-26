@@ -1,12 +1,10 @@
 import dotenv from "dotenv";
 import process from "process";
-import schools from "./data/schools.js";
-import { School } from "./models/SchoolsModel.ts";
-import { User } from "./models/UserModel.ts";
-import users from "./data/user.js";
+import connectDB from "./config/db.ts";
+import { User, School } from "./models";
+import { users, schools } from "./data";
 
 dotenv.config();
-import connectDB from "./config/db.ts";
 
 connectDB();
 

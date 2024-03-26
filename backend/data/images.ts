@@ -1,4 +1,7 @@
-const images = [
+export const images: {
+  url: string;
+  alt: string;
+}[] = [
   {
     url: "https://i.ibb.co/XZMrG8K/pexels-lina-kivaka-1741230.jpg",
     alt: "school 1",
@@ -36,5 +39,3 @@ const images = [
     alt: "school 9",
   },
 ];
-
-export default images;

@@ -1,6 +1,36 @@
-import images from "./images.js";
+import { images } from "./images";
 
-const schools = [
+export const schools: {
+  name: string;
+  address: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  latitude: number;
+  longitude: number;
+  phone: string;
+  website: string;
+  email: string;
+  description: string;
+  rating: number;
+  offers_daycare: boolean;
+  age_range: number[];
+  early_enrollment: boolean;
+  min_tuition: number;
+  max_tuition: number;
+  days_open: string[];
+  days_closed: string[];
+  opening_hours: string;
+  closing_hours: string;
+  min_enrollment: number;
+  max_enrollment: number;
+  min_student_teacher_ratio: number;
+  max_student_teacher_ratio: number;
+  images: {
+    url: string;
+    alt: string;
+  }[];
+}[] = [
   {
     name: "Emmanuel Episcopal Day School",
     address: "5181 Singleton Way",
@@ -321,5 +351,3 @@ const schools = [
     images: images,
   },
 ];
-
-export default schools;
