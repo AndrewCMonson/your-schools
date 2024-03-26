@@ -9,7 +9,9 @@ export const useSortedFavorites = (sort: string) => {
   const sortedFavorites = useMemo(() => {
     if (!userData) return [];
     if (sort === "rating") {
-      return userData.me.favorites.toSorted((a: FavoritesData, b: FavoritesData) => b.rating - a.rating);
+      return userData.me.favorites.toSorted(
+        (a: FavoritesData, b: FavoritesData) => b.rating - a.rating,
+      );
     }
     if (sort === "price_desc") {
       return userData.me.favorites.toSorted(

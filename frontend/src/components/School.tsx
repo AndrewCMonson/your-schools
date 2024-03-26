@@ -14,9 +14,9 @@ interface SchoolProps {
     rating: number;
     max_tuition: number;
   };
-  }
+}
 
-export const School = ({ school }: SchoolProps ) => {
+export const School = ({ school }: SchoolProps) => {
   return (
     <Card className="w-100 h-full my-4 mx-4">
       <CardBody className="flex flex-col p-4">

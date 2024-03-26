@@ -29,7 +29,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["frontend/**/*", "backend/**/*", "**/*.d.ts"],
+	"include": ["frontend/**/*.ts", "frontend/**/*.tsx", "frontend/**/*.d.ts", "backend/**/*.ts", "**/*.d.ts"],
 	"exclude": ["node_modules", "frontend/dist", "backend/dist"],
 	"references": [{ "path": "frontend/tsconfig.vite.json" }]
 }

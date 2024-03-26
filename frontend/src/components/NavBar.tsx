@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { Navbar, Collapse, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import YourSchools from "../assets/images/your-schools-logo.png";
 import { logout, loggedIn } from "../utils/auth";
 import { NavButton } from "./NavButton";
 
-const NavList = (): JSX.Element => {
+const NavList = (): ReactElement => {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       {loggedIn() ? (
@@ -24,7 +24,7 @@ const NavList = (): JSX.Element => {
   );
 };
 
-export const NavBar = (): JSX.Element => {
+export const NavBar = (): ReactElement => {
   const [openNav, setOpenNav] = useState<boolean>(false);
 
   const handleWindowResize = () =>
@@ -46,11 +46,7 @@ export const NavBar = (): JSX.Element => {
       >
         <div className="flex items-center justify-between text-blue-gray-900">
           <Link to="/">
-            <img
-              src={YourSchools}
-              alt="YourSchools Logo"
-              className="h-8 w-8"
-            />
+            <img src={YourSchools} alt="YourSchools Logo" className="h-8 w-8" />
           </Link>
 
           <div className="hidden lg:block">

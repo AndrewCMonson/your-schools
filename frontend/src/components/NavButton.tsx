@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { HTMLAttributes } from "react";
 
-interface NavButtonProps extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
+interface NavButtonProps
+  extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
   name: string;
   link: string;
 }
@@ -18,4 +19,3 @@ export const NavButton = ({ name, link, onClick }: NavButtonProps) => {
     </div>
   );
 };
-

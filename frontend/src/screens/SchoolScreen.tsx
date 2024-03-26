@@ -16,19 +16,19 @@ import { toast } from "react-toastify";
 import { loggedIn, getToken } from "../utils/auth";
 
 export interface FavoritesData {
-    address: string;
-    age_range: number[];
-    city: string;
-    email: string;
-    id: string;
-    latitude: number;
-    longitude: number;
-    max_tuition: number;
-    name: string;
-    phone: string;
-    rating: number;
-    website: string;
-    zipcode: string;
+  address: string;
+  age_range: number[];
+  city: string;
+  email: string;
+  id: string;
+  latitude: number;
+  longitude: number;
+  max_tuition: number;
+  name: string;
+  phone: string;
+  rating: number;
+  website: string;
+  zipcode: string;
 }
 
 export const SchoolScreen = (): ReactElement => {
@@ -69,8 +69,10 @@ export const SchoolScreen = (): ReactElement => {
 
   const isFavorite = (id?: string): boolean => {
     if (userData) {
-      const favorite = userData.me.favorites.find((favorite: FavoritesData) => favorite.id === id);
-      return !!favorite
+      const favorite = userData.me.favorites.find(
+        (favorite: FavoritesData) => favorite.id === id,
+      );
+      return !!favorite;
     }
     return false;
   };
@@ -144,15 +146,17 @@ export const SchoolScreen = (): ReactElement => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {data.school.images.map(({ url }: { url: string }, index: number) => (
-                    <div className="flex justify-center" key={index}>
-                      <img
-                        className="h-40 w-40 max-w-full rounded-lg object-cover object-center"
-                        src={url}
-                        alt="gallery-photo"
-                      />
-                    </div>
-                  ))}
+                  {data.school.images.map(
+                    ({ url }: { url: string }, index: number) => (
+                      <div className="flex justify-center" key={index}>
+                        <img
+                          className="h-40 w-40 max-w-full rounded-lg object-cover object-center"
+                          src={url}
+                          alt="gallery-photo"
+                        />
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
             </CardBody>

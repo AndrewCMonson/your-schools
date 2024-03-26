@@ -1,9 +1,9 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
 import App from "./App";
-import './index.css';
-import { ThemeProvider } from '@material-tailwind/react';
-import { setContext } from '@apollo/client/link/context';
+import "./index.css";
+import { ThemeProvider } from "@material-tailwind/react";
+import { setContext } from "@apollo/client/link/context";
 import {
   createBrowserRouter,
   createRoutesFromElements,
