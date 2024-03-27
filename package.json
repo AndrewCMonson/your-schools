@@ -5,13 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon backend/server.js",
+    "server": "tsx watch backend/server.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "render-build": "npm install && npm run build",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "tsx backend/seeder.js",
-    "data:destroy": "node backend/seeder.js -d",
+    "data:destroy": "tsx backend/seeder.js -d",
     "lint": "eslint . --ext js,ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "keywords": [],
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",

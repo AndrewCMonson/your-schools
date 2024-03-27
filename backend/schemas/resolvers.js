@@ -1,6 +1,6 @@
-import { School, User } from "../models/index.js";
+import { School, User } from "../models/";
 import { AuthenticationError } from "apollo-server-express";
-import { signToken } from "../utils/auth.js";
+import { signToken } from "../utils/auth";
 
 const resolvers = {
   Query: {
@@ -14,10 +14,11 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user.id }).select(
-          "-__v -password",
-        );
-
+        console.log(context.user);
+        const userData = await User.findOne({
+          _id: context.user.data.id,
+        }).select("-__v -password");
+        console.log(userData);
         return userData;
       }
 
@@ -53,9 +54,8 @@ const resolvers = {
     },
     addToFavorites: async (parent, { schoolId }, context) => {
       if (context.user) {
-        // const school = await School.findById(schoolId);
         const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user.id },
+          { _id: context.user.data.id },
           { $addToSet: { favorites: schoolId } },
           { new: true },
         );
@@ -70,7 +70,7 @@ const resolvers = {
     removeFromFavorites: async (parent, { schoolId }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user.id },
+          { _id: context.user.data.id },
           { $pull: { favorites: schoolId } },
           { new: true },
         );

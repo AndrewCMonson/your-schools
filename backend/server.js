@@ -1,16 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import process from "process";
+import cors from "cors";
+import path, { dirname } from "path";
 dotenv.config();
-import connectDB from "./config/db.js";
+import connectDB from "./config/db.ts";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { typeDefs, resolvers } from "./schemas/index.js";
-import { authMiddleware } from "./utils/auth.js";
-import { dirname } from "path";
+import { authMiddleware } from "./utils/auth.ts";
 import { fileURLToPath } from "url";
-import cors from "cors";
-import path from "path";
 
 const PORT = process.env.PORT || 3005;
 
@@ -19,7 +18,10 @@ const __dirname = dirname(__filename);
 
 const startServer = async () => {
   const app = express();
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
   await server.start();
 
   app.use(
