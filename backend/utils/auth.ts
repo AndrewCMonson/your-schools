@@ -1,5 +1,5 @@
 import process from "process";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { JwtPayload, verify, sign } from "jsonwebtoken";
 import { Request } from "express";
 
 const secret = process.env.JWT_SECRET;
@@ -19,7 +19,7 @@ const signToken = (user: User) => {
     username: user.username,
     id: user._id,
   };
-  return jwt.sign({ data }, secret, { expiresIn: expiration });
+  return sign({ data }, secret, { expiresIn: expiration });
 };
 
 const authMiddleware = ({ req }: { req: CustomRequest }) => {
@@ -34,7 +34,7 @@ const authMiddleware = ({ req }: { req: CustomRequest }) => {
   }
 
   try {
-    const data = jwt.verify(token, secret, { maxAge: expiration });
+    const data = verify(token, secret, { maxAge: expiration });
     req.user = data;
   } catch {
     console.log("Invalid token");
