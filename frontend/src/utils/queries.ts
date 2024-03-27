@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__/gql";
 
-export const GET_SCHOOLS = gql`
+export const GET_SCHOOLS = gql(/* GraphQL */ `
   query Schools($zipcode: String) {
     schools(zipcode: $zipcode) {
       id
@@ -18,9 +18,9 @@ export const GET_SCHOOLS = gql`
       max_tuition
     }
   }
-`;
+`);
 
-export const GET_SCHOOL = gql`
+export const GET_SCHOOL = gql(/* GraphQL */ `
   query School($id: ID!) {
     school(id: $id) {
       id
@@ -56,9 +56,9 @@ export const GET_SCHOOL = gql`
       }
     }
   }
-`;
+`);
 
-export const GET_ME = gql`
+export const GET_ME = gql(/* GraphQL */ `
   query me {
     me {
       id
@@ -82,4 +82,4 @@ export const GET_ME = gql`
       }
     }
   }
-`;
+`);

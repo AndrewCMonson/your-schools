@@ -1,4 +1,4 @@
-import { School, User } from "../models/";
+import { School, User } from "../models";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth";
 
@@ -14,11 +14,9 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        console.log(context.user);
         const userData = await User.findOne({
           _id: context.user.data.id,
         }).select("-__v -password");
-        console.log(userData);
         return userData;
       }
 

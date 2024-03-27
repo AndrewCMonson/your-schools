@@ -7,23 +7,6 @@ import { useQuery } from "@apollo/client";
 import { GET_SCHOOLS } from "../utils/queries";
 import { LoadingScreen } from ".";
 
-interface SchoolData {
-  address: string;
-  city: string;
-  email: string;
-  id: string;
-  latitude: number;
-  longitude: number;
-  max_tuition: number;
-  name: string;
-  phone: string;
-  rating: number;
-  state: string;
-  website: string;
-  zipcode: string;
-  __typename: string;
-}
-
 export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [zipcode, setZipcode] = useState<string>(
@@ -86,12 +69,12 @@ export const SchoolsScreen = (): ReactElement => {
           </Button>
         </form>
 
-        {data.schools.length === 0 && search ? (
+        {(data?.schools?.length ?? 1) === 0 && search ? (
           <div className="text-center text-2xl mt-8">No schools found</div>
         ) : (
           <div className="flex flex-col min-w-1/2 ">
-            {data.schools.map((school: SchoolData) => (
-              <School key={school.id} school={school} />
+            {data?.schools?.map((school) => (
+              <School key={school?.id} school={school} />
             ))}
           </div>
         )}
