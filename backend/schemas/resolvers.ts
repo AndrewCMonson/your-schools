@@ -1,18 +1,24 @@
 import { School, User } from "../models";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth";
+import {
+  Auth,
+  Resolvers,
+  School as SchoolType,
+  User as UserType,
+} from "../__generatedTypes__/graphql";
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
-    schools: async (parent, args) => {
+    schools: async (parent, args): Promise<SchoolType[]> => {
       const schools = await School.find({ zipcode: args.zipcode });
-      return schools;
+      return schools.map((school) => school.toObject());
     },
-    school: async (parent, { id }) => {
+    school: async (parent, { id }): Promise<SchoolType> => {
       const school = await School.findById(id);
       return school;
     },
-    me: async (parent, args, context) => {
+    me: async (parent, args, context): Promise<UserType> => {
       if (context.user) {
         const userData = await User.findOne({
           _id: context.user.data.id,
@@ -28,13 +34,13 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password }): Promise<Auth> => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
 
       return { token, user };
     },
-    login: async (parent, { email, password }) => {
+    login: async (parent, { email, password }): Promise<Auth> => {
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -50,7 +56,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addToFavorites: async (parent, { schoolId }, context) => {
+    addToFavorites: async (parent, { schoolId }, context): Promise<UserType> => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user.data.id },

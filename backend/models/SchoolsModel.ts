@@ -33,7 +33,7 @@ interface Schools {
   description: string;
   rating: number;
   offers_daycare: boolean;
-  age_range: Array<string>;
+  age_range: Array<number>;
   early_enrollment: boolean;
   min_tuition: number;
   max_tuition: number;
@@ -90,7 +90,7 @@ const schoolsSchema = new Schema<Schools>({
     type: Boolean,
   },
   age_range: {
-    type: [String],
+    type: [Number],
   },
   early_enrollment: {
     type: Boolean,

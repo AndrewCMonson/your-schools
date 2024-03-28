@@ -85,8 +85,6 @@ export const LoginSignupScreen = (): ReactElement => {
     });
   };
 
-  // TODO: change if statements to conditional rendering
-  // if (screenSelected === "login") {
   return (
     <>
       {screenSelected === "login" && (

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { GraphQLResolveInfo } from 'graphql';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -7,6 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -181,3 +183,178 @@ export const RemoveFromFavoritesDocument = {"kind":"Document","definitions":[{"k
 export const SchoolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Schools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"zipcode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"schools"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"zipcode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"zipcode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipcode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"max_tuition"}}]}}]}}]} as unknown as DocumentNode<SchoolsQuery, SchoolsQueryVariables>;
 export const SchoolDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"School"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"school"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipcode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"offers_daycare"}},{"kind":"Field","name":{"kind":"Name","value":"age_range"}},{"kind":"Field","name":{"kind":"Name","value":"early_enrollment"}},{"kind":"Field","name":{"kind":"Name","value":"min_tuition"}},{"kind":"Field","name":{"kind":"Name","value":"max_tuition"}},{"kind":"Field","name":{"kind":"Name","value":"days_open"}},{"kind":"Field","name":{"kind":"Name","value":"days_closed"}},{"kind":"Field","name":{"kind":"Name","value":"opening_hours"}},{"kind":"Field","name":{"kind":"Name","value":"closing_hours"}},{"kind":"Field","name":{"kind":"Name","value":"min_enrollment"}},{"kind":"Field","name":{"kind":"Name","value":"max_enrollment"}},{"kind":"Field","name":{"kind":"Name","value":"min_student_teacher_ratio"}},{"kind":"Field","name":{"kind":"Name","value":"max_student_teacher_ratio"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"owner"}}]}}]}}]}}]} as unknown as DocumentNode<SchoolQuery, SchoolQueryVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"favorites"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipcode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"age_range"}},{"kind":"Field","name":{"kind":"Name","value":"max_tuition"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Auth: ResolverTypeWrapper<Auth>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Image: ResolverTypeWrapper<Image>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Query: ResolverTypeWrapper<{}>;
+  School: ResolverTypeWrapper<School>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  User: ResolverTypeWrapper<User>;
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Auth: Auth;
+  ID: Scalars['ID']['output'];
+  Image: Image;
+  String: Scalars['String']['output'];
+  Mutation: {};
+  Query: {};
+  School: School;
+  Int: Scalars['Int']['output'];
+  Boolean: Scalars['Boolean']['output'];
+  Float: Scalars['Float']['output'];
+  User: User;
+};
+
+export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
+  token: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
+  alt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  owner: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addToFavorites: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
+  addUser: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
+  login: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  removeFromFavorites: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getFavorites: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, QueryGetFavoritesArgs>;
+  me: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  school: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
+  schools: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType, QuerySchoolsArgs>;
+};
+
+export type SchoolResolvers<ContextType = any, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
+  address: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  age_range: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  city: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  closing_hours: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  days_closed: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  days_open: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  early_enrollment: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  email: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
+  latitude: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  longitude: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max_enrollment: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  max_student_teacher_ratio: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max_tuition: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  min_enrollment: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  min_student_teacher_ratio: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  min_tuition: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  offers_daycare: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  opening_hours: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rating: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  state: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zipcode: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  email: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  favorites: Resolver<Maybe<Array<Maybe<ResolversTypes['School']>>>, ParentType, ContextType>;
+  id: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  password: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  username: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resolvers<ContextType = any> = {
+  Auth: AuthResolvers<ContextType>;
+  Image: ImageResolvers<ContextType>;
+  Mutation: MutationResolvers<ContextType>;
+  Query: QueryResolvers<ContextType>;
+  School: SchoolResolvers<ContextType>;
+  User: UserResolvers<ContextType>;
+};
+
