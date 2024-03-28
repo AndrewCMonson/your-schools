@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"target": "ES2020",
 		"useDefineForClassFields": true,
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"allowJs": true,
@@ -29,7 +29,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["frontend/**/*.ts", "frontend/**/*.tsx", "frontend/**/*.d.ts", "backend/**/*.ts", "**/*.d.ts", "backend/schemas/resolvers.js"],
+	"include": ["frontend/**/*.ts", "frontend/**/*.tsx", "frontend/**/*.d.ts", "backend/**/*.ts", "**/*.d.ts", "backend/schemas/resolvers.ts"],
 	"exclude": ["node_modules", "frontend/dist", "backend/dist"],
 	"references": [{ "path": "frontend/tsconfig.vite.json" }]
 }

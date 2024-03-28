@@ -56,7 +56,6 @@ const schoolsSchema = new Schema<Schools>({
   address: {
     type: String,
   },
-
   city: {
     type: String,
   },

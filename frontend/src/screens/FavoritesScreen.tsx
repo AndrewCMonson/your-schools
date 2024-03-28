@@ -5,14 +5,7 @@ import { PageTitle, Rating } from "../components";
 import { useState, ReactElement } from "react";
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useSortedFavorites } from "../utils/useSort";
-
-interface School {
-  id: string;
-  name: string;
-  rating: number;
-  max_tuition: number;
-}
+import { useSortedFavorites } from "../hooks/useSortedFavorites";
 
 export const FavoritesScreen = (): ReactElement => {
   const [removeFavorite] = useMutation(REMOVE_FAVORITE);
@@ -34,7 +27,7 @@ export const FavoritesScreen = (): ReactElement => {
     }
   };
 
-  if (sortedFavorites.length === 0) {
+  if (sortedFavorites?.length === 0) {
     return (
       <section
         id="favoritesScreen"
@@ -67,22 +60,22 @@ export const FavoritesScreen = (): ReactElement => {
         >
           <option value="">Sort By</option>
           <option value="rating">Rating</option>
-          <option value="price_desc">Price(High to Low)</option>
-          <option value="price_asc">Price(Low to High)</option>
+          <option value="price_asc">Price(High to Low)</option>
+          <option value="price_desc">Price(Low to High)</option>
         </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-        {sortedFavorites.map((school: School) => (
-          <Card key={school.id} color="white" className="my-6 ">
+        {sortedFavorites?.map((school) => (
+          <Card key={school?.id} color="white" className="my-6 ">
             <CardBody className="flex flex-col">
               <h2 className="text-2xl mb-2 text-indigo-800 font-bold">
-                {school.name}
+                {school?.name}
               </h2>
-              <Rating value={school.rating} />
-              <p>Max Tuition ${school.max_tuition}</p>
+              <Rating value={school?.rating || 0} />
+              <p>Max Tuition ${school?.max_tuition}</p>
             </CardBody>
             <CardFooter>
-              <Link to={`/schools/${school.id}`}>
+              <Link to={`/schools/${school?.id}`}>
                 <Button color="indigo" size="lg" className="mr-3">
                   Visit
                 </Button>
@@ -90,7 +83,7 @@ export const FavoritesScreen = (): ReactElement => {
               <Button
                 color="red"
                 size="lg"
-                onClick={() => handleRemoveFavorite(school.id)}
+                onClick={() => handleRemoveFavorite(school?.id || "")}
                 className="mr-3"
               >
                 Remove

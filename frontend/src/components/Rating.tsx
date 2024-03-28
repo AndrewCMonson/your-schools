@@ -1,52 +1,52 @@
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 interface RatingProps {
-  value: number | null | undefined;
+  value: number;
 }
 
 export const Rating = ({ value }: RatingProps) => {
   return (
     <div className="rating flex">
       <span>
-        {value ?? 0 >= 1 ? (
+        {value >= 1 ? (
           <FaStar />
-        ) : value ?? 0 >= 0.5 ? (
+        ) : value >= 0.5 ? (
           <FaStarHalfAlt />
         ) : (
           <FaRegStar />
         )}
       </span>
       <span>
-        {value ?? 0 >= 2 ? (
+        {value >= 2 ? (
           <FaStar />
-        ) : value ?? 0 >= 1.5 ? (
+        ) : value >= 1.5 ? (
           <FaStarHalfAlt />
         ) : (
           <FaRegStar />
         )}
       </span>
       <span>
-        {value ?? 0 >= 3 ? (
+        {value >= 3 ? (
           <FaStar />
-        ) : value ?? 0 >= 2.5 ? (
+        ) : value >= 2.5 ? (
           <FaStarHalfAlt />
         ) : (
           <FaRegStar />
         )}
       </span>
       <span>
-        {value ?? 0 >= 4 ? (
+        {value >= 4 ? (
           <FaStar />
-        ) : value ?? 0 >= 3.5 ? (
+        ) : value >= 3.5 ? (
           <FaStarHalfAlt />
         ) : (
           <FaRegStar />
         )}
       </span>
       <span>
-        {value ?? 0 >= 5 ? (
+        {value >= 5 ? (
           <FaStar />
-        ) : value ?? 0 >= 4.5 ? (
+        ) : value >= 4.5 ? (
           <FaStarHalfAlt />
         ) : (
           <FaRegStar />

@@ -3,8 +3,7 @@ import { useState, FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import { School, PageTitle } from "../components";
 import { Button, Input } from "@material-tailwind/react";
-import { useQuery } from "@apollo/client";
-import { GET_SCHOOLS } from "../utils/queries";
+import { useGetSchools } from "../hooks/useGetSchools";
 import { LoadingScreen } from ".";
 
 export const SchoolsScreen = (): ReactElement => {
@@ -25,9 +24,7 @@ export const SchoolsScreen = (): ReactElement => {
     setSearch(true);
   };
 
-  const { loading, error, data } = useQuery(GET_SCHOOLS, {
-    variables: { zipcode },
-  });
+  const { loading, error, data: schools } = useGetSchools(zipcode);
 
   if (loading)
     return (
@@ -69,11 +66,11 @@ export const SchoolsScreen = (): ReactElement => {
           </Button>
         </form>
 
-        {(data?.schools?.length ?? 1) === 0 && search ? (
+        {schools.length === 0 && search ? (
           <div className="text-center text-2xl mt-8">No schools found</div>
         ) : (
           <div className="flex flex-col min-w-1/2 ">
-            {data?.schools?.map((school) => (
+            {schools.map((school) => (
               <School key={school?.id} school={school} />
             ))}
           </div>

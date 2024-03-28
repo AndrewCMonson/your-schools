@@ -19,22 +19,22 @@ export type Scalars = {
 export type Auth = {
   __typename?: 'Auth';
   token: Scalars['ID']['output'];
-  user?: Maybe<User>;
+  user: Maybe<User>;
 };
 
 export type Image = {
   __typename?: 'Image';
-  alt?: Maybe<Scalars['String']['output']>;
-  owner?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
+  alt: Maybe<Scalars['String']['output']>;
+  owner: Maybe<Scalars['String']['output']>;
+  url: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addToFavorites?: Maybe<User>;
-  addUser?: Maybe<Auth>;
-  login?: Maybe<Auth>;
-  removeFromFavorites?: Maybe<User>;
+  addToFavorites: Maybe<User>;
+  addUser: Maybe<Auth>;
+  login: Maybe<Auth>;
+  removeFromFavorites: Maybe<User>;
 };
 
 
@@ -62,15 +62,15 @@ export type MutationRemoveFromFavoritesArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  getFavorites?: Maybe<Array<Maybe<User>>>;
-  me?: Maybe<User>;
-  school?: Maybe<School>;
-  schools?: Maybe<Array<Maybe<School>>>;
+  getFavorites: Array<Maybe<User>>;
+  me: User;
+  school: School;
+  schools: Array<School>;
 };
 
 
 export type QueryGetFavoritesArgs = {
-  username?: InputMaybe<Scalars['String']['input']>;
+  username: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80,47 +80,47 @@ export type QuerySchoolArgs = {
 
 
 export type QuerySchoolsArgs = {
-  zipcode?: InputMaybe<Scalars['String']['input']>;
+  zipcode: InputMaybe<Scalars['String']['input']>;
 };
 
 export type School = {
   __typename?: 'School';
-  address?: Maybe<Scalars['String']['output']>;
-  age_range?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
-  city?: Maybe<Scalars['String']['output']>;
-  closing_hours?: Maybe<Scalars['String']['output']>;
-  days_closed?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  days_open?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  description?: Maybe<Scalars['String']['output']>;
-  early_enrollment?: Maybe<Scalars['Boolean']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['ID']['output']>;
-  images?: Maybe<Array<Maybe<Image>>>;
-  latitude?: Maybe<Scalars['Float']['output']>;
-  longitude?: Maybe<Scalars['Float']['output']>;
-  max_enrollment?: Maybe<Scalars['Int']['output']>;
-  max_student_teacher_ratio?: Maybe<Scalars['Float']['output']>;
-  max_tuition?: Maybe<Scalars['Int']['output']>;
-  min_enrollment?: Maybe<Scalars['Int']['output']>;
-  min_student_teacher_ratio?: Maybe<Scalars['Float']['output']>;
-  min_tuition?: Maybe<Scalars['Int']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  offers_daycare?: Maybe<Scalars['Boolean']['output']>;
-  opening_hours?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  rating?: Maybe<Scalars['Float']['output']>;
-  state?: Maybe<Scalars['String']['output']>;
-  website?: Maybe<Scalars['String']['output']>;
-  zipcode?: Maybe<Scalars['String']['output']>;
+  address: Scalars['String']['output'];
+  age_range: Maybe<Array<Scalars['Int']['output']>>;
+  city: Scalars['String']['output'];
+  closing_hours: Scalars['String']['output'];
+  days_closed: Maybe<Array<Scalars['String']['output']>>;
+  days_open: Maybe<Array<Scalars['String']['output']>>;
+  description: Scalars['String']['output'];
+  early_enrollment: Scalars['Boolean']['output'];
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  images: Maybe<Array<Image>>;
+  latitude: Scalars['Float']['output'];
+  longitude: Scalars['Float']['output'];
+  max_enrollment: Scalars['Int']['output'];
+  max_student_teacher_ratio: Scalars['Float']['output'];
+  max_tuition: Scalars['Int']['output'];
+  min_enrollment: Scalars['Int']['output'];
+  min_student_teacher_ratio: Scalars['Float']['output'];
+  min_tuition: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  offers_daycare: Scalars['Boolean']['output'];
+  opening_hours: Scalars['String']['output'];
+  phone: Scalars['String']['output'];
+  rating: Scalars['Float']['output'];
+  state: Scalars['String']['output'];
+  website: Scalars['String']['output'];
+  zipcode: Scalars['String']['output'];
 };
 
 export type User = {
   __typename?: 'User';
-  email?: Maybe<Scalars['String']['output']>;
-  favorites?: Maybe<Array<Maybe<School>>>;
-  id?: Maybe<Scalars['ID']['output']>;
-  password?: Maybe<Scalars['String']['output']>;
-  username?: Maybe<Scalars['String']['output']>;
+  email: Maybe<Scalars['String']['output']>;
+  favorites: Maybe<Array<Maybe<School>>>;
+  id: Maybe<Scalars['ID']['output']>;
+  password: Maybe<Scalars['String']['output']>;
+  username: Maybe<Scalars['String']['output']>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -129,7 +129,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'Auth', token: string, user?: { __typename?: 'User', id?: string | null, username?: string | null } | null } | null };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string | null, username: string | null } | null } | null };
 
 export type AddUserMutationVariables = Exact<{
   username: Scalars['String']['input'];
@@ -138,40 +138,40 @@ export type AddUserMutationVariables = Exact<{
 }>;
 
 
-export type AddUserMutation = { __typename?: 'Mutation', addUser?: { __typename?: 'Auth', token: string, user?: { __typename?: 'User', id?: string | null, username?: string | null } | null } | null };
+export type AddUserMutation = { __typename?: 'Mutation', addUser: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string | null, username: string | null } | null } | null };
 
 export type AddToFavoritesMutationVariables = Exact<{
   schoolId: Scalars['ID']['input'];
 }>;
 
 
-export type AddToFavoritesMutation = { __typename?: 'Mutation', addToFavorites?: { __typename?: 'User', id?: string | null, username?: string | null, favorites?: Array<{ __typename?: 'School', id?: string | null, name?: string | null } | null> | null } | null };
+export type AddToFavoritesMutation = { __typename?: 'Mutation', addToFavorites: { __typename?: 'User', id: string | null, username: string | null, favorites: Array<{ __typename?: 'School', id: string, name: string } | null> | null } | null };
 
 export type RemoveFromFavoritesMutationVariables = Exact<{
   schoolId: Scalars['ID']['input'];
 }>;
 
 
-export type RemoveFromFavoritesMutation = { __typename?: 'Mutation', removeFromFavorites?: { __typename?: 'User', id?: string | null, username?: string | null, favorites?: Array<{ __typename?: 'School', id?: string | null, name?: string | null } | null> | null } | null };
+export type RemoveFromFavoritesMutation = { __typename?: 'Mutation', removeFromFavorites: { __typename?: 'User', id: string | null, username: string | null, favorites: Array<{ __typename?: 'School', id: string, name: string } | null> | null } | null };
 
 export type SchoolsQueryVariables = Exact<{
-  zipcode?: InputMaybe<Scalars['String']['input']>;
+  zipcode: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SchoolsQuery = { __typename?: 'Query', schools?: Array<{ __typename?: 'School', id?: string | null, name?: string | null, address?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, latitude?: number | null, longitude?: number | null, phone?: string | null, website?: string | null, email?: string | null, rating?: number | null, max_tuition?: number | null } | null> | null };
+export type SchoolsQuery = { __typename?: 'Query', schools: Array<{ __typename?: 'School', id: string, name: string, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, rating: number, max_tuition: number }> };
 
 export type SchoolQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type SchoolQuery = { __typename?: 'Query', school?: { __typename?: 'School', id?: string | null, name?: string | null, address?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, latitude?: number | null, longitude?: number | null, phone?: string | null, website?: string | null, email?: string | null, description?: string | null, rating?: number | null, offers_daycare?: boolean | null, age_range?: Array<number | null> | null, early_enrollment?: boolean | null, min_tuition?: number | null, max_tuition?: number | null, days_open?: Array<string | null> | null, days_closed?: Array<string | null> | null, opening_hours?: string | null, closing_hours?: string | null, min_enrollment?: number | null, max_enrollment?: number | null, min_student_teacher_ratio?: number | null, max_student_teacher_ratio?: number | null, images?: Array<{ __typename?: 'Image', url?: string | null, alt?: string | null, owner?: string | null } | null> | null } | null };
+export type SchoolQuery = { __typename?: 'Query', school: { __typename?: 'School', id: string, name: string, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, description: string, rating: number, offers_daycare: boolean, age_range: Array<number> | null, early_enrollment: boolean, min_tuition: number, max_tuition: number, days_open: Array<string> | null, days_closed: Array<string> | null, opening_hours: string, closing_hours: string, min_enrollment: number, max_enrollment: number, min_student_teacher_ratio: number, max_student_teacher_ratio: number, images: Array<{ __typename?: 'Image', url: string | null, alt: string | null, owner: string | null }> | null } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id?: string | null, username?: string | null, email?: string | null, favorites?: Array<{ __typename?: 'School', id?: string | null, name?: string | null, address?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, latitude?: number | null, longitude?: number | null, phone?: string | null, website?: string | null, email?: string | null, rating?: number | null, age_range?: Array<number | null> | null, max_tuition?: number | null } | null> | null } | null };
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string | null, username: string | null, email: string | null, favorites: Array<{ __typename?: 'School', id: string, name: string, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, rating: number, age_range: Array<number> | null, max_tuition: number } | null> | null } };
 
 
 export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;

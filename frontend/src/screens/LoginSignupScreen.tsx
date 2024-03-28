@@ -42,7 +42,7 @@ export const LoginSignupScreen = (): ReactElement => {
         variables: { ...userFormData },
       });
 
-      loginUser(data.login.token);
+      loginUser(data?.login?.token ?? "");
     } catch (e) {
       toast.error("Invalid credentials");
     }
@@ -73,7 +73,7 @@ export const LoginSignupScreen = (): ReactElement => {
         variables: { ...userFormData },
       });
 
-      loginUser(data.addUser.token);
+      loginUser(data?.addUser?.token ?? "");
     } catch (e) {
       console.error(e);
     }
