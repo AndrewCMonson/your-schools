@@ -2,11 +2,11 @@ const typedefs = `
 type Image {
     url: String
     alt: String
-    owner: String
+    owner: ObjectId
 } 
 
 type Auth {
-    token: ID!
+    token: ID! 
     user: User
   }
   
@@ -15,12 +15,12 @@ type User {
     username: String
     email: String
     password: String
-    favorites: [School]
+    favorites: [School!]
 }
 
 type School {
-    id: ID!
-    name: String!
+    id: ID
+    name: String
     address: String!
     city: String!
     state: String!
@@ -45,7 +45,7 @@ type School {
     max_enrollment: Int!
     min_student_teacher_ratio: Float!
     max_student_teacher_ratio: Float!
-    images: [Image!]
+    images: [Image]
   }
   
   type Query {
@@ -61,6 +61,8 @@ type School {
     addToFavorites(schoolId: ID!): User
     removeFromFavorites(schoolId: ID!): User
   }
+
+  scalar ObjectId
   `;
 
 export default typedefs;

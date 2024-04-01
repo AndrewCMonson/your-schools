@@ -1,14 +1,15 @@
 import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-interface User {
+interface UserAttributes {
   username: string;
   email: string;
   password: string;
   favorites: Array<Types.ObjectId>;
+  isCorrectPassword: (password: string) => Promise<boolean>;
 }
 
-const userSchema = new Schema<User>({
+export const userSchema = new Schema<UserAttributes>({
   username: {
     type: String,
     required: true,
@@ -24,6 +25,7 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
+  // favoriteIds
   favorites: [
     {
       type: Schema.Types.ObjectId,
@@ -45,6 +47,4 @@ userSchema.methods.isCorrectPassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model("user", userSchema);
-
-export { User, userSchema };
+export const User = model("user", userSchema);

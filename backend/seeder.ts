@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import process from "process";
 import connectDB from "./config/db.ts";
-import { User, School } from "./models";
-import { users, schools } from "./data";
+import { User, School } from "./models/index.ts";
+import { users, schools } from "./data/index.ts";
 
 dotenv.config();
 

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,27 +15,28 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  ObjectId: { input: ObjectId; output: ObjectId; }
 };
 
 export type Auth = {
   __typename?: 'Auth';
   token: Scalars['ID']['output'];
-  user: Maybe<User>;
+  user?: Maybe<User>;
 };
 
 export type Image = {
   __typename?: 'Image';
-  alt: Maybe<Scalars['String']['output']>;
-  owner: Maybe<Scalars['String']['output']>;
-  url: Maybe<Scalars['String']['output']>;
+  alt?: Maybe<Scalars['String']['output']>;
+  owner?: Maybe<Scalars['ObjectId']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addToFavorites: Maybe<User>;
-  addUser: Maybe<Auth>;
-  login: Maybe<Auth>;
-  removeFromFavorites: Maybe<User>;
+  addToFavorites?: Maybe<User>;
+  addUser?: Maybe<Auth>;
+  login?: Maybe<Auth>;
+  removeFromFavorites?: Maybe<User>;
 };
 
 
@@ -71,7 +72,7 @@ export type Query = {
 
 
 export type QueryGetFavoritesArgs = {
-  username: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81,22 +82,22 @@ export type QuerySchoolArgs = {
 
 
 export type QuerySchoolsArgs = {
-  zipcode: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type School = {
   __typename?: 'School';
   address: Scalars['String']['output'];
-  age_range: Maybe<Array<Scalars['Int']['output']>>;
+  age_range?: Maybe<Array<Scalars['Int']['output']>>;
   city: Scalars['String']['output'];
   closing_hours: Scalars['String']['output'];
-  days_closed: Maybe<Array<Scalars['String']['output']>>;
-  days_open: Maybe<Array<Scalars['String']['output']>>;
+  days_closed?: Maybe<Array<Scalars['String']['output']>>;
+  days_open?: Maybe<Array<Scalars['String']['output']>>;
   description: Scalars['String']['output'];
   early_enrollment: Scalars['Boolean']['output'];
   email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  images: Maybe<Array<Image>>;
+  id?: Maybe<Scalars['ID']['output']>;
+  images?: Maybe<Array<Maybe<Image>>>;
   latitude: Scalars['Float']['output'];
   longitude: Scalars['Float']['output'];
   max_enrollment: Scalars['Int']['output'];
@@ -105,7 +106,7 @@ export type School = {
   min_enrollment: Scalars['Int']['output'];
   min_student_teacher_ratio: Scalars['Float']['output'];
   min_tuition: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   offers_daycare: Scalars['Boolean']['output'];
   opening_hours: Scalars['String']['output'];
   phone: Scalars['String']['output'];
@@ -117,11 +118,16 @@ export type School = {
 
 export type User = {
   __typename?: 'User';
-  email: Maybe<Scalars['String']['output']>;
-  favorites: Maybe<Array<Maybe<School>>>;
-  id: Maybe<Scalars['ID']['output']>;
-  password: Maybe<Scalars['String']['output']>;
-  username: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  favorites: Array<School>;
+  id?: Maybe<Scalars['ID']['output']>;
+  password?: Maybe<Scalars['String']['output']>;
+  username?: Maybe<Scalars['String']['output']>;
+};
+
+export type AdditionalEntityFields = {
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -200,12 +206,14 @@ export type ResolversTypes = {
   Image: ResolverTypeWrapper<Image>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
   School: ResolverTypeWrapper<School>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   User: ResolverTypeWrapper<User>;
+  AdditionalEntityFields: AdditionalEntityFields;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -215,87 +223,153 @@ export type ResolversParentTypes = {
   Image: Image;
   String: Scalars['String']['output'];
   Mutation: {};
+  ObjectId: Scalars['ObjectId']['output'];
   Query: {};
   School: School;
   Int: Scalars['Int']['output'];
   Boolean: Scalars['Boolean']['output'];
   Float: Scalars['Float']['output'];
   User: User;
+  AdditionalEntityFields: AdditionalEntityFields;
 };
 
+export type UnionDirectiveArgs = {
+  discriminatorField?: Maybe<Scalars['String']['input']>;
+  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
+};
+
+export type UnionDirectiveResolver<Result, Parent, ContextType = any, Args = UnionDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type AbstractEntityDirectiveArgs = {
+  discriminatorField: Scalars['String']['input'];
+  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
+};
+
+export type AbstractEntityDirectiveResolver<Result, Parent, ContextType = any, Args = AbstractEntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type EntityDirectiveArgs = {
+  embedded?: Maybe<Scalars['Boolean']['input']>;
+  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
+};
+
+export type EntityDirectiveResolver<Result, Parent, ContextType = any, Args = EntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ColumnDirectiveArgs = {
+  overrideType?: Maybe<Scalars['String']['input']>;
+};
+
+export type ColumnDirectiveResolver<Result, Parent, ContextType = any, Args = ColumnDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type IdDirectiveArgs = { };
+
+export type IdDirectiveResolver<Result, Parent, ContextType = any, Args = IdDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type LinkDirectiveArgs = {
+  overrideType?: Maybe<Scalars['String']['input']>;
+};
+
+export type LinkDirectiveResolver<Result, Parent, ContextType = any, Args = LinkDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type EmbeddedDirectiveArgs = { };
+
+export type EmbeddedDirectiveResolver<Result, Parent, ContextType = any, Args = EmbeddedDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type MapDirectiveArgs = {
+  path: Scalars['String']['input'];
+};
+
+export type MapDirectiveResolver<Result, Parent, ContextType = any, Args = MapDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
-  token: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  user: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  token?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
-  alt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  owner: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  url: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['ObjectId']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addToFavorites: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
-  addUser: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
-  login: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
-  removeFromFavorites: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
+  addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
+  addUser?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
+  login?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
 };
 
+export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ObjectId'], any> {
+  name: 'ObjectId';
+}
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getFavorites: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, QueryGetFavoritesArgs>;
-  me: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  school: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
-  schools: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType, QuerySchoolsArgs>;
+  getFavorites?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, Partial<QueryGetFavoritesArgs>>;
+  me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  school?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
+  schools?: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType, Partial<QuerySchoolsArgs>>;
 };
 
 export type SchoolResolvers<ContextType = any, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
-  address: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  age_range: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
-  city: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  closing_hours: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  days_closed: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
-  days_open: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
-  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  early_enrollment: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  email: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
-  latitude: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  longitude: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  max_enrollment: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  max_student_teacher_ratio: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  max_tuition: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  min_enrollment: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  min_student_teacher_ratio: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  min_tuition: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  offers_daycare: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  opening_hours: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  phone: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  rating: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  state: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  website: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  zipcode: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  age_range?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  closing_hours?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  days_closed?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  days_open?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  early_enrollment?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  images?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max_enrollment?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  max_student_teacher_ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max_tuition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  min_enrollment?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  min_student_teacher_ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  min_tuition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  offers_daycare?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  opening_hours?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zipcode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  email: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  favorites: Resolver<Maybe<Array<Maybe<ResolversTypes['School']>>>, ParentType, ContextType>;
-  id: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  password: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  username: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  favorites?: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  Auth: AuthResolvers<ContextType>;
-  Image: ImageResolvers<ContextType>;
-  Mutation: MutationResolvers<ContextType>;
-  Query: QueryResolvers<ContextType>;
-  School: SchoolResolvers<ContextType>;
-  User: UserResolvers<ContextType>;
+  Auth?: AuthResolvers<ContextType>;
+  Image?: ImageResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  ObjectId?: GraphQLScalarType;
+  Query?: QueryResolvers<ContextType>;
+  School?: SchoolResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };
 
+export type DirectiveResolvers<ContextType = any> = {
+  union?: UnionDirectiveResolver<any, any, ContextType>;
+  abstractEntity?: AbstractEntityDirectiveResolver<any, any, ContextType>;
+  entity?: EntityDirectiveResolver<any, any, ContextType>;
+  column?: ColumnDirectiveResolver<any, any, ContextType>;
+  id?: IdDirectiveResolver<any, any, ContextType>;
+  link?: LinkDirectiveResolver<any, any, ContextType>;
+  embedded?: EmbeddedDirectiveResolver<any, any, ContextType>;
+  map?: MapDirectiveResolver<any, any, ContextType>;
+};
+
+import { ObjectId } from 'mongodb';

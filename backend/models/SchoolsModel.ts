@@ -1,12 +1,12 @@
 import { Schema, Types, model } from "mongoose";
 
-interface Image {
+interface ImageAttributes {
   url: string;
   alt: string;
   owner: Types.ObjectId;
 }
 
-const imageSchema = new Schema<Image>({
+export const imageSchema = new Schema<ImageAttributes>({
   url: {
     type: String,
   },
@@ -45,10 +45,10 @@ interface Schools {
   max_enrollment: number;
   min_student_teacher_ratio: number;
   max_student_teacher_ratio: number;
-  images: Array<Image>;
+  images: Array<ImageAttributes>;
 }
 
-const schoolsSchema = new Schema<Schools>({
+export const schoolsSchema = new Schema<Schools>({
   name: {
     type: String,
     required: true,
@@ -128,6 +128,4 @@ const schoolsSchema = new Schema<Schools>({
   images: [imageSchema],
 });
 
-const School = model("school", schoolsSchema);
-
-export { School, schoolsSchema };
+export const School = model("school", schoolsSchema);

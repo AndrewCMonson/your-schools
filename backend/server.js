@@ -7,7 +7,7 @@ dotenv.config();
 import connectDB from "./config/db.ts";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { typeDefs, resolvers } from "./schemas/index.js";
+import { typeDefs, resolvers } from "./schemas/index";
 import { authMiddleware } from "./utils/auth.ts";
 import { fileURLToPath } from "url";
 

@@ -71,7 +71,7 @@ export const SchoolsScreen = (): ReactElement => {
         ) : (
           <div className="flex flex-col min-w-1/2 ">
             {schools.map((school) => (
-              <School key={school?.id} school={school} />
+              <School key={school.id} school={school} />
             ))}
           </div>
         )}

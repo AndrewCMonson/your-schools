@@ -10,37 +10,51 @@ import {
 
 const resolvers: Resolvers = {
   Query: {
-    schools: async (parent, args): Promise<SchoolType[]> => {
+    schools: async (_, args): Promise<SchoolType[]> => {
       const schools = await School.find({ zipcode: args.zipcode });
-      return schools.map((school) => school.toObject());
+      return schools;
     },
-    school: async (parent, { id }): Promise<SchoolType> => {
+    school: async (_, { id }): Promise<SchoolType> => {
       const school = await School.findById(id);
+
+      if (!school) {
+        throw new Error("No school found with this ID");
+      }
+
       return school;
     },
-    me: async (parent, args, context): Promise<UserType> => {
+    me: async (_, __, context): Promise<UserType> => {
       if (context.user) {
         const userData = await User.findOne({
           _id: context.user.data.id,
         }).select("-__v -password");
-        return userData;
+
+        if (!userData) {
+          throw new AuthenticationError("Cannot find a user with this id");
+        }
+
+        const favorites = await School.find({
+          _id: { $in: userData.favorites },
+        });
+
+        return { ...userData, favorites };
       }
 
       throw new AuthenticationError("Not logged in");
     },
-    getFavorites: async (parent, { username }) => {
+    getFavorites: async (_, { username }) => {
       const params = username ? { username } : {};
       return User.find(params).populate("favorites");
     },
   },
   Mutation: {
-    addUser: async (parent, { username, email, password }): Promise<Auth> => {
+    addUser: async (_, { username, email, password }): Promise<Auth> => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
 
       return { token, user };
     },
-    login: async (parent, { email, password }): Promise<Auth> => {
+    login: async (_, { email, password }): Promise<Auth> => {
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -56,7 +70,7 @@ const resolvers: Resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addToFavorites: async (parent, { schoolId }, context): Promise<UserType> => {
+    addToFavorites: async (_, { schoolId }, context): Promise<UserAttribute> => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user.data.id },
@@ -64,14 +78,20 @@ const resolvers: Resolvers = {
           { new: true },
         );
 
-        return updatedUser;
+        if (!updatedUser) {
+          throw new AuthenticationError("Couldn't find user with this id");
+        }
+
+        return updatedUser.id;
       }
 
-      if (!context.user) {
-        throw new AuthenticationError("You need to be logged in!");
-      }
+      throw new AuthenticationError("You need to be logged in!");
     },
-    removeFromFavorites: async (parent, { schoolId }, context) => {
+    removeFromFavorites: async (
+      _,
+      { schoolId },
+      context,
+    ): Promise<UserType> => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user.data.id },
@@ -79,7 +99,11 @@ const resolvers: Resolvers = {
           { new: true },
         );
 
-        return updatedUser;
+        if (!updatedUser) {
+          throw new AuthenticationError("Couldn't find user with this id");
+        }
+
+        return updatedUser.id;
       }
 
       throw new AuthenticationError("You need to be logged in!");
@@ -87,10 +111,9 @@ const resolvers: Resolvers = {
   },
   User: {
     id: (parent) => parent._id,
-    favorites: async (parent) =>
-      School.find({
-        _id: { $in: parent.favorites },
-      }),
+  },
+  School: {
+    id: (parent) => parent.id,
   },
 };
 
