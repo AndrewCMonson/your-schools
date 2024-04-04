@@ -1,23 +1,19 @@
 import process from "process";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request } from "express";
+import { User as UserType } from "../__generatedTypes__/graphql";
 
 const secret = process.env.JWT_SECRET;
 const expiration = process.env.JWT_EXPIRATION;
-
-interface User {
-  username: string;
-  _id: string;
-}
 
 interface CustomRequest extends Request {
   user: string | JwtPayload;
 }
 
-const signToken = (user: User) => {
+const signToken = (user: UserType) => {
   const data = {
     username: user.username,
-    id: user._id,
+    id: user.id,
   };
   return jwt.sign({ data }, secret, { expiresIn: expiration });
 };

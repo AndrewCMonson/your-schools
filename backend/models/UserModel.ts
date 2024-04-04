@@ -1,11 +1,11 @@
 import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-interface UserAttributes {
+export interface UserAttributes {
   username: string;
   email: string;
   password: string;
-  favorites: Array<Types.ObjectId>;
+  favoriteIds: Array<Types.ObjectId>;
   isCorrectPassword: (password: string) => Promise<boolean>;
 }
 
@@ -26,7 +26,7 @@ export const userSchema = new Schema<UserAttributes>({
     required: true,
   },
   // favoriteIds
-  favorites: [
+  favoriteIds: [
     {
       type: Schema.Types.ObjectId,
       ref: "School",

@@ -119,7 +119,7 @@ export type School = {
 export type User = {
   __typename?: 'User';
   email?: Maybe<Scalars['String']['output']>;
-  favorites: Array<School>;
+  favorites?: Maybe<Array<School>>;
   id?: Maybe<Scalars['ID']['output']>;
   password?: Maybe<Scalars['String']['output']>;
   username?: Maybe<Scalars['String']['output']>;
@@ -344,7 +344,7 @@ export type SchoolResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  favorites?: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType>;
+  favorites?: Resolver<Maybe<Array<ResolversTypes['School']>>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
