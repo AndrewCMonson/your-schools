@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Card,
   CardHeader,
@@ -10,16 +10,15 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { GoogleMap, Rating } from "../components";
-import { GET_ME } from "../utils/queries";
 import { ADD_FAVORITE } from "../utils/mutations";
 import { toast } from "react-toastify";
 import { loggedIn, getToken } from "../utils/auth";
-import { useGetSchool } from "../hooks/useGetSchool";
+import { useGetSchool, useGetMe } from "../hooks";
 
 export const SchoolScreen = (): ReactElement => {
   const { id } = useParams<string>();
-  const { loading, error, data: school } = useGetSchool(id ?? "");
-  const { data: userData } = useQuery(GET_ME);
+  const { loading, error, data: school } = useGetSchool(id || "");
+  const { data: me } = useGetMe();
   const [addToFavorites] = useMutation(ADD_FAVORITE);
 
   if (loading)
@@ -41,6 +40,7 @@ export const SchoolScreen = (): ReactElement => {
     try {
       await addToFavorites({
         variables: { schoolId: `${id}` },
+        refetchQueries: ["me"],
       });
     } catch (e: unknown) {
       console.error(e);
@@ -48,10 +48,8 @@ export const SchoolScreen = (): ReactElement => {
   };
 
   const isFavorite = (id?: string): boolean => {
-    if (userData?.me) {
-      const favorite = userData.me.favorites?.find(
-        (favorite) => favorite?.id === id,
-      );
+    if (me) {
+      const favorite = me.favorites?.find((favorite) => favorite?.id === id);
       return !!favorite;
     }
     return false;
