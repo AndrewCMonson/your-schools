@@ -28,33 +28,35 @@ export const LoginSignupScreen = (): ReactElement => {
   };
 
   const handleLoginFormSubmit = async (
-		event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>
-	) => {
-		event.preventDefault();
+    event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
 
-		if (!userFormData.email || !userFormData.password) {
-			toast.error('Please fill out all fields');
-			return;
-		}
+    if (!userFormData.email || !userFormData.password) {
+      toast.error("Please fill out all fields");
+      return;
+    }
 
-		try {
-			const { data } = await login({
-				variables: { ...userFormData },
-			});
+    try {
+      const { data } = await login({
+        variables: { ...userFormData },
+      });
 
-			loginUser(data.login.token);
-		} catch (e) {
-			toast.error('Invalid credentials');
-		}
+      loginUser(data?.login?.token ?? "");
+    } catch (e) {
+      toast.error("Invalid credentials");
+    }
 
-		setUserFormData({
-			username: '',
-			email: '',
-			password: '',
-		});
-	};
+    setUserFormData({
+      username: "",
+      email: "",
+      password: "",
+    });
+  };
 
-  const handleSignupFormSubmit = async (event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>) => {
+  const handleSignupFormSubmit = async (
+    event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>,
+  ) => {
     event.preventDefault();
 
     if (
@@ -71,7 +73,7 @@ export const LoginSignupScreen = (): ReactElement => {
         variables: { ...userFormData },
       });
 
-      loginUser(data.addUser.token);
+      loginUser(data?.addUser?.token ?? "");
     } catch (e) {
       console.error(e);
     }
@@ -83,12 +85,9 @@ export const LoginSignupScreen = (): ReactElement => {
     });
   };
 
-
-  // TODO: change if statements to conditional rendering
-  // if (screenSelected === "login") {
-    return (
-      <>
-       {screenSelected === "login" && (
+  return (
+    <>
+      {screenSelected === "login" && (
         <section
           id="loginSignupScreen"
           className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
@@ -150,8 +149,8 @@ export const LoginSignupScreen = (): ReactElement => {
             </form>
           </Card>
         </section>
-       )}
-       {screenSelected === "signup" && (
+      )}
+      {screenSelected === "signup" && (
         <section
           id="loginSignupScreen"
           className="h-full w-full pt-5 flex flex-row justify-center items-center overflow-scroll"
@@ -225,8 +224,7 @@ export const LoginSignupScreen = (): ReactElement => {
             </form>
           </Card>
         </section>
-        )}
-      </>
-    );
-  }
-      
+      )}
+    </>
+  );
+};

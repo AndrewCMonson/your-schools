@@ -6,7 +6,7 @@ type LDataProps = {
   long_name: string;
   short_name: string;
   types: string[];
-}
+};
 
 export const HomeScreen = (): ReactElement => {
   const navigate = useNavigate();
@@ -31,11 +31,12 @@ export const HomeScreen = (): ReactElement => {
         )
           .then((response) => response.json())
           .then((data) => {
+            console.log(data.results[0]?.address_components);
             const zipcode = data.results[0]?.address_components.find(
-              (component: LDataProps) => component.types.includes("postal_code"),
+              (component: LDataProps) =>
+                component.types.includes("postal_code"),
             ).long_name;
 
-            
             if (!zipcode) {
               navigate("/schools");
               return;
@@ -67,7 +68,9 @@ export const HomeScreen = (): ReactElement => {
 
           <div className="container mx-auto flex flex-row justify-center mt-4">
             <form
-              onSubmit={(event: FormEvent<HTMLFormElement>) => handleSearchSubmit(event)}
+              onSubmit={(event: FormEvent<HTMLFormElement>) =>
+                handleSearchSubmit(event)
+              }
               className="container mx-auto relative flex w-full max-w-[24rem]"
             >
               <Input

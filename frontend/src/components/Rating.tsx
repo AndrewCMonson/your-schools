@@ -55,4 +55,3 @@ export const Rating = ({ value }: RatingProps) => {
     </div>
   );
 };
-

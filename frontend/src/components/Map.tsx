@@ -8,10 +8,10 @@ import {
 
 interface GoogleMapProps {
   location: {
-    name: string;
-    address: string;
-    latitude: number;
-    longitude: number;
+    name: string | null | undefined;
+    address: string | null | undefined;
+    latitude: number | null | undefined;
+    longitude: number | null | undefined;
   };
 }
 
@@ -23,12 +23,22 @@ export const GoogleMap = ({ location }: GoogleMapProps) => {
       <div className="h-full w-full">
         <Map
           zoom={12}
-          center={position}
+          center={
+            position
+              ? { lat: position.lat || 0, lng: position.lng || 0 }
+              : undefined
+          }
           mapId={import.meta.env.VITE_GOOGLE_MAPS_ID}
           gestureHandling={"greedy"}
           disableDefaultUI={true}
         >
-          <AdvancedMarker position={position}>
+          <AdvancedMarker
+            position={
+              position
+                ? { lat: position.lat || 0, lng: position.lng || 0 }
+                : undefined
+            }
+          >
             <Pin />
             <InfoWindow>
               <div>

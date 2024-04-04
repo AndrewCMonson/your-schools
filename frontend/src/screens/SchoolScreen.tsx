@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Card,
   CardHeader,
@@ -10,36 +10,15 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { GoogleMap, Rating } from "../components";
-import { GET_SCHOOL, GET_ME } from "../utils/queries";
 import { ADD_FAVORITE } from "../utils/mutations";
 import { toast } from "react-toastify";
 import { loggedIn, getToken } from "../utils/auth";
-
-export interface FavoritesData {
-    address: string;
-    age_range: number[];
-    city: string;
-    email: string;
-    id: string;
-    latitude: number;
-    longitude: number;
-    max_tuition: number;
-    name: string;
-    phone: string;
-    rating: number;
-    website: string;
-    zipcode: string;
-}
+import { useGetSchool, useGetMe } from "../hooks";
 
 export const SchoolScreen = (): ReactElement => {
   const { id } = useParams<string>();
-
-  const { loading, error, data } = useQuery(GET_SCHOOL, {
-    variables: { id },
-  });
-
-  const { data: userData } = useQuery(GET_ME);
-
+  const { loading, error, data: school } = useGetSchool(id || "");
+  const { data: me } = useGetMe();
   const [addToFavorites] = useMutation(ADD_FAVORITE);
 
   if (loading)
@@ -61,6 +40,7 @@ export const SchoolScreen = (): ReactElement => {
     try {
       await addToFavorites({
         variables: { schoolId: `${id}` },
+        refetchQueries: ["me"],
       });
     } catch (e: unknown) {
       console.error(e);
@@ -68,11 +48,18 @@ export const SchoolScreen = (): ReactElement => {
   };
 
   const isFavorite = (id?: string): boolean => {
-    if (userData) {
-      const favorite = userData.me.favorites.find((favorite: FavoritesData) => favorite.id === id);
-      return !!favorite
+    if (me) {
+      const favorite = me.favorites?.find((favorite) => favorite?.id === id);
+      return !!favorite;
     }
     return false;
+  };
+
+  const schoolLocationData = {
+    name: school?.name,
+    address: school?.address,
+    latitude: school?.latitude,
+    longitude: school?.longitude,
   };
 
   return (
@@ -88,12 +75,12 @@ export const SchoolScreen = (): ReactElement => {
                     mx-5 h-auto"
           >
             <h1 className="text-indigo-800 font-bold text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl p-6">
-              {data.school.name}
+              {school?.name}
             </h1>
             <CardBody className="flex flex-col">
               <div className="flex flex-col justify-between w-full md:flex-col">
-                <Rating value={data.school.rating} />
-                <div className="">{`${data.school.age_range[0]} - ${data.school.age_range[1]} years old`}</div>
+                <Rating value={school?.rating || 0} />
+                <div className="">{`${school?.age_range?.[0]} - ${school?.age_range?.[1]} years old`}</div>
 
                 {}
                 {isFavorite(id) ? (
@@ -114,23 +101,21 @@ export const SchoolScreen = (): ReactElement => {
               <div className="h-0.5 bg-black my-6"></div>
               <div className="lg:flex lg:justify-between">
                 <div className="lg:w-1/2 mb-6 lg:mr-6">
-                  <div className="mb-2 2xl:text-xl">
-                    {data.school.description}
-                  </div>
+                  <div className="mb-2 2xl:text-xl">{school?.description}</div>
                   <div className="my-2">
                     <div className="text-lg font-bold 2xl:text-2xl">
                       Tuition
                     </div>
-                    <div className="2xl:text-xl">{`$${data.school.min_tuition} - $${data.school.max_tuition}`}</div>
+                    <div className="2xl:text-xl">{`$${school?.min_tuition} - $${school?.max_tuition}`}</div>
                   </div>
                   <div className="my-2">
                     <div className="text-lg font-bold 2xl:text-2xl">
                       Enrollment
                     </div>
                     <div className="2xl:text-xl">
-                      {`${data.school.min_enrollment} - ${data.school.max_enrollment} students`}
+                      {`${school?.min_enrollment} - ${school?.max_enrollment} students`}
                     </div>
-                    {data.school.early_enrollment && (
+                    {school?.early_enrollment && (
                       <div>Early enrollment available</div>
                     )}
                   </div>
@@ -139,18 +124,20 @@ export const SchoolScreen = (): ReactElement => {
                       Days Open
                     </div>
                     <div className="2xl:text-xl">
-                      {data.school.days_open.join(", ")}
+                      {school?.days_open?.join(", ")}
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {data.school.images.map(({ url }: { url: string }, index: number) => (
+                  {school?.images?.map((image, index) => (
                     <div className="flex justify-center" key={index}>
-                      <img
-                        className="h-40 w-40 max-w-full rounded-lg object-cover object-center"
-                        src={url}
-                        alt="gallery-photo"
-                      />
+                      {image?.url && (
+                        <img
+                          className="h-40 w-40 max-w-full rounded-lg object-cover object-center"
+                          src={image.url}
+                          alt={image.alt ?? "school image"}
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -163,28 +150,27 @@ export const SchoolScreen = (): ReactElement => {
                     mx-5 md:h-96 lg:w-96 "
           >
             <CardHeader className="relative mt-6 h-36">
-              <GoogleMap location={data.school} />
+              <GoogleMap location={schoolLocationData} />
             </CardHeader>
             <CardBody>
-              <div className="">{data.school.address}</div>
+              <div className="">{school?.address}</div>
               <div className="">
-                {data.school.city}, {data.school.state} {data.school.zipcode}
+                {school?.city}, {school?.state} {school?.zipcode}
               </div>
-              <div className="">{data.school.phone}</div>
-              <div className="">{data.school.type}</div>
+              <div className="">{school?.phone}</div>
             </CardBody>
             <CardFooter className="flex">
               <Button
                 color="indigo"
                 ripple={true}
                 onClick={() =>
-                  (window.location.href = `mailto:${data.school.website}`)
+                  (window.location.href = `mailto:${school?.website}`)
                 }
               >
                 Email
               </Button>
               <Link
-                to={data.school.website}
+                to={school?.website ?? ""}
                 target="_blank"
                 rel="noreferrer noopener"
               >
