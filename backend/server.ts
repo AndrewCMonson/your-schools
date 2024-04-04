@@ -3,13 +3,15 @@ import dotenv from "dotenv";
 import process from "process";
 import cors from "cors";
 import path, { dirname } from "path";
-dotenv.config();
-import connectDB from "./config/db.ts";
+import connectDB from "./config/db";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { typeDefs, resolvers } from "./schemas/index";
-import { authMiddleware } from "./utils/auth.ts";
+import { authMiddleware } from "./utils/auth";
 import { fileURLToPath } from "url";
+import { BaseContext } from "@apollo/server";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3005;
 
@@ -18,7 +20,7 @@ const __dirname = dirname(__filename);
 
 const startServer = async () => {
   const app = express();
-  const server = new ApolloServer({
+  const server = new ApolloServer<BaseContext>({
     typeDefs,
     resolvers,
   });
@@ -36,7 +38,7 @@ const startServer = async () => {
 
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
-    app.get("*", (req, res) => {
+    app.get("*", (_, res) => {
       res.sendFile(
         path.resolve(__dirname, "../frontend", "dist", "index.html"),
       );

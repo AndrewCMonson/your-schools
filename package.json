@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"server": "tsx watch backend/server.js",
+		"server": "tsx watch backend/server.ts",
 		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
 		"render-build": "npm install && npm run build",
 		"client": "npm start --prefix frontend",
