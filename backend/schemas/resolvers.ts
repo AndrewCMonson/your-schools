@@ -97,8 +97,6 @@ const resolvers: Resolvers = {
       if (!context.user)
         throw new AuthenticationError("You need to be logged in");
 
-      console.log(context.user);
-
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user.data.id },
         { $addToSet: { favoriteIds: schoolId } },
