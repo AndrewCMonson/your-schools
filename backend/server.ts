@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 import process from "process";
 import cors from "cors";
 import path, { dirname } from "path";
-import connectDB from "./config/db";
+import connectDB from "./config/db.ts";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { typeDefs, resolvers } from "./schemas/index";
-import { authMiddleware } from "./utils/auth";
+import { typeDefs, resolvers } from "./schemas/index.ts";
+import { authMiddleware } from "./utils/auth.ts";
 import { fileURLToPath } from "url";
 import { BaseContext } from "@apollo/server";
 

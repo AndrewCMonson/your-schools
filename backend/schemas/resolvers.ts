@@ -1,7 +1,7 @@
-import { School, User } from "../models";
-import { UserAttributes } from "../models/UserModel";
+import { School, User } from "../models/index.ts";
+import { UserAttributes } from "../models/UserModel.ts";
 import { AuthenticationError } from "apollo-server-express";
-import { signToken } from "../utils/auth";
+import { signToken } from "../utils/auth.ts";
 import {
   Auth,
   Resolvers,

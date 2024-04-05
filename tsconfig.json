@@ -29,5 +29,12 @@
 	},
 	"include": ["frontend/**/*.ts", "frontend/**/*.tsx", "frontend/**/*.d.ts", "backend/**/*.ts", "**/*.d.ts", "backend/schemas/resolvers.ts"],
 	"exclude": ["node_modules", "frontend/dist", "backend/dist"],
-	"references": [{ "path": "frontend/tsconfig.vite.json" }]
+	"references": [{ "path": "frontend/tsconfig.vite.json" }],
+	"ts-node": {
+		"esm": true,
+		"transpileOnly": true,
+		"compilerOptions": {
+			"module": "ESNext",
+		}
+	}
 }
