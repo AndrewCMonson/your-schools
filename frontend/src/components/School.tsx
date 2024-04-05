@@ -14,7 +14,7 @@ interface SchoolProps {
   max_tuition?: number | null | undefined;
 }
 
-export const School = ({ school }: { school: SchoolProps | null }) => {
+export const School = ({ school }: { school: SchoolProps }) => {
   return (
     <Card className="w-100 h-full my-4 mx-4">
       <CardBody className="flex flex-col p-4">
@@ -27,9 +27,7 @@ export const School = ({ school }: { school: SchoolProps | null }) => {
             {school?.city}, {school?.state} {school?.zipcode}
           </div>
           <div>{school?.phone}</div>
-          <div>
-            <Rating value={school?.rating} />
-          </div>
+          <div>{school?.rating && <Rating value={school?.rating} />}</div>
           <div>{school?.max_tuition ?? 0 > 1000 ? "$$$$" : "$$$"}</div>
         </div>
       </CardBody>

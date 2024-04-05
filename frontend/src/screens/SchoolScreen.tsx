@@ -79,7 +79,7 @@ export const SchoolScreen = (): ReactElement => {
             </h1>
             <CardBody className="flex flex-col">
               <div className="flex flex-col justify-between w-full md:flex-col">
-                <Rating value={school?.rating || 0} />
+                {school?.rating && <Rating value={school?.rating} />}
                 <div className="">{`${school?.age_range?.[0]} - ${school?.age_range?.[1]} years old`}</div>
 
                 {}
