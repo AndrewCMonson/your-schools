@@ -10,6 +10,7 @@ import { typeDefs, resolvers } from "./schemas/index.ts";
 import { authMiddleware } from "./utils/auth.ts";
 import { fileURLToPath } from "url";
 import { BaseContext } from "@apollo/server";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ const startServer = async () => {
     "/graphql",
     express.json(),
     cors(),
+    cookieParser(),
     express.urlencoded({ extended: true }),
     expressMiddleware(server, {
       context: authMiddleware,
