@@ -19,6 +19,11 @@ const PORT = process.env.PORT || 3005;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+
 const startServer = async () => {
   const app = express();
   const server = new ApolloServer<BaseContext>({
@@ -30,7 +35,7 @@ const startServer = async () => {
   app.use(
     "/graphql",
     express.json(),
-    cors(),
+    cors(corsOptions),
     cookieParser(),
     express.urlencoded({ extended: true }),
     expressMiddleware(server, {

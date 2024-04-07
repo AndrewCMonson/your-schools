@@ -20,22 +20,30 @@ export const signToken = (user: UserType) => {
   return jwt.sign({ data }, secret, { expiresIn: expiration });
 };
 
+// export const authMiddleware: ContextFunction<
+//   [ExpressContextFunctionArgument],
+//   BaseContext
+// > = ({ req }: ExpressContextFunctionArgument): Promise<BaseContext> => {
+//   const cookies = req.cookies;
+//   const token = req.cookies.token;
+
+//   console.log("Cookies: ", cookies);
+
+//   console.log("Token: ", token);
+// };
+
 export const authMiddleware: ContextFunction<
   [ExpressContextFunctionArgument],
   BaseContext
 > = ({ req }: ExpressContextFunctionArgument): Promise<BaseContext> => {
   const customReq = req as CustomRequest;
 
-  let token =
-    customReq.body.token ||
-    customReq.query.token ||
-    customReq.headers.authorization;
+  console.log("req: cookies ", req.cookies);
 
-  if (customReq.headers.authorization) {
-    token = token.split(" ").pop().trim();
-  }
+  const token = customReq.cookies.token;
 
   if (!token) {
+    console.log("No token found");
     return Promise.resolve(customReq);
   }
 

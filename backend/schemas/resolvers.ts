@@ -8,6 +8,7 @@ import {
   School as SchoolType,
   User as UserType,
 } from "../__generatedTypes__/graphql";
+import { ConnectionStates } from "mongoose";
 
 const resolvers: Resolvers = {
   Query: {
@@ -66,7 +67,7 @@ const resolvers: Resolvers = {
 
       return { token, user };
     },
-    login: async (_, { email, password }): Promise<Auth> => {
+    login: async (_, { email, password }, context): Promise<Auth> => {
       if (!email || !password) {
         throw new AuthenticationError(
           "You need to provide an email and password",
@@ -86,6 +87,12 @@ const resolvers: Resolvers = {
       }
 
       const token = signToken(user);
+
+      context.res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+        secure: true,
+      });
       return { token, user };
     },
     addToFavorites: async (
@@ -94,8 +101,11 @@ const resolvers: Resolvers = {
       context,
     ): Promise<UserAttributes> => {
       if (!schoolId) throw new Error("Please provide a school ID");
-      if (!context.user)
-        throw new AuthenticationError("You need to be logged in");
+      if (!context.res.cookie("token"))
+        throw new AuthenticationError("You need to be logged in. THIS IS A COOKIE ERROR");
+
+      // if (!context.user)
+      //   throw new AuthenticationError("You need to be logged in")
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user.data.id },

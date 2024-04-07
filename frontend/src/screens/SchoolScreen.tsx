@@ -30,12 +30,12 @@ export const SchoolScreen = (): ReactElement => {
   if (error) return <div>`Error! ${error.message}`</div>;
 
   const handleAddToFavorites = async (): Promise<false | unknown> => {
-    const token = loggedIn() ? getToken() : null;
+    // const token = loggedIn() ? getToken() : null;
 
-    if (!token) {
-      toast.error("Please login to add to favorites.");
-      return false;
-    }
+    // if (!token) {
+    //   toast.error("Please login to add to favorites.");
+    //   return false;
+    // }
 
     try {
       await addToFavorites({
