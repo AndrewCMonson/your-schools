@@ -60,6 +60,7 @@ type School {
     login(email: String!, password: String!): Auth
     addToFavorites(schoolId: ID!): User
     removeFromFavorites(schoolId: ID!): User
+    logout: Auth
   }
 
   scalar ObjectId

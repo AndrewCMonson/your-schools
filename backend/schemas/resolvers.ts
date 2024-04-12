@@ -8,7 +8,6 @@ import {
   School as SchoolType,
   User as UserType,
 } from "../__generatedTypes__/graphql";
-import { ConnectionStates } from "mongoose";
 
 const resolvers: Resolvers = {
   Query: {
@@ -30,22 +29,14 @@ const resolvers: Resolvers = {
 
       return school;
     },
-    me: async (_, __, context): Promise<UserType> => {
-      if (!context.user) throw new AuthenticationError("Not logged in");
-
-      const userData = await User.findOne({
-        _id: context.user.data.id,
-      }).select("-__v -password");
-
-      if (!userData) {
-        throw new AuthenticationError("Cannot find a user with this id");
-      }
+    me: async (_, __, { user }): Promise<UserType> => {
+      if (!user) throw new AuthenticationError("Not logged in");
 
       const favorites = await School.find({
-        _id: { $in: userData.favoriteIds },
+        _id: { $in: user.favoriteIds },
       });
 
-      return { ...userData, favorites };
+      return { ...user, favorites };
     },
     getFavorites: async (_, { username }) => {
       if (!username) throw new Error("Please provide a username");
@@ -75,13 +66,11 @@ const resolvers: Resolvers = {
       }
 
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
-
       if (!correctPw) {
         throw new AuthenticationError("Incorrect credentials");
       }
@@ -98,17 +87,14 @@ const resolvers: Resolvers = {
     addToFavorites: async (
       _,
       { schoolId },
-      context,
+      { user },
     ): Promise<UserAttributes> => {
       if (!schoolId) throw new Error("Please provide a school ID");
-      if (!context.res.cookie("token"))
-        throw new AuthenticationError("You need to be logged in. THIS IS A COOKIE ERROR");
 
-      // if (!context.user)
-      //   throw new AuthenticationError("You need to be logged in")
+      if (!user) throw new AuthenticationError("You need to be logged in");
 
       const updatedUser = await User.findOneAndUpdate(
-        { _id: context.user.data.id },
+        { _id: user.id },
         { $addToSet: { favoriteIds: schoolId } },
         { new: true },
       );
@@ -122,11 +108,11 @@ const resolvers: Resolvers = {
     removeFromFavorites: async (
       _,
       { schoolId },
-      context,
+      { user },
     ): Promise<UserType> => {
-      if (context.user) {
+      if (user) {
         const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user.data.id },
+          { _id: user.id },
           { $pull: { favoriteIds: schoolId } },
           { new: true },
         );

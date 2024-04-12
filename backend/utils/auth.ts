@@ -1,15 +1,24 @@
 import process from "process";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { Request } from "express";
+import jwt from "jsonwebtoken";
 import { User as UserType } from "../__generatedTypes__/graphql";
-import { ContextFunction, BaseContext } from "@apollo/server";
+import { ContextFunction } from "@apollo/server";
 import { ExpressContextFunctionArgument } from "@apollo/server/express4";
+import { User } from "../models/index.ts";
+import { Response } from "express";
 
 const secret = process.env.JWT_SECRET;
 const expiration = process.env.JWT_EXPIRATION;
 
-export interface CustomRequest extends Request {
-  user: string | JwtPayload;
+interface MyContext {
+  user?: UserType | null;
+  res: Response;
+}
+
+interface JwtPayload {
+  data: {
+    username: string;
+    id: string;
+  };
 }
 
 export const signToken = (user: UserType) => {
@@ -20,39 +29,36 @@ export const signToken = (user: UserType) => {
   return jwt.sign({ data }, secret, { expiresIn: expiration });
 };
 
-// export const authMiddleware: ContextFunction<
-//   [ExpressContextFunctionArgument],
-//   BaseContext
-// > = ({ req }: ExpressContextFunctionArgument): Promise<BaseContext> => {
-//   const cookies = req.cookies;
-//   const token = req.cookies.token;
-
-//   console.log("Cookies: ", cookies);
-
-//   console.log("Token: ", token);
-// };
-
 export const authMiddleware: ContextFunction<
   [ExpressContextFunctionArgument],
-  BaseContext
-> = ({ req }: ExpressContextFunctionArgument): Promise<BaseContext> => {
-  const customReq = req as CustomRequest;
-
-  console.log("req: cookies ", req.cookies);
-
-  const token = customReq.cookies.token;
+  MyContext
+> = async ({
+  req,
+  res,
+}: ExpressContextFunctionArgument): Promise<MyContext> => {
+  const token = req.cookies.token;
 
   if (!token) {
-    console.log("No token found");
-    return Promise.resolve(customReq);
+    console.error("No token found");
+    return { res };
   }
 
   try {
-    const data = jwt.verify(token, secret, { maxAge: expiration });
-    customReq.user = data;
-  } catch {
-    console.log("Invalid token");
-  }
+    const { data } = jwt.verify(token, secret, {
+      maxAge: expiration,
+    }) as JwtPayload;
 
-  return Promise.resolve(customReq);
+    const user = await User.findOne({
+      _id: data.id,
+    }).select("-__v -password");
+
+    if (!user) {
+      throw new Error("Cannot find a user with this id");
+    }
+
+    return { user, res };
+  } catch (error) {
+    console.error(error);
+    return { res };
+  }
 };

@@ -3,7 +3,6 @@ import React from "react";
 import App from "./App";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
-import { setContext } from "@apollo/client/link/context";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -29,16 +28,6 @@ const link = createHttpLink({
   uri: "/graphql",
   credentials: "include",
 });
-
-// const authLink = setContext((_, { headers }) => {
-//   const token = localStorage.getItem("id_token");
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : "",
-//     },
-//   };
-// });
 
 const client = new ApolloClient({
   link,

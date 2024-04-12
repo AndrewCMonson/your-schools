@@ -11,8 +11,6 @@ import {
 } from "@material-tailwind/react";
 import { GoogleMap, Rating } from "../components";
 import { ADD_FAVORITE } from "../utils/mutations";
-import { toast } from "react-toastify";
-import { loggedIn, getToken } from "../utils/auth";
 import { useGetSchool, useGetMe } from "../hooks";
 
 export const SchoolScreen = (): ReactElement => {
@@ -29,14 +27,7 @@ export const SchoolScreen = (): ReactElement => {
     );
   if (error) return <div>`Error! ${error.message}`</div>;
 
-  const handleAddToFavorites = async (): Promise<false | unknown> => {
-    // const token = loggedIn() ? getToken() : null;
-
-    // if (!token) {
-    //   toast.error("Please login to add to favorites.");
-    //   return false;
-    // }
-
+  const handleAddToFavorites = async (): Promise<void> => {
     try {
       await addToFavorites({
         variables: { schoolId: `${id}` },
