@@ -1,20 +1,9 @@
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
+import { School as SchoolType } from "../__generatedTypes__/graphql";
 import { Link } from "react-router-dom";
 import { Rating } from "./";
 
-interface SchoolProps {
-  id?: string;
-  name?: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  zipcode?: string;
-  phone?: string;
-  rating?: number;
-  max_tuition?: number;
-}
-
-export const School = ({ school }: { school: SchoolProps }) => {
+export const School = ({ school }: { school: SchoolType }) => {
   return (
     <Card className="w-100 h-full my-4 mx-4">
       <CardBody className="flex flex-col p-4">
@@ -24,10 +13,10 @@ export const School = ({ school }: { school: SchoolProps }) => {
         <div className="mt-2 self-baseline">
           <div>{school.address}</div>
           <div>
-            {school.city}, {school?.state} {school?.zipcode}
+            {school.city}, {school.state} {school.zipcode}
           </div>
           <div>{school.phone}</div>
-          <div>{school.rating && <Rating value={school?.rating} />}</div>
+          <div>{school.rating && <Rating value={school.rating} />}</div>
           <div>{school.max_tuition ?? 0 > 1000 ? "$$$$" : "$$$"}</div>
         </div>
       </CardBody>
