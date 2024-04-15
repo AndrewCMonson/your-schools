@@ -5,6 +5,7 @@ import { School, PageTitle } from "../components";
 import { Button, Input } from "@material-tailwind/react";
 import { useGetSchools } from "../hooks/useGetSchools";
 import { LoadingScreen } from ".";
+import { School as SchoolType } from "../__generatedTypes__/graphql";
 
 export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -71,7 +72,7 @@ export const SchoolsScreen = (): ReactElement => {
         ) : (
           <div className="flex flex-col min-w-1/2 ">
             {schools.map((school) => (
-              <School key={school.id} school={school} />
+              <School key={school.id} school={school as SchoolType} />
             ))}
           </div>
         )}
