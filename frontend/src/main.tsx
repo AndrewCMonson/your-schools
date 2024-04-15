@@ -23,6 +23,7 @@ import {
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
+import { CookiesProvider } from "react-cookie";
 
 const link = createHttpLink({
   uri: "/graphql",
@@ -52,9 +53,11 @@ if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
       <ThemeProvider>
-        <ApolloProvider client={client}>
-          <RouterProvider router={router} />
-        </ApolloProvider>
+        <CookiesProvider defaultSetOptions={{ path: "/" }}>
+          <ApolloProvider client={client}>
+            <RouterProvider router={router} />
+          </ApolloProvider>
+        </CookiesProvider>
       </ThemeProvider>
     </React.StrictMode>,
   );

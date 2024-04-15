@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -16,27 +16,30 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  ObjectId: { input: ObjectId; output: ObjectId; }
+  Void: { input: void; output: void; }
 };
 
 export type Auth = {
   __typename?: 'Auth';
   token: Scalars['ID']['output'];
-  user: Maybe<User>;
+  user?: Maybe<User>;
 };
 
 export type Image = {
   __typename?: 'Image';
-  alt: Maybe<Scalars['String']['output']>;
-  owner: Maybe<Scalars['String']['output']>;
-  url: Maybe<Scalars['String']['output']>;
+  alt?: Maybe<Scalars['String']['output']>;
+  owner?: Maybe<Scalars['ObjectId']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addToFavorites: Maybe<User>;
-  addUser: Maybe<Auth>;
-  login: Maybe<Auth>;
-  removeFromFavorites: Maybe<User>;
+  addToFavorites?: Maybe<User>;
+  addUser?: Maybe<Auth>;
+  login?: Maybe<Auth>;
+  logout?: Maybe<Scalars['Void']['output']>;
+  removeFromFavorites?: Maybe<User>;
 };
 
 
@@ -72,7 +75,7 @@ export type Query = {
 
 
 export type QueryGetFavoritesArgs = {
-  username: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82,22 +85,22 @@ export type QuerySchoolArgs = {
 
 
 export type QuerySchoolsArgs = {
-  zipcode: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type School = {
   __typename?: 'School';
   address: Scalars['String']['output'];
-  age_range: Maybe<Array<Scalars['Int']['output']>>;
+  age_range?: Maybe<Array<Scalars['Int']['output']>>;
   city: Scalars['String']['output'];
   closing_hours: Scalars['String']['output'];
-  days_closed: Maybe<Array<Scalars['String']['output']>>;
-  days_open: Maybe<Array<Scalars['String']['output']>>;
+  days_closed?: Maybe<Array<Scalars['String']['output']>>;
+  days_open?: Maybe<Array<Scalars['String']['output']>>;
   description: Scalars['String']['output'];
   early_enrollment: Scalars['Boolean']['output'];
   email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  images: Maybe<Array<Image>>;
+  id?: Maybe<Scalars['ID']['output']>;
+  images?: Maybe<Array<Maybe<Image>>>;
   latitude: Scalars['Float']['output'];
   longitude: Scalars['Float']['output'];
   max_enrollment: Scalars['Int']['output'];
@@ -106,7 +109,7 @@ export type School = {
   min_enrollment: Scalars['Int']['output'];
   min_student_teacher_ratio: Scalars['Float']['output'];
   min_tuition: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   offers_daycare: Scalars['Boolean']['output'];
   opening_hours: Scalars['String']['output'];
   phone: Scalars['String']['output'];
@@ -118,11 +121,16 @@ export type School = {
 
 export type User = {
   __typename?: 'User';
-  email: Maybe<Scalars['String']['output']>;
-  favorites: Maybe<Array<Maybe<School>>>;
-  id: Maybe<Scalars['ID']['output']>;
-  password: Maybe<Scalars['String']['output']>;
-  username: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  favorites?: Maybe<Array<School>>;
+  id?: Maybe<Scalars['ID']['output']>;
+  password?: Maybe<Scalars['String']['output']>;
+  username?: Maybe<Scalars['String']['output']>;
+};
+
+export type AdditionalEntityFields = {
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -131,7 +139,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string | null, username: string | null } | null } | null };
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'Auth', token: string, user?: { __typename?: 'User', id?: string | null, username?: string | null } | null } | null };
 
 export type AddUserMutationVariables = Exact<{
   username: Scalars['String']['input'];
@@ -140,46 +148,52 @@ export type AddUserMutationVariables = Exact<{
 }>;
 
 
-export type AddUserMutation = { __typename?: 'Mutation', addUser: { __typename?: 'Auth', token: string, user: { __typename?: 'User', id: string | null, username: string | null } | null } | null };
+export type AddUserMutation = { __typename?: 'Mutation', addUser?: { __typename?: 'Auth', token: string, user?: { __typename?: 'User', id?: string | null, username?: string | null } | null } | null };
 
 export type AddToFavoritesMutationVariables = Exact<{
   schoolId: Scalars['ID']['input'];
 }>;
 
 
-export type AddToFavoritesMutation = { __typename?: 'Mutation', addToFavorites: { __typename?: 'User', id: string | null, username: string | null, favorites: Array<{ __typename?: 'School', id: string, name: string } | null> | null } | null };
+export type AddToFavoritesMutation = { __typename?: 'Mutation', addToFavorites?: { __typename?: 'User', id?: string | null, username?: string | null, favorites?: Array<{ __typename?: 'School', id?: string | null, name?: string | null }> | null } | null };
 
 export type RemoveFromFavoritesMutationVariables = Exact<{
   schoolId: Scalars['ID']['input'];
 }>;
 
 
-export type RemoveFromFavoritesMutation = { __typename?: 'Mutation', removeFromFavorites: { __typename?: 'User', id: string | null, username: string | null, favorites: Array<{ __typename?: 'School', id: string, name: string } | null> | null } | null };
+export type RemoveFromFavoritesMutation = { __typename?: 'Mutation', removeFromFavorites?: { __typename?: 'User', id?: string | null, username?: string | null, favorites?: Array<{ __typename?: 'School', id?: string | null, name?: string | null }> | null } | null };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout?: void | null };
 
 export type SchoolsQueryVariables = Exact<{
-  zipcode: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SchoolsQuery = { __typename?: 'Query', schools: Array<{ __typename?: 'School', id: string, name: string, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, rating: number, max_tuition: number }> };
+export type SchoolsQuery = { __typename?: 'Query', schools: Array<{ __typename?: 'School', id?: string | null, name?: string | null, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, rating: number, max_tuition: number }> };
 
 export type SchoolQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type SchoolQuery = { __typename?: 'Query', school: { __typename?: 'School', id: string, name: string, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, description: string, rating: number, offers_daycare: boolean, age_range: Array<number> | null, early_enrollment: boolean, min_tuition: number, max_tuition: number, days_open: Array<string> | null, days_closed: Array<string> | null, opening_hours: string, closing_hours: string, min_enrollment: number, max_enrollment: number, min_student_teacher_ratio: number, max_student_teacher_ratio: number, images: Array<{ __typename?: 'Image', url: string | null, alt: string | null, owner: string | null }> | null } };
+export type SchoolQuery = { __typename?: 'Query', school: { __typename?: 'School', id?: string | null, name?: string | null, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, description: string, rating: number, offers_daycare: boolean, age_range?: Array<number> | null, early_enrollment: boolean, min_tuition: number, max_tuition: number, days_open?: Array<string> | null, days_closed?: Array<string> | null, opening_hours: string, closing_hours: string, min_enrollment: number, max_enrollment: number, min_student_teacher_ratio: number, max_student_teacher_ratio: number, images?: Array<{ __typename?: 'Image', url?: string | null, alt?: string | null, owner?: ObjectId | null } | null> | null } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string | null, username: string | null, email: string | null, favorites: Array<{ __typename?: 'School', id: string, name: string, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, rating: number, age_range: Array<number> | null, max_tuition: number } | null> | null } };
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id?: string | null, username?: string | null, email?: string | null, favorites?: Array<{ __typename?: 'School', id?: string | null, name?: string | null, address: string, city: string, state: string, zipcode: string, latitude: number, longitude: number, phone: string, website: string, email: string, rating: number, age_range?: Array<number> | null, max_tuition: number }> | null } };
 
 
 export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
 export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"username"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"username"},"value":{"kind":"Variable","name":{"kind":"Name","value":"username"}}},{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<AddUserMutation, AddUserMutationVariables>;
 export const AddToFavoritesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addToFavorites"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"schoolId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addToFavorites"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"schoolId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"schoolId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"favorites"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<AddToFavoritesMutation, AddToFavoritesMutationVariables>;
 export const RemoveFromFavoritesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeFromFavorites"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"schoolId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeFromFavorites"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"schoolId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"schoolId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"favorites"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<RemoveFromFavoritesMutation, RemoveFromFavoritesMutationVariables>;
+export const LogoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"logout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logout"}}]}}]} as unknown as DocumentNode<LogoutMutation, LogoutMutationVariables>;
 export const SchoolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Schools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"zipcode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"schools"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"zipcode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"zipcode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipcode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"max_tuition"}}]}}]}}]} as unknown as DocumentNode<SchoolsQuery, SchoolsQueryVariables>;
 export const SchoolDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"School"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"school"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipcode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"offers_daycare"}},{"kind":"Field","name":{"kind":"Name","value":"age_range"}},{"kind":"Field","name":{"kind":"Name","value":"early_enrollment"}},{"kind":"Field","name":{"kind":"Name","value":"min_tuition"}},{"kind":"Field","name":{"kind":"Name","value":"max_tuition"}},{"kind":"Field","name":{"kind":"Name","value":"days_open"}},{"kind":"Field","name":{"kind":"Name","value":"days_closed"}},{"kind":"Field","name":{"kind":"Name","value":"opening_hours"}},{"kind":"Field","name":{"kind":"Name","value":"closing_hours"}},{"kind":"Field","name":{"kind":"Name","value":"min_enrollment"}},{"kind":"Field","name":{"kind":"Name","value":"max_enrollment"}},{"kind":"Field","name":{"kind":"Name","value":"min_student_teacher_ratio"}},{"kind":"Field","name":{"kind":"Name","value":"max_student_teacher_ratio"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"owner"}}]}}]}}]}}]} as unknown as DocumentNode<SchoolQuery, SchoolQueryVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"favorites"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipcode"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"age_range"}},{"kind":"Field","name":{"kind":"Name","value":"max_tuition"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
@@ -259,12 +273,15 @@ export type ResolversTypes = {
   Image: ResolverTypeWrapper<Image>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
   School: ResolverTypeWrapper<School>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   User: ResolverTypeWrapper<User>;
+  Void: ResolverTypeWrapper<Scalars['Void']['output']>;
+  AdditionalEntityFields: AdditionalEntityFields;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -274,87 +291,160 @@ export type ResolversParentTypes = {
   Image: Image;
   String: Scalars['String']['output'];
   Mutation: {};
+  ObjectId: Scalars['ObjectId']['output'];
   Query: {};
   School: School;
   Int: Scalars['Int']['output'];
   Boolean: Scalars['Boolean']['output'];
   Float: Scalars['Float']['output'];
   User: User;
+  Void: Scalars['Void']['output'];
+  AdditionalEntityFields: AdditionalEntityFields;
 };
 
+export type UnionDirectiveArgs = {
+  discriminatorField?: Maybe<Scalars['String']['input']>;
+  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
+};
+
+export type UnionDirectiveResolver<Result, Parent, ContextType = any, Args = UnionDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type AbstractEntityDirectiveArgs = {
+  discriminatorField: Scalars['String']['input'];
+  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
+};
+
+export type AbstractEntityDirectiveResolver<Result, Parent, ContextType = any, Args = AbstractEntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type EntityDirectiveArgs = {
+  embedded?: Maybe<Scalars['Boolean']['input']>;
+  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
+};
+
+export type EntityDirectiveResolver<Result, Parent, ContextType = any, Args = EntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type ColumnDirectiveArgs = {
+  overrideType?: Maybe<Scalars['String']['input']>;
+};
+
+export type ColumnDirectiveResolver<Result, Parent, ContextType = any, Args = ColumnDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type IdDirectiveArgs = { };
+
+export type IdDirectiveResolver<Result, Parent, ContextType = any, Args = IdDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type LinkDirectiveArgs = {
+  overrideType?: Maybe<Scalars['String']['input']>;
+};
+
+export type LinkDirectiveResolver<Result, Parent, ContextType = any, Args = LinkDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type EmbeddedDirectiveArgs = { };
+
+export type EmbeddedDirectiveResolver<Result, Parent, ContextType = any, Args = EmbeddedDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type MapDirectiveArgs = {
+  path: Scalars['String']['input'];
+};
+
+export type MapDirectiveResolver<Result, Parent, ContextType = any, Args = MapDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
-  token: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  user: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  token?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
-  alt: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  owner: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  url: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['ObjectId']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addToFavorites: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
-  addUser: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
-  login: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
-  removeFromFavorites: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
+  addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
+  addUser?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
+  login?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
+  removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
 };
 
+export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ObjectId'], any> {
+  name: 'ObjectId';
+}
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getFavorites: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, QueryGetFavoritesArgs>;
-  me: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  school: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
-  schools: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType, QuerySchoolsArgs>;
+  getFavorites?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, Partial<QueryGetFavoritesArgs>>;
+  me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  school?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
+  schools?: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType, Partial<QuerySchoolsArgs>>;
 };
 
 export type SchoolResolvers<ContextType = any, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
-  address: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  age_range: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
-  city: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  closing_hours: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  days_closed: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
-  days_open: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
-  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  early_enrollment: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  email: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
-  latitude: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  longitude: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  max_enrollment: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  max_student_teacher_ratio: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  max_tuition: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  min_enrollment: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  min_student_teacher_ratio: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  min_tuition: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  offers_daycare: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  opening_hours: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  phone: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  rating: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  state: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  website: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  zipcode: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  age_range?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  closing_hours?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  days_closed?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  days_open?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  early_enrollment?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  images?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max_enrollment?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  max_student_teacher_ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max_tuition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  min_enrollment?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  min_student_teacher_ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  min_tuition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  offers_daycare?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  opening_hours?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  zipcode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  email: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  favorites: Resolver<Maybe<Array<Maybe<ResolversTypes['School']>>>, ParentType, ContextType>;
-  id: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  password: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  username: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  favorites?: Resolver<Maybe<Array<ResolversTypes['School']>>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface VoidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Void'], any> {
+  name: 'Void';
+}
+
 export type Resolvers<ContextType = any> = {
-  Auth: AuthResolvers<ContextType>;
-  Image: ImageResolvers<ContextType>;
-  Mutation: MutationResolvers<ContextType>;
-  Query: QueryResolvers<ContextType>;
-  School: SchoolResolvers<ContextType>;
-  User: UserResolvers<ContextType>;
+  Auth?: AuthResolvers<ContextType>;
+  Image?: ImageResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  ObjectId?: GraphQLScalarType;
+  Query?: QueryResolvers<ContextType>;
+  School?: SchoolResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  Void?: GraphQLScalarType;
 };
 
+export type DirectiveResolvers<ContextType = any> = {
+  union?: UnionDirectiveResolver<any, any, ContextType>;
+  abstractEntity?: AbstractEntityDirectiveResolver<any, any, ContextType>;
+  entity?: EntityDirectiveResolver<any, any, ContextType>;
+  column?: ColumnDirectiveResolver<any, any, ContextType>;
+  id?: IdDirectiveResolver<any, any, ContextType>;
+  link?: LinkDirectiveResolver<any, any, ContextType>;
+  embedded?: EmbeddedDirectiveResolver<any, any, ContextType>;
+  map?: MapDirectiveResolver<any, any, ContextType>;
+};
+
+import { ObjectId } from 'mongodb';

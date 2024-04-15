@@ -60,10 +60,11 @@ type School {
     login(email: String!, password: String!): Auth
     addToFavorites(schoolId: ID!): User
     removeFromFavorites(schoolId: ID!): User
-    logout: Auth
+    logout: Void
   }
 
   scalar ObjectId
+  scalar Void
   `;
 
 export default typedefs;

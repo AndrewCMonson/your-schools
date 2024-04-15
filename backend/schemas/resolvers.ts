@@ -46,7 +46,11 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    addUser: async (_, { username, email, password }): Promise<Auth> => {
+    addUser: async (
+      _,
+      { username, email, password },
+      context,
+    ): Promise<Auth> => {
       if (!username || !email || !password) {
         throw new AuthenticationError(
           "You need to provide a username, email, and password",
@@ -54,7 +58,13 @@ const resolvers: Resolvers = {
       }
 
       const user = await User.create({ username, email, password });
-      const token = signToken(user.id.toString());
+      const token = signToken(user);
+
+      context.res.cookie("token", token, {
+        httpOnly: false,
+        maxAge: 1000 * 60 * 60 * 24,
+        secure: true,
+      });
 
       return { token, user };
     },
@@ -78,7 +88,7 @@ const resolvers: Resolvers = {
       const token = signToken(user);
 
       context.res.cookie("token", token, {
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 1000 * 60 * 60 * 24,
         secure: true,
       });
@@ -125,6 +135,15 @@ const resolvers: Resolvers = {
       }
 
       throw new AuthenticationError("You need to be logged in!");
+    },
+    logout: async (_, __, context): Promise<void> => {
+      if (context.user) {
+        try {
+          context.res.clearCookie("token");
+        } catch (error) {
+          console.error(error);
+        }
+      }
     },
   },
 };

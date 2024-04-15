@@ -16,6 +16,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   ObjectId: { input: ObjectId; output: ObjectId; }
+  Void: { input: void; output: void; }
 };
 
 export type Auth = {
@@ -36,6 +37,7 @@ export type Mutation = {
   addToFavorites?: Maybe<User>;
   addUser?: Maybe<Auth>;
   login?: Maybe<Auth>;
+  logout?: Maybe<Scalars['Void']['output']>;
   removeFromFavorites?: Maybe<User>;
 };
 
@@ -213,6 +215,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   User: ResolverTypeWrapper<User>;
+  Void: ResolverTypeWrapper<Scalars['Void']['output']>;
   AdditionalEntityFields: AdditionalEntityFields;
 };
 
@@ -230,6 +233,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Float: Scalars['Float']['output'];
   User: User;
+  Void: Scalars['Void']['output'];
   AdditionalEntityFields: AdditionalEntityFields;
 };
 
@@ -297,6 +301,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
   login?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
 };
 
@@ -351,6 +356,10 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface VoidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Void'], any> {
+  name: 'Void';
+}
+
 export type Resolvers<ContextType = any> = {
   Auth?: AuthResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
@@ -359,6 +368,7 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   School?: SchoolResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Void?: GraphQLScalarType;
 };
 
 export type DirectiveResolvers<ContextType = any> = {

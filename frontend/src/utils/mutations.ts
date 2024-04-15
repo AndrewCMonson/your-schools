@@ -49,3 +49,9 @@ export const REMOVE_FAVORITE = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const LOGOUT = gql(/* GraphQL */ `
+  mutation logout {
+    logout
+  }
+`);

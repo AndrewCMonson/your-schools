@@ -4,7 +4,8 @@ import { FormEvent, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { ReactElement, useState } from "react";
 import { toast } from "react-toastify";
-import { login as loginUser } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 interface UserFormData {
   username: string;
@@ -21,6 +22,7 @@ export const LoginSignupScreen = (): ReactElement => {
   });
   const [login] = useMutation(LOGIN_USER);
   const [addUser] = useMutation(ADD_USER);
+  const navigate = useNavigate();
 
   const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
@@ -38,20 +40,15 @@ export const LoginSignupScreen = (): ReactElement => {
     }
 
     try {
-      const { data } = await login({
+      await login({
         variables: { ...userFormData },
       });
 
-      loginUser(data?.login?.token ?? "");
+      navigate("/schools");
     } catch (e) {
+      console.error(e);
       toast.error("Invalid credentials");
     }
-
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
   };
 
   const handleSignupFormSubmit = async (
@@ -69,20 +66,15 @@ export const LoginSignupScreen = (): ReactElement => {
     }
 
     try {
-      const { data } = await addUser({
+      await addUser({
         variables: { ...userFormData },
       });
 
-      loginUser(data?.addUser?.token ?? "");
+      navigate("/schools");
     } catch (e) {
       console.error(e);
+      toast.error("An error occurred. Please try again");
     }
-
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
   };
 
   return (
@@ -97,8 +89,8 @@ export const LoginSignupScreen = (): ReactElement => {
               Sign In
             </div>
             <form
-              id="signin-form"
               className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+              id="signin-form"
             >
               <div className="mb-1 flex flex-col gap-6">
                 <div className="-mb-3">Your Email</div>

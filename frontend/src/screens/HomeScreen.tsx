@@ -31,7 +31,6 @@ export const HomeScreen = (): ReactElement => {
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.results[0]?.address_components);
             const zipcode = data.results[0]?.address_components.find(
               (component: LDataProps) =>
                 component.types.includes("postal_code"),
