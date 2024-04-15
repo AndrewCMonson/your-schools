@@ -5,7 +5,6 @@ import { useMutation } from "@apollo/client";
 import { ReactElement, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 interface UserFormData {
   username: string;
