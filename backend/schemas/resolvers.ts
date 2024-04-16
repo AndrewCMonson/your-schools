@@ -1,4 +1,4 @@
-import { School, User } from "../models/index.ts";
+import { School, User, Session } from "../models/index.ts";
 import { UserAttributes } from "../models/UserModel.ts";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth.ts";
@@ -46,11 +46,7 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    addUser: async (
-      _,
-      { username, email, password },
-      context,
-    ): Promise<Auth> => {
+    addUser: async (_, { username, email, password }): Promise<Auth> => {
       if (!username || !email || !password) {
         throw new AuthenticationError(
           "You need to provide a username, email, and password",
@@ -60,15 +56,9 @@ const resolvers: Resolvers = {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
 
-      context.res.cookie("token", token, {
-        httpOnly: false,
-        maxAge: 1000 * 60 * 60 * 24,
-        secure: true,
-      });
-
       return { token, user };
     },
-    login: async (_, { email, password }, context): Promise<Auth> => {
+    login: async (_, { email, password }, { res }): Promise<Auth> => {
       if (!email || !password) {
         throw new AuthenticationError(
           "You need to provide an email and password",
@@ -87,11 +77,12 @@ const resolvers: Resolvers = {
 
       const token = signToken(user);
 
-      context.res.cookie("token", token, {
-        httpOnly: false,
-        maxAge: 1000 * 60 * 60 * 24,
-        secure: true,
+      const session = await Session.create({
+        user: user.id,
+        token,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       });
+
       return { token, user };
     },
     addToFavorites: async (
@@ -136,10 +127,10 @@ const resolvers: Resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    logout: async (_, __, context): Promise<void> => {
-      if (context.user) {
+    logout: async (_, __, { user, res }): Promise<void> => {
+      if (user) {
         try {
-          context.res.clearCookie("token");
+          res.clearCookie("token");
         } catch (error) {
           console.error(error);
         }

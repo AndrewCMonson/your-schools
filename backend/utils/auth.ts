@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { User as UserType } from "../__generatedTypes__/graphql";
 import { ContextFunction } from "@apollo/server";
 import { ExpressContextFunctionArgument } from "@apollo/server/express4";
-import { User } from "../models/index.ts";
+import { User, Session } from "../models/index.ts";
 import { Response } from "express";
 
 const secret = process.env.JWT_SECRET;
@@ -48,17 +48,36 @@ export const authMiddleware: ContextFunction<
       maxAge: expiration,
     }) as JwtPayload;
 
+    if (!data) {
+      throw new Error("Token not verified");
+    }
+
+    // fetch session with matching token
+    const session = await Session.findOne({
+      token,
+    });
+
+    console.log("Session: ", session);
+    // if session is expired, throw error
+    if (session && session.expires < new Date()) {
+      throw new Error("Session expired");
+    }
+    // if session is not found, throw error
+    if (!session) {
+      throw new Error("Session not found");
+    }
     const user = await User.findOne({
-      _id: data.id,
+      _id: session.user,
     }).select("-__v -password");
 
     if (!user) {
-      throw new Error("Cannot find a user with this id");
+      throw new Error("User Not authorized"); // might consider throwing "not auth" here
     }
 
     return { user, res };
   } catch (error) {
     console.error(error);
+    throw new Error("User Not Authorized");
     return { res };
   }
 };

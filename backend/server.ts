@@ -41,8 +41,23 @@ const startServer = async () => {
     expressMiddleware(server, {
       context: authMiddleware,
     }),
+    // session({
+    //   name: "qid",
+    //   secret: process.env.SESSION_SECRET || "",
+    //   resave: false,
+    //   store: MongoStore.create({
+    //     mongoUrl: process.env.MONGO_URI,
+    //     dbName: "session",
+    //     collectionName: "sessions",
+    //   }),
+    //   saveUninitialized: false,
+    //   cookie: {
+    //     maxAge: 1000 * 60 * 60 * 24 * 365,
+    //     httpOnly: true,
+    //     secure: process.env.NODE_ENV === "production",
+    //   },
+    // }),
   );
-
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
     app.get("*", (_, res) => {
