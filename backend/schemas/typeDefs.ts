@@ -56,7 +56,7 @@ type School {
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth!
     login(email: String!, password: String!): Auth!
     addToFavorites(schoolId: ID!): User
     removeFromFavorites(schoolId: ID!): User
