@@ -7,7 +7,7 @@ type Image {
 
 type Auth {
     token: ID! 
-    user: User
+    user: User!
   }
   
 type User {
@@ -57,7 +57,7 @@ type School {
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
-    login(email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth!
     addToFavorites(schoolId: ID!): User
     removeFromFavorites(schoolId: ID!): User
     logout: Void

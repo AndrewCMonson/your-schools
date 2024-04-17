@@ -58,32 +58,42 @@ const resolvers: Resolvers = {
 
       return { token, user };
     },
-    login: async (_, { email, password }, { res }): Promise<Auth> => {
+    login: async (_, { email, password }, { res, user }): Promise<Auth> => {
+      if (user) throw new AuthenticationError("You are already logged in");
+
       if (!email || !password) {
         throw new AuthenticationError(
           "You need to provide an email and password",
         );
       }
 
-      const user = await User.findOne({ email });
-      if (!user) {
+      const loggedInUser = await User.findOne({ email });
+      if (!loggedInUser) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await loggedInUser.isCorrectPassword(password);
       if (!correctPw) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
-      const token = signToken(user);
+      const token = signToken(loggedInUser);
 
-      const session = await Session.create({
-        user: user.id,
+      await Session.create({
+        user: loggedInUser.id,
         token,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       });
 
-      return { token, user };
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60 * 24,
+      });
+
+      // TODO remove token
+      return { token, user: loggedInUser };
     },
     addToFavorites: async (
       _,
@@ -127,12 +137,14 @@ const resolvers: Resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    logout: async (_, __, { user, res }): Promise<void> => {
+    logout: async (_, __, { user, res, req }): Promise<void> => {
       if (user) {
         try {
+          await Session.findOneAndDelete({ token: req.cookies.token });
           res.clearCookie("token");
         } catch (error) {
           console.error(error);
+          throw new Error("Error logging out");
         }
       }
     },

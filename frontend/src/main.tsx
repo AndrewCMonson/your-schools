@@ -14,7 +14,6 @@ import {
   FourOhFourScreen,
   HomeScreen,
   SchoolScreen,
-  LoginSignupScreen,
   SchoolsScreen,
 } from "./screens";
 import {
@@ -22,16 +21,31 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
+  from,
 } from "@apollo/client";
-import { CookiesProvider } from "react-cookie";
+import { onError } from "@apollo/client/link/error";
+import { useSessionStore } from "../stores/session";
 
 const link = createHttpLink({
   uri: "/graphql",
   credentials: "include",
 });
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      if (message.includes("User Not Authorized")) {
+        useSessionStore.getState().clearSession();
+      }
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      );
+    });
+  if (networkError) console.error(`[Network error]: ${networkError}`);
+});
+
 const client = new ApolloClient({
-  link,
+  link: from([errorLink, link]),
   cache: new InMemoryCache(),
 });
 
@@ -41,7 +55,6 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/schools" element={<SchoolsScreen />} />
       <Route path="/schools/:id" element={<SchoolScreen />} />
-      <Route path="/login" element={<LoginSignupScreen />} />
       <Route path="/favorites" element={<FavoritesScreen />} />
       <Route path="*" element={<FourOhFourScreen />} />
     </Route>,
@@ -53,11 +66,9 @@ if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
       <ThemeProvider>
-        <CookiesProvider defaultSetOptions={{ path: "/" }}>
-          <ApolloProvider client={client}>
-            <RouterProvider router={router} />
-          </ApolloProvider>
-        </CookiesProvider>
+        <ApolloProvider client={client}>
+          <RouterProvider router={router} />
+        </ApolloProvider>
       </ThemeProvider>
     </React.StrictMode>,
   );

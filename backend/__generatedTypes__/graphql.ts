@@ -22,7 +22,7 @@ export type Scalars = {
 export type Auth = {
   __typename?: 'Auth';
   token: Scalars['ID']['output'];
-  user?: Maybe<User>;
+  user: User;
 };
 
 export type Image = {
@@ -36,7 +36,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addToFavorites?: Maybe<User>;
   addUser?: Maybe<Auth>;
-  login?: Maybe<Auth>;
+  login: Auth;
   logout?: Maybe<Scalars['Void']['output']>;
   removeFromFavorites?: Maybe<User>;
 };
@@ -89,33 +89,33 @@ export type QuerySchoolsArgs = {
 
 export type School = {
   __typename?: 'School';
-  address: Scalars['String']['output'];
+  address?: Maybe<Scalars['String']['output']>;
   age_range?: Maybe<Array<Scalars['Int']['output']>>;
-  city: Scalars['String']['output'];
-  closing_hours: Scalars['String']['output'];
+  city?: Maybe<Scalars['String']['output']>;
+  closing_hours?: Maybe<Scalars['String']['output']>;
   days_closed?: Maybe<Array<Scalars['String']['output']>>;
   days_open?: Maybe<Array<Scalars['String']['output']>>;
-  description: Scalars['String']['output'];
-  early_enrollment: Scalars['Boolean']['output'];
-  email: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  early_enrollment?: Maybe<Scalars['Boolean']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   images?: Maybe<Array<Maybe<Image>>>;
-  latitude: Scalars['Float']['output'];
-  longitude: Scalars['Float']['output'];
-  max_enrollment: Scalars['Int']['output'];
-  max_student_teacher_ratio: Scalars['Float']['output'];
-  max_tuition: Scalars['Int']['output'];
-  min_enrollment: Scalars['Int']['output'];
-  min_student_teacher_ratio: Scalars['Float']['output'];
-  min_tuition: Scalars['Int']['output'];
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  max_enrollment?: Maybe<Scalars['Int']['output']>;
+  max_student_teacher_ratio?: Maybe<Scalars['Float']['output']>;
+  max_tuition?: Maybe<Scalars['Int']['output']>;
+  min_enrollment?: Maybe<Scalars['Int']['output']>;
+  min_student_teacher_ratio?: Maybe<Scalars['Float']['output']>;
+  min_tuition?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  offers_daycare: Scalars['Boolean']['output'];
-  opening_hours: Scalars['String']['output'];
-  phone: Scalars['String']['output'];
-  rating: Scalars['Float']['output'];
-  state: Scalars['String']['output'];
-  website: Scalars['String']['output'];
-  zipcode: Scalars['String']['output'];
+  offers_daycare?: Maybe<Scalars['Boolean']['output']>;
+  opening_hours?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  website?: Maybe<Scalars['String']['output']>;
+  zipcode?: Maybe<Scalars['String']['output']>;
 };
 
 export type User = {
@@ -286,7 +286,7 @@ export type MapDirectiveResolver<Result, Parent, ContextType = any, Args = MapDi
 
 export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
   token?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -300,7 +300,7 @@ export type ImageResolvers<ContextType = any, ParentType extends ResolversParent
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
-  login?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
 };
@@ -317,33 +317,33 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SchoolResolvers<ContextType = any, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
-  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   age_range?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
-  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  closing_hours?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  closing_hours?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   days_closed?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   days_open?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  early_enrollment?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  early_enrollment?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   images?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
-  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  max_enrollment?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  max_student_teacher_ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  max_tuition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  min_enrollment?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  min_student_teacher_ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  min_tuition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  latitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  longitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  max_enrollment?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_student_teacher_ratio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  max_tuition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  min_enrollment?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  min_student_teacher_ratio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  min_tuition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  offers_daycare?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  opening_hours?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  zipcode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  offers_daycare?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  opening_hours?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  zipcode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

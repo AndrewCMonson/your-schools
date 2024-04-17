@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect, ReactElement, useCallback } from "react";
 import { Navbar, Collapse, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
@@ -6,19 +6,24 @@ import YourSchools from "../assets/images/your-schools-logo.png";
 import { NavButton } from "./NavButton";
 import { LOGOUT } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import { useCookies } from "react-cookie";
+import { useSessionStore } from "../../stores/session";
 
 const NavList = (): ReactElement => {
   const [logout] = useMutation(LOGOUT);
-  const [cookies] = useCookies(["token"]);
+  const { user, clearSession } = useSessionStore();
+
+  const onLogout = useCallback(() => {
+    logout();
+    clearSession();
+  }, [logout, clearSession]);
 
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {cookies.token ? (
+      {user ? (
         <>
           <NavButton name="Schools" link="/schools" />
           <NavButton name="Favorites" link="/favorites" />
-          <NavButton name="Logout" link="/login" onClick={() => logout()} />
+          <NavButton name="Logout" link="/" onClick={onLogout} />
         </>
       ) : (
         <>

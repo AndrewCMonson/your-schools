@@ -4,7 +4,7 @@ import { User as UserType } from "../__generatedTypes__/graphql";
 import { ContextFunction } from "@apollo/server";
 import { ExpressContextFunctionArgument } from "@apollo/server/express4";
 import { User, Session } from "../models/index.ts";
-import { Response } from "express";
+import { Response, Request } from "express";
 
 const secret = process.env.JWT_SECRET;
 const expiration = process.env.JWT_EXPIRATION;
@@ -12,6 +12,7 @@ const expiration = process.env.JWT_EXPIRATION;
 interface MyContext {
   user?: UserType | null;
   res: Response;
+  req: Request;
 }
 
 interface JwtPayload {
@@ -39,8 +40,7 @@ export const authMiddleware: ContextFunction<
   const token = req.cookies.token;
 
   if (!token) {
-    console.error("No token found");
-    return { res };
+    return { res, req };
   }
 
   try {
@@ -57,27 +57,28 @@ export const authMiddleware: ContextFunction<
       token,
     });
 
-    console.log("Session: ", session);
-    // if session is expired, throw error
-    if (session && session.expires < new Date()) {
-      throw new Error("Session expired");
-    }
     // if session is not found, throw error
     if (!session) {
+      console.log("Session not found", token);
       throw new Error("Session not found");
     }
+    // if session is expired, throw error
+    if (session.expires < new Date()) {
+      throw new Error("Session expired");
+    }
+
     const user = await User.findOne({
       _id: session.user,
     }).select("-__v -password");
 
     if (!user) {
-      throw new Error("User Not authorized"); // might consider throwing "not auth" here
+      throw new Error("User Not authorized");
     }
 
-    return { user, res };
+    return { user, res, req };
   } catch (error) {
     console.error(error);
+    res.clearCookie("token");
     throw new Error("User Not Authorized");
-    return { res };
   }
 };

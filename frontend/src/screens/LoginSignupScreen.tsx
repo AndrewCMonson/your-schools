@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { ReactElement, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSessionStore } from "../../stores/session";
 
 interface UserFormData {
   username: string;
@@ -19,9 +20,19 @@ export const LoginSignupScreen = (): ReactElement => {
     email: "",
     password: "",
   });
-  const [login] = useMutation(LOGIN_USER);
+  const [login] = useMutation(LOGIN_USER, {
+    onCompleted: ({ login }) => {
+      setUser(login.user);
+      // navigate("/schools");
+    },
+    onError: (e) => {
+      console.error(e);
+      toast.error("Invalid credentials");
+    },
+  });
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
+  const { setUser } = useSessionStore();
 
   const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
@@ -38,16 +49,9 @@ export const LoginSignupScreen = (): ReactElement => {
       return;
     }
 
-    try {
-      await login({
-        variables: { ...userFormData },
-      });
-
-      navigate("/schools");
-    } catch (e) {
-      console.error(e);
-      toast.error("Invalid credentials");
-    }
+    login({
+      variables: { ...userFormData },
+    });
   };
 
   const handleSignupFormSubmit = async (
