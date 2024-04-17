@@ -2,7 +2,6 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 import App from "./App";
 import "./index.css";
-import { ThemeProvider } from "@material-tailwind/react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -24,7 +23,7 @@ import {
   from,
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-import { useSessionStore } from "../stores/session";
+import { useSessionStore } from "./stores/session";
 
 const link = createHttpLink({
   uri: "/graphql",
@@ -65,11 +64,9 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <ThemeProvider>
-        <ApolloProvider client={client}>
-          <RouterProvider router={router} />
-        </ApolloProvider>
-      </ThemeProvider>
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
     </React.StrictMode>,
   );
 }

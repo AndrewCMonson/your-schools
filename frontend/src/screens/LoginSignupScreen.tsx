@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import { ReactElement, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSessionStore } from "../../stores/session";
+import { useSessionStore } from "../stores/session";
 
 interface UserFormData {
   username: string;
@@ -73,7 +73,7 @@ export const LoginSignupScreen = (): ReactElement => {
         variables: { ...userFormData },
       });
 
-      navigate("/schools");
+      navigate("/");
     } catch (e) {
       console.error(e);
       toast.error("An error occurred. Please try again");
