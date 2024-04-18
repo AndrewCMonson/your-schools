@@ -1,6 +1,6 @@
-import { gql } from "../__generatedTypes__/gql";
+import { graphql } from "../__generatedTypes__/gql";
 
-export const LOGIN_USER = gql(/* GraphQL */ `
+export const LOGIN_USER = graphql(/* GraphQL */ `
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
@@ -12,7 +12,7 @@ export const LOGIN_USER = gql(/* GraphQL */ `
   }
 `);
 
-export const ADD_USER = gql(/* GraphQL */ `
+export const ADD_USER = graphql(/* GraphQL */ `
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
       token
@@ -24,7 +24,7 @@ export const ADD_USER = gql(/* GraphQL */ `
   }
 `);
 
-export const ADD_FAVORITE = gql(/* GraphQL */ `
+export const ADD_FAVORITE = graphql(/* GraphQL */ `
   mutation addToFavorites($schoolId: ID!) {
     addToFavorites(schoolId: $schoolId) {
       id
@@ -37,7 +37,7 @@ export const ADD_FAVORITE = gql(/* GraphQL */ `
   }
 `);
 
-export const REMOVE_FAVORITE = gql(/* GraphQL */ `
+export const REMOVE_FAVORITE = graphql(/* GraphQL */ `
   mutation removeFromFavorites($schoolId: ID!) {
     removeFromFavorites(schoolId: $schoolId) {
       id
@@ -50,7 +50,7 @@ export const REMOVE_FAVORITE = gql(/* GraphQL */ `
   }
 `);
 
-export const LOGOUT = gql(/* GraphQL */ `
+export const LOGOUT = graphql(/* GraphQL */ `
   mutation logout {
     logout
   }
