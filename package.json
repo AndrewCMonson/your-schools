@@ -13,7 +13,7 @@
 		"data:import": "tsx backend/seeder.ts",
 		"data:destroy": "tsx backend/seeder.ts -d",
 		"lint": "eslint . --ext js,ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"compile": "graphql-codegen",
+		"typegen": "graphql-codegen",
 		"watch": "graphql-codegen -w"
 	},
 	"keywords": [],
