@@ -1,8 +1,7 @@
 import { ReactElement } from "react";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { School, PageTitle } from "../components";
-import { Button, Input } from "@material-tailwind/react";
+import { School, PageTitle, SearchBar } from "../components";
 import { useGetSchools } from "../hooks/useGetSchools";
 import { LoadingScreen } from ".";
 import { School as SchoolType } from "../__generatedTypes__/graphql";
@@ -13,17 +12,6 @@ export const SchoolsScreen = (): ReactElement => {
     searchParams.get("zipcode") || "",
   );
   const [search, setSearch] = useState<boolean>(false);
-
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const target = event.target as HTMLFormElement;
-    const zipcode = target.zipcode.value;
-
-    setZipcode(zipcode);
-    setSearchParams({ zipcode: zipcode });
-    setSearch(true);
-  };
 
   const { loading, error, data: schools } = useGetSchools(zipcode);
 
@@ -42,30 +30,11 @@ export const SchoolsScreen = (): ReactElement => {
         className="flex flex-col items-center overflow-auto w-100 pt-5"
       >
         <PageTitle title="Schools" />
-        <form
-          onSubmit={(event: FormEvent<HTMLFormElement>) =>
-            handleFormSubmit(event)
-          }
-          className="container mx-auto relative flex w-full max-w-[24rem]"
-        >
-          <Input
-            type="text"
-            name="zipcode"
-            label="Zipcode"
-            className="pr-20"
-            maxLength={5}
-            containerProps={{ className: "min-w-0" }}
-            crossOrigin={""}
-          />
-          <Button
-            type="submit"
-            size="sm"
-            color="indigo"
-            className="!absolute right-1 top-1 rounded"
-          >
-            Search
-          </Button>
-        </form>
+        <SearchBar
+          setSearchParams={setSearchParams}
+          setSearch={setSearch}
+          setZipcode={setZipcode}
+        />
 
         {schools.length === 0 && search ? (
           <div className="text-center text-2xl mt-8">No schools found</div>

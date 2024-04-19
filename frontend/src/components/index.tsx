@@ -6,6 +6,7 @@ import { PageTitle } from "./PageTitle";
 import { Rating } from "./Rating";
 import { School } from "./School";
 import { Skeleton } from "./Skeleton";
+import { SearchBar } from "./SearchBar";
 
 export {
   Footer,
@@ -16,4 +17,5 @@ export {
   Rating,
   School,
   Skeleton,
+  SearchBar,
 };

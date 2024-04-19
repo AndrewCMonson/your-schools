@@ -82,14 +82,14 @@ const resolvers: Resolvers = {
       await Session.create({
         user: loggedInUser.id,
         token,
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 3),
       });
 
       res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 3,
       });
 
       // TODO remove token

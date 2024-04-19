@@ -1,6 +1,6 @@
-import { Button, Input } from "@material-tailwind/react";
-import { ReactElement, FormEvent } from "react";
+import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
+import { SearchBar } from "../components";
 
 type LDataProps = {
   long_name: string;
@@ -10,15 +10,21 @@ type LDataProps = {
 
 export const HomeScreen = (): ReactElement => {
   const navigate = useNavigate();
+  // const [searchZipcode, setSearchZipcode] = useState<string>("");
 
-  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
 
-    const target = event.target as HTMLFormElement;
-    const zipcode = target.zipcode.value;
+  //   const target = event.target as HTMLFormElement;
+  //   const zipcode = target.zipcode.value;
 
-    navigate(`/schools?zipcode=${zipcode}`);
-  };
+  //   if (!zipcode) {
+  //     toast.error("Please enter a valid zipcode");
+  //     return;
+  //   }
+
+  //   navigate(`/schools?zipcode=${zipcode}`);
+  // };
 
   const handleUseLocationClick = (): void => {
     if (navigator.geolocation) {
@@ -64,33 +70,7 @@ export const HomeScreen = (): ReactElement => {
               preschools and daycares in your area
             </p>
           </div>
-
-          <div className="container mx-auto flex flex-row justify-center mt-4">
-            <form
-              onSubmit={(event: FormEvent<HTMLFormElement>) =>
-                handleSearchSubmit(event)
-              }
-              className="container mx-auto relative flex w-full max-w-[24rem]"
-            >
-              <Input
-                type="text"
-                name="zipcode"
-                label="Enter Your Zipcode To Start!"
-                className="pr-20"
-                maxLength={5}
-                containerProps={{ className: "min-w-0" }}
-                crossOrigin={""}
-              />
-              <Button
-                type="submit"
-                size="sm"
-                color="indigo"
-                className="!absolute right-1 top-1 rounded"
-              >
-                Search
-              </Button>
-            </form>
-          </div>
+          <SearchBar />
           <div>
             <div className="container mx-auto flex flex-row justify-center mt-4">
               <p className="text-center text-2xl">
@@ -98,9 +78,12 @@ export const HomeScreen = (): ReactElement => {
               </p>
             </div>
             <div className="container mx-auto flex flex-row justify-center mt-4">
-              <Button size="lg" color="indigo" onClick={handleUseLocationClick}>
+              <button
+                className="btn btn-primary"
+                onClick={handleUseLocationClick}
+              >
                 Use Your Location
-              </Button>
+              </button>
             </div>
           </div>
           <div className="w-1/2 self-center mt-4">

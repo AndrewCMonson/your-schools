@@ -12,7 +12,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'prettier'],
+  plugins: ['react-refresh', 'prettier', "@typescript-eslint"],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -20,5 +20,7 @@ module.exports = {
     ],
     "react/prop-types": "off",
     'prettier/prettier': ['error'],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
   },
 }

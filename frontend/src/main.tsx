@@ -33,7 +33,10 @@ const link = createHttpLink({
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) => {
-      if (message.includes("User Not Authorized")) {
+      if (
+        message.includes("User Not Authorized") ||
+        message.includes("TokenExpiredError")
+      ) {
         useSessionStore.getState().clearSession();
       }
       console.log(

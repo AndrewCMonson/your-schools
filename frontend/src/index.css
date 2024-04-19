@@ -19,12 +19,6 @@
     height: 100vh;
 }
 
-#homeScreen {
-    background: url('./assets/images/homePicture.jpg') no-repeat center center;
-    background-size: cover;
-    height: 100vh;
-}
-
 #loadingScreen {
     background: url('./assets/images/pexels-cottonbro-studio-3662666.jpg') no-repeat center center;
     background-size: cover;

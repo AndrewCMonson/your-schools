@@ -6,6 +6,7 @@ import { useState, ReactElement } from "react";
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useSortedFavorites } from "../hooks/useSortedFavorites";
+import { SearchBar } from "../components";
 
 export const FavoritesScreen = (): ReactElement => {
   const [removeFavorite] = useMutation(REMOVE_FAVORITE);
@@ -35,12 +36,8 @@ export const FavoritesScreen = (): ReactElement => {
       >
         <PageTitle title="Favorites" />
         <div className="text-2xl text-center">
-          You don&apos;t have any favorites yet. Add some from the{" "}
-          <span className="underline italic">
-            <Link to="/schools" className="hover:text-gray-400">
-              schools page
-            </Link>
-          </span>
+          You don&apos;t have any favorites yet. Search below to find some!
+          <SearchBar placeholder="Search Here!" />
         </div>
       </section>
     );
