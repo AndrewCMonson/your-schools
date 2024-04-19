@@ -1,39 +1,64 @@
 /** @type {import('tailwindcss').Config} */
-import withMT from "@material-tailwind/react/utils/withMT";
+import daisyui from 'daisyui';
 
-export default withMT({
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ["Montserrat", "sans-serif"],
-      },
-    },
-    screens: {
-      xs: "475px",
-      // => @media (min-width: 475px) { ... }
+export default {
+	daisyui: {
+		themes: [
+			{
+				mytheme: {
+					primary: '#3730A3',
 
-      sm: "640px",
-      // => @media (min-width: 640px) { ... }
+					secondary: '#0000ff',
 
-      md: "768px",
-      // => @media (min-width: 768px) { ... }
+					accent: '#00ab00',
 
-      lg: "1024px",
-      // => @media (min-width: 1024px) { ... }
+					neutral: '#181e1e',
 
-      xl: "1280px",
-      // => @media (min-width: 1280px) { ... }
+					'base-100': '#fff8ff',
 
-      "2xl": "1536px",
-      // => @media (min-width: 1536px) { ... }
+					info: '#00d9ff',
 
-      "3xl": "1920px",
-      // => @media (min-width: 1920px) { ... }
+					success: '#00ae00',
 
-      "4xl": "2560px",
-      // => @media (min-width: 2560px) { ... }
-    },
-  },
-  plugins: [],
-});
+					warning: '#ff7100',
+
+					error: '#ff0000',
+				},
+			},
+		],
+	},
+	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	theme: {
+		extend: {
+			fontFamily: {
+				sans: ['Montserrat', 'sans-serif'],
+			},
+		},
+		screens: {
+			xs: '475px',
+			// => @media (min-width: 475px) { ... }
+
+			sm: '640px',
+			// => @media (min-width: 640px) { ... }
+
+			md: '768px',
+			// => @media (min-width: 768px) { ... }
+
+			lg: '1024px',
+			// => @media (min-width: 1024px) { ... }
+
+			xl: '1280px',
+			// => @media (min-width: 1280px) { ... }
+
+			'2xl': '1536px',
+			// => @media (min-width: 1536px) { ... }
+
+			'3xl': '1920px',
+			// => @media (min-width: 1920px) { ... }
+
+			'4xl': '2560px',
+			// => @media (min-width: 2560px) { ... }
+		},
+	},
+	plugins: [daisyui],
+};
