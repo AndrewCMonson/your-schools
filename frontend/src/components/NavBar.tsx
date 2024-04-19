@@ -29,10 +29,12 @@ export const NavBar = (): ReactElement => {
           </Link>
         </div>
         <div className="navbar-center">
-          <div className="hidden lg:block text-2xl cursor-default">
-            <span className="text-neutral">Your</span>
-            <span className="text-primary font-bold">Schools</span>
-          </div>
+          {user && (
+            <div className="hidden lg:block text-2xl cursor-default">
+              <span className="text-neutral">Your</span>
+              <span className="text-primary font-bold">Schools</span>
+            </div>
+          )}
         </div>
         <div className="navbar-end">
           <ul className="menu menu-horizontal px-1">
