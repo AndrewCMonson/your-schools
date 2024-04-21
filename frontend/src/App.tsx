@@ -4,7 +4,7 @@ import { Footer, NavBar } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSessionStore } from "./stores/session";
-import { LoginSignupScreen } from "./screens";
+import { HomeScreen } from "./screens";
 
 const App = (): ReactElement => {
   const { user } = useSessionStore();
@@ -21,7 +21,7 @@ const App = (): ReactElement => {
     <>
       <NavBar dataTheme={theme} setTheme={setTheme} />
       <main className="flex-auto w-100" data-theme={theme}>
-        {user ? <Outlet /> : <LoginSignupScreen />}
+        <Outlet />
       </main>
       <ToastContainer />
       {/* <Footer /> */}

@@ -3,8 +3,10 @@ import { FavoritesScreen } from "./FavoritesScreen";
 import { LoadingScreen } from "./LoadingScreen";
 import { HomeScreen } from "./HomeScreen";
 import { SchoolScreen } from "./SchoolScreen";
-import { LoginSignupScreen } from "./LoginSignupScreen";
+import { LoginScreen } from "./LoginScreen";
 import { SchoolsScreen } from "./SchoolsScreen";
+import { SignupScreen } from "./SignUpScreen";
+
 
 export {
   FourOhFourScreen,
@@ -12,6 +14,7 @@ export {
   LoadingScreen,
   HomeScreen,
   SchoolScreen,
-  LoginSignupScreen,
+  LoginScreen,
   SchoolsScreen,
+  SignupScreen,
 };

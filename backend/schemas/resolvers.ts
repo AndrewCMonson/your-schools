@@ -46,7 +46,11 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    addUser: async (_, { username, email, password }): Promise<Auth> => {
+    addUser: async (
+      _,
+      { username, email, password },
+      { res },
+    ): Promise<Auth> => {
       if (!username || !email || !password) {
         throw new AuthenticationError(
           "You need to provide a username, email, and password",
@@ -55,6 +59,19 @@ const resolvers: Resolvers = {
 
       const user = await User.create({ username, email, password });
       const token = signToken(user);
+
+      await Session.create({
+        user: user.id,
+        token,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 3),
+      });
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60 * 3,
+      });
 
       return { token, user };
     },
