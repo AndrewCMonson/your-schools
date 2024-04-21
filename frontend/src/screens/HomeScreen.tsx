@@ -50,14 +50,18 @@ export const HomeScreen = (): ReactElement => {
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">YourSchools</h1>
-            <p className="mb-5">
+          <div className="max-w-md md:max-w-lg lg:max-w-xl">
+            <h1 className="mb-5 text-5xl md:text-7xl lg:text-8xl font-bold">
+              YourSchools
+            </h1>
+            <p className="mb-5 text-base md:text-lg">
               Built by parents for parents. YourSchools gives you complete
               control over your child&apos;s education
             </p>
-            <button className="btn btn-primary">
-              <Link to="/signup">Get Started</Link>
+            <button className="btn btn-md btn-primary md:btn-lg">
+              <Link to="/signup" className="text-base md:text-lg">
+                Get Started
+              </Link>
             </button>
           </div>
         </div>

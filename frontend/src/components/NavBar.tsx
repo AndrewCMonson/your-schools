@@ -24,7 +24,7 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
 
   return (
     <>
-      <div className="navbar bg-base" data-theme={dataTheme}>
+      <div className="navbar bg-base-200" data-theme={dataTheme}>
         <div className="navbar-start">
           <Link to="/">
             <img
@@ -41,7 +41,7 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                 <div
                   tabIndex={0}
                   role="button"
-                  className="btn btn-ghost rounded-btn text-base xs:text-lg sm:text-2xl"
+                  className="btn btn-ghost rounded-btn text-base xs:text-lg sm:text-xl"
                 >
                   Menu
                 </div>
@@ -75,7 +75,7 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                 <div
                   tabIndex={0}
                   role="button"
-                  className="btn btn-ghost rounded-btn text-lg text-base xs:text-lg sm:text-2xl"
+                  className="btn btn-ghost rounded-btn text-lg text-base xs:text-lg sm:text-xl"
                 >
                   Menu
                 </div>

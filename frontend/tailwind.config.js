@@ -6,7 +6,7 @@ export default {
     themes: [
       {
         myThemeDark: {
-          primary: "#0057ff",
+          primary: "#2f41a7",
 
           secondary: "#e00000",
 
@@ -27,7 +27,7 @@ export default {
       },
       {
         myThemeLight: {
-          primary: "#0057ff",
+          primary: "#2f41a7",
 
           secondary: "#e00000",
 
