@@ -1,7 +1,7 @@
 import { ADD_USER } from "../utils/mutations";
 import { FormEvent, MouseEvent, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { useSessionStore } from "../stores/session";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,15 @@ interface UserFormData {
 
 export const SignupScreen = (): ReactElement => {
   const navigate = useNavigate();
+  const formRef = useRef<HTMLDivElement>(null);
+  const { user, setUser } = useSessionStore();
+
+  const scrollToForm = () => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const [userFormData, setUserFormData] = useState<UserFormData>({
     username: "",
     email: "",
@@ -30,8 +39,6 @@ export const SignupScreen = (): ReactElement => {
       toast.error("An error occurred. Please try again");
     },
   });
-
-  const { user, setUser } = useSessionStore();
 
   const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
@@ -69,21 +76,28 @@ export const SignupScreen = (): ReactElement => {
         id="loginSignupScreen"
         className="h-full w-full pt-5 flex flex-col lg:flex-row justify-center items-center bg-base-200"
       >
-        <div className="hero lg:flex lg:justify-end lg:w-1/2 bg-base-200 lg:mr-40 min-h-full mt-40 lg:mt-0">
-          <div className="hero-content text-center">
+        <div className="hero lg:flex lg:justify-end lg:w-1/2 bg-base-200 lg:mr-40 min-h-screen lg:mt-0">
+          <div className="hero-content text-center mb-24 lg:mb-0">
             <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
+              <h1 className="text-5xl font-bold">
+                Your child&apos;s education. At your fingertips.
+              </h1>
               <p className="py-6">
                 Provident cupiditate voluptatem et in. Quaerat fugiat ut
                 assumenda excepturi exercitationem quasi. In deleniti eaque aut
                 repudiandae et a id nisi.
               </p>
-              <button className="btn btn-primary">Get Started</button>
+              <button
+                className="btn btn-primary lg:hidden"
+                onClick={scrollToForm}
+              >
+                Sign Up Now
+              </button>
             </div>
           </div>
         </div>
-        <div className="hero lg:flex lg:w-1/2 bg-base-200">
-          <div className="card shrink-0 w-full max-w-xs lg:max-w-sm shadow-2xl bg-base-100 mb-40 lg:mb-0">
+        <div className="hero lg:flex lg:w-1/2 bg-base-200" ref={formRef}>
+          <div className="card shrink-0 w-full max-w-xs lg:max-w-md shadow-2xl bg-base-100 mb-40 lg:mb-0">
             <form className="card-body">
               <div>
                 <h1 className="font-bold text-2xl lg:text-3xl">
