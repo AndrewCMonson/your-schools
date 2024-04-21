@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 
 interface SessionStore {
   user: User | null;
-  // eslint-disable-next-line no-unused-vars
+
   setUser: (user: User) => void;
   clearSession: () => void;
 }

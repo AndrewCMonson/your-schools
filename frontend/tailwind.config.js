@@ -5,26 +5,48 @@ export default {
   daisyui: {
     themes: [
       {
-        mytheme: {
-          primary: "#3730A3",
+        myThemeDark: {
+          primary: "#0057ff",
 
-          secondary: "#0000ff",
+          secondary: "#e00000",
 
-          accent: "#00ab00",
+          accent: "#0098aa",
 
-          neutral: "#181e1e",
+          neutral: "#06303e",
 
-          "base-100": "#fff8ff",
+          "base-100": "#222222",
 
-          info: "#00d9ff",
+          info: "#0098ea",
 
-          success: "#00ae00",
+          success: "#a4f970",
 
-          warning: "#ff7100",
+          warning: "#ff5c00",
 
-          error: "#ff0000",
+          error: "#c43447",
         },
       },
+      {
+        myThemeLight: {
+          primary: "#0057ff",
+
+          secondary: "#e00000",
+
+          accent: "#0098aa",
+
+          neutral: "#06303e",
+
+          "base-100": "#ffffff",
+
+          info: "#0098ea",
+
+          success: "#a4f970",
+
+          warning: "#ff5c00",
+
+          error: "#c43447",
+        },
+      },
+      "nord",
     ],
   },
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],

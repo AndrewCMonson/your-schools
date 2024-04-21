@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Footer, NavBar } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -8,15 +8,23 @@ import { LoginSignupScreen } from "./screens";
 
 const App = (): ReactElement => {
   const { user } = useSessionStore();
+  const themeFromStorage = localStorage.getItem("theme");
+  const [theme, setTheme] = useState<string>(
+    themeFromStorage ? JSON.parse(themeFromStorage) : "myThemeDark",
+  );
+
+  useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
 
   return (
     <>
-      <NavBar />
-      <main className="flex-auto w-100">
+      <NavBar dataTheme={theme} setTheme={setTheme} />
+      <main className="flex-auto w-100" data-theme={theme}>
         {user ? <Outlet /> : <LoginSignupScreen />}
       </main>
       <ToastContainer />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
