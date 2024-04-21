@@ -24,7 +24,7 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
 
   return (
     <>
-      <div className="navbar bg-base-200" data-theme={dataTheme}>
+      <div className="navbar bg-base" data-theme={dataTheme}>
         <div className="navbar-start">
           <Link to="/">
             <img
@@ -34,36 +34,73 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
             />
           </Link>
         </div>
-        <div className="navbar-center">
-          {user && (
-            <div className="hidden lg:block text-2xl cursor-default">
-              <span>Your</span>
-              <span>Schools</span>
-            </div>
-          )}
-        </div>
-        <ThemeToggle theme={dataTheme} setTheme={setTheme} />
-        <div className="navbar-end">
-          <ul className="menu menu-horizontal px-1">
-            {user && (
-              <li>
-                <details>
-                  <summary className="text-lg">Menu</summary>
-                  <ul className="rounded-t-none z-50 mr-2">
-                    <li>
-                      <Link to="/schools">Schools</Link>
-                    </li>
-                    <li>
-                      <Link to="/favorites">Favorites</Link>
-                    </li>
-                    <li>
-                      <button onClick={onLogout}>Logout</button>
-                    </li>
-                  </ul>
-                </details>
-              </li>
+        <div className="flex navbar-end flex-1 px-2">
+          <div className="flex items-stretch">
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost rounded-btn text-base xs:text-lg sm:text-2xl"
+                >
+                  Menu
+                </div>
+
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+                >
+                  <li>
+                    <Link to="/schools" className="text-base">
+                      Schools
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/favorites" className="text-base">
+                      Favorites
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={onLogout} className="text-base">
+                      Logout
+                    </button>
+                  </li>
+                  <li>
+                    <ThemeToggle theme={dataTheme} setTheme={setTheme} />
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost rounded-btn text-lg text-base xs:text-lg sm:text-2xl"
+                >
+                  Menu
+                </div>
+
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+                >
+                  <li>
+                    <Link to="/signup" className="text-base">
+                      Signup
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/login" className="text-base">
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <ThemeToggle theme={dataTheme} setTheme={setTheme} />
+                  </li>
+                </ul>
+              </div>
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </>

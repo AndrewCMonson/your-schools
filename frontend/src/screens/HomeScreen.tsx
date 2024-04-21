@@ -1,5 +1,5 @@
-import { ReactElement, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { ReactElement } from "react";
+import { useNavigate, Link } from "react-router-dom";
 // import { SearchBar } from "../components";
 
 type LDataProps = {
@@ -10,11 +10,6 @@ type LDataProps = {
 
 export const HomeScreen = (): ReactElement => {
   const navigate = useNavigate();
-  const myRef = useRef<HTMLDivElement>(null);
-
-  const handleScrollToRef = (): void => {
-    myRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const handleUseLocationClick = (): void => {
     if (navigator.geolocation) {
@@ -61,7 +56,9 @@ export const HomeScreen = (): ReactElement => {
               Built by parents for parents. YourSchools gives you complete
               control over your child&apos;s education
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <button className="btn btn-primary">
+              <Link to="/signup">Get Started</Link>
+            </button>
           </div>
         </div>
       </div>

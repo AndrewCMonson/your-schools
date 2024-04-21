@@ -67,6 +67,7 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
+      {/* TODO: create custom provider for theme */}
       <ApolloProvider client={client}>
         <RouterProvider router={router} />
       </ApolloProvider>
