@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { User } from "../__generatedTypes__/graphql";
 import { persist } from "zustand/middleware";
+import Cookie from "js-cookie";
 
 interface SessionStore {
   user: User | null;
@@ -17,18 +18,17 @@ export const useSessionStore = create<SessionStore>()(
       clearSession: () => set({ user: null }),
     }),
     {
-      name: "session-storage",
+      name: "YSU-SESS",
       storage: {
         getItem: (name) => {
-          const item = sessionStorage.getItem(name);
-          if (!item) return null;
-          return JSON.parse(item);
+          const item = Cookie.get(name);
+          return item ? JSON.parse(item) : null;
         },
         setItem: (name, value) => {
-          sessionStorage.setItem(name, JSON.stringify(value));
+          Cookie.set(name, JSON.stringify(value));
         },
         removeItem: (name) => {
-          sessionStorage.removeItem(name);
+          Cookie.remove(name);
         },
       },
     },
