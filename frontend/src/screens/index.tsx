@@ -1,19 +1,8 @@
-import { FourOhFourScreen } from "./FourOhFourScreen";
-import { FavoritesScreen } from "./FavoritesScreen";
-import { LoadingScreen } from "./LoadingScreen";
-import { HomeScreen } from "./HomeScreen";
-import { SchoolScreen } from "./SchoolScreen";
-import { LoginScreen } from "./LoginScreen";
-import { SchoolsScreen } from "./SchoolsScreen";
-import { SignupScreen } from "./SignUpScreen";
-
-export {
-  FourOhFourScreen,
-  FavoritesScreen,
-  LoadingScreen,
-  HomeScreen,
-  SchoolScreen,
-  LoginScreen,
-  SchoolsScreen,
-  SignupScreen,
-};
+export { FourOhFourScreen } from "./FourOhFourScreen";
+export { FavoritesScreen } from "./FavoritesScreen";
+export { LoadingScreen } from "./LoadingScreen";
+export { HomeScreen } from "./HomeScreen";
+export { SchoolScreen } from "./SchoolScreen";
+export { LoginScreen } from "./LoginScreen";
+export { SchoolsScreen } from "./SchoolsScreen";
+export { SignupScreen } from "./SignUpScreen";

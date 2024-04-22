@@ -31,7 +31,7 @@ export const SignupScreen = (): ReactElement => {
           <div className="hero-content text-center mb-24 lg:mb-0">
             <div className="max-w-md md:max-w-xl">
               <h1 className="font-bold text-5xl  md:text-6xl xl:text-7xl ">
-                Your child&apos;s education. At your fingertips.
+                Your child&apos;s education at your fingertips.
               </h1>
               <p className="py-6">
                 Provident cupiditate voluptatem et in. Quaerat fugiat ut

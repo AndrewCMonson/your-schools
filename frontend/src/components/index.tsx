@@ -1,23 +1,10 @@
-import { Footer } from "./Footer";
-import { GoogleMap } from "./Map";
-import { NavBar } from "./NavBar";
-import { NavButton } from "./NavButton";
-import { PageTitle } from "./PageTitle";
-import { Rating } from "./Rating";
-import { School } from "./School";
-import { Skeleton } from "./Skeleton";
-import { SearchBar } from "./SearchBar";
-import { LocationButton } from "./LocationButton";
-
-export {
-  Footer,
-  GoogleMap,
-  NavBar,
-  NavButton,
-  PageTitle,
-  Rating,
-  School,
-  Skeleton,
-  SearchBar,
-  LocationButton,
-};
+export { Footer } from "./Footer";
+export { GoogleMap } from "./Map";
+export { NavBar } from "./NavBar";
+export { NavButton } from "./NavButton";
+export { PageTitle } from "./PageTitle";
+export { Rating } from "./Rating";
+export { School } from "./School";
+export { Skeleton } from "./Skeleton";
+export { SearchBar } from "./SearchBar";
+export { LocationButton } from "./LocationButton";
