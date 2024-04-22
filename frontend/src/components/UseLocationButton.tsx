@@ -10,10 +10,12 @@ type LocationDataProps = {
   types: string[];
 };
 
-export const UseLocationButton = (): ReactElement => {
+export const UseLocationButton = ({ setZipcode }): ReactElement => {
   const navigate = useNavigate();
 
   const handleUseLocationClick = (): void => {
+    // console.log(navigator.geolocation);
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
@@ -30,14 +32,18 @@ export const UseLocationButton = (): ReactElement => {
             ).long_name;
 
             if (!zipcode) {
-              navigate("/schools");
+              // navigate("/schools");
+              console.log("No zipcode found");
               return;
             }
+            setZipcode(zipcode);
+            console.log(zipcode);
             navigate(`/schools?zipcode=${zipcode}`);
           });
       });
     } else {
-      navigate("/schools");
+      // navigate("/schools");
+      console.log("No location found");
     }
   };
 
