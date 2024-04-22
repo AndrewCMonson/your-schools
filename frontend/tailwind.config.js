@@ -6,7 +6,7 @@ export default {
     themes: [
       {
         myThemeDark: {
-          primary: "#2f41a7",
+          primary: "#36454F",
 
           secondary: "#e00000",
 
@@ -14,7 +14,7 @@ export default {
 
           neutral: "#06303e",
 
-          "base-100": "#222222",
+          "base-100": "36454F",
 
           info: "#0098ea",
 
@@ -23,11 +23,22 @@ export default {
           warning: "#ff5c00",
 
           error: "#c43447",
+          ".btn-primary": {
+            "background-color": "#ffffff",
+            "border-color": "#36454F",
+            "outline-color": "#ffffff",
+            color: "#36454F",
+            "&:hover": {
+              "background-color": "#36454f",
+              "border-color": "#ffffff",
+              color: "#ffffff",
+            },
+          },
         },
       },
       {
         myThemeLight: {
-          primary: "#2f41a7",
+          primary: "#ffffff",
 
           secondary: "#e00000",
 
@@ -44,9 +55,22 @@ export default {
           warning: "#ff5c00",
 
           error: "#c43447",
+          ".btn-primary": {
+            "background-color": "#36454F",
+            "border-color": "#36454F",
+            "outline-color": "#ffffff",
+            color: "#fff",
+            "&:hover": {
+              "background-color": "#ffffff",
+              "border-color": "#36454F",
+              color: "#36454F",
+            },
+          },
+          ".homepage-hero": {
+            color: "#ffffff",
+          },
         },
       },
-      "nord",
     ],
   },
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],

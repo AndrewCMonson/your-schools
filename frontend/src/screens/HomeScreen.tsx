@@ -12,20 +12,18 @@ export const HomeScreen = (): ReactElement => {
         }}
       >
         <div className="hero-overlay bg-opacity-40"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md md:max-w-lg lg:max-w-xl">
+        <div className="hero-content text-center">
+          <div className="max-w-md md:max-w-lg lg:max-w-xl homepage-hero">
             <h1 className="mb-5 text-5xl md:text-7xl lg:text-8xl font-bold">
               YourSchools
             </h1>
-            <p className="mb-5 text-base md:text-lg">
+            <p className="mb-5 md:text-lg">
               Built by parents for parents. YourSchools gives you complete
               control over your child&apos;s education
             </p>
 
             <Link to="/signup" className="text-base md:text-lg">
-              <button className="btn btn-md btn-primary md:btn-lg">
-                Get Started
-              </button>
+              <button className="btn btn-md md:btn-lg">Get Started</button>
             </Link>
           </div>
         </div>

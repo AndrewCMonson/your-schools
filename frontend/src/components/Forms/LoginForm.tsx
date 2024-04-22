@@ -1,34 +1,31 @@
 import { useMutation } from "@apollo/client";
-import { FormEvent, MouseEvent, useState } from "react";
+import { FormEvent, MouseEvent, useState, ReactElement } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSessionStore } from "../stores/session";
-import { ADD_USER } from "../utils/Graphql";
+import { useSessionStore } from "../../stores/session";
+import { LOGIN_USER } from "../../utils/Graphql";
 
 interface UserFormData {
-  username: string;
   email: string;
   password: string;
 }
 
-export const SignupForm = () => {
+export const LoginForm = (): ReactElement => {
   const navigate = useNavigate();
   const { setUser } = useSessionStore();
-
   const [userFormData, setUserFormData] = useState<UserFormData>({
-    username: "",
     email: "",
     password: "",
   });
 
-  const [addUser] = useMutation(ADD_USER, {
-    onCompleted: ({ addUser }) => {
-      setUser(addUser.user);
-      navigate("/");
+  const [login] = useMutation(LOGIN_USER, {
+    onCompleted: ({ login }) => {
+      setUser(login.user);
+      navigate("/schools");
     },
     onError: (e) => {
       console.error(e);
-      toast.error("An error occurred. Please try again");
+      toast.error("Invalid credentials");
     },
   });
 
@@ -37,45 +34,27 @@ export const SignupForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleSignupFormSubmit = async (
+  const handleLoginFormSubmit = async (
     event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
 
-    if (
-      !userFormData.username ||
-      !userFormData.email ||
-      !userFormData.password
-    ) {
+    if (!userFormData.email || !userFormData.password) {
       toast.error("Please fill out all fields");
       return;
     }
 
-    await addUser({
+    login({
       variables: { ...userFormData },
     });
   };
 
   return (
     <>
-      <div className="card shrink-0 w-full md:max-w-md lg:max-w-md shadow-2xl bg-base-100">
+      <div className="card shrink-0 w-full max-w-sm md:max-w-md lg:max-w-md shadow-2xl bg-base-100">
         <form className="card-body">
           <div>
-            <h1 className="font-bold text-2xl lg:text-3xl">
-              Create an account
-            </h1>
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Username</span>
-            </label>
-            <input
-              name="username"
-              placeholder="JohnDoe123"
-              className="input input-bordered"
-              required
-              onChange={handleInputChange}
-            />
+            <h1 className="font-bold text-2xl lg:text-3xl">Login</h1>
           </div>
           <div className="form-control">
             <label className="label">
@@ -108,16 +87,13 @@ export const SignupForm = () => {
               </a>
             </label>
             <label className="label">
-              <a href="/login" className="label-text-alt link link-hover">
-                Already have an account?
+              <a href="/signup" className="label-text-alt link link-hover">
+                Don&apos;t have an account yet?
               </a>
             </label>
           </div>
           <div className="form-control mt-6">
-            <button
-              className="btn btn-primary"
-              onClick={handleSignupFormSubmit}
-            >
+            <button className="btn btn-primary" onClick={handleLoginFormSubmit}>
               Signup
             </button>
           </div>
