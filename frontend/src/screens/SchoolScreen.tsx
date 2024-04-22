@@ -10,7 +10,7 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { GoogleMap, Rating } from "../components";
-import { ADD_FAVORITE } from "../utils/mutations";
+import { ADD_FAVORITE } from "../utils/Graphql/";
 import { useGetSchool, useGetMe } from "../hooks";
 
 export const SchoolScreen = (): ReactElement => {

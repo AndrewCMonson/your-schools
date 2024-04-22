@@ -7,6 +7,7 @@ import { Rating } from "./Rating";
 import { School } from "./School";
 import { Skeleton } from "./Skeleton";
 import { SearchBar } from "./SearchBar";
+import { LocationButton } from "./LocationButton";
 
 export {
   Footer,
@@ -18,4 +19,5 @@ export {
   School,
   Skeleton,
   SearchBar,
+  LocationButton,
 };

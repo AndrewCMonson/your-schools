@@ -1,4 +1,4 @@
-import { graphql } from "../__generatedTypes__/gql";
+import { graphql } from "../../__generatedTypes__/gql";
 
 export const LOGIN_USER = graphql(/* GraphQL */ `
   mutation login($email: String!, $password: String!) {

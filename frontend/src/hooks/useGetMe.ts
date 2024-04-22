@@ -1,4 +1,4 @@
-import { GET_ME } from "../utils/queries";
+import { GET_ME } from "../utils/Graphql/queries";
 import { useQuery } from "@apollo/client";
 
 export const useGetMe = () => {

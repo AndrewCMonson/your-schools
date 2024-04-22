@@ -1,4 +1,4 @@
-import { graphql } from "../__generatedTypes__/gql";
+import { graphql } from "../../__generatedTypes__/gql";
 
 export const GET_SCHOOLS = graphql(/* GraphQL */ `
   query Schools($zipcode: String) {

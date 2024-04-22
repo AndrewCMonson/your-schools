@@ -1,5 +1,5 @@
-import { GET_ME } from "../utils/queries";
-import { REMOVE_FAVORITE } from "../utils/mutations";
+import { GET_ME } from "../utils/Graphql/queries";
+import { REMOVE_FAVORITE } from "../utils/Graphql/";
 import { useMutation } from "@apollo/client";
 import { PageTitle, Rating } from "../components";
 import { useState, ReactElement } from "react";

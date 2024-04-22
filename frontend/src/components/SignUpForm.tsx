@@ -3,7 +3,7 @@ import { FormEvent, MouseEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../stores/session";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER } from "../utils/Graphql";
 
 interface UserFormData {
   username: string;

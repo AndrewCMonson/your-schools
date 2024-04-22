@@ -5,7 +5,7 @@ import { School, PageTitle, SearchBar } from "../components";
 import { useGetSchools } from "../hooks/useGetSchools";
 import { LoadingScreen } from ".";
 import { School as SchoolType } from "../__generatedTypes__/graphql";
-import { UseLocationButton } from "../components/UseLocationButton";
+import { LocationButton } from "../components/LocationButton";
 
 export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,7 +36,12 @@ export const SchoolsScreen = (): ReactElement => {
           setSearch={setSearch}
           setZipcode={setZipcode}
         />
-        <UseLocationButton />
+        <div className="mt-4">
+          <LocationButton
+            setZipcode={setZipcode}
+            setSearchParams={setSearchParams}
+          />
+        </div>
 
         {schools.length === 0 && search ? (
           <div className="text-center text-2xl mt-8">No schools found</div>

@@ -1,4 +1,4 @@
-import { GET_SCHOOL } from "../utils/queries";
+import { GET_SCHOOL } from "../utils/Graphql/queries";
 import { useQuery } from "@apollo/client";
 
 export const useGetSchool = (id: string) => {

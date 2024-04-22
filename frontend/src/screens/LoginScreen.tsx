@@ -1,5 +1,5 @@
 import { Card, Input, Button } from "@material-tailwind/react";
-import { LOGIN_USER } from "../utils/mutations";
+import { LOGIN_USER } from "../utils/Graphql/";
 import { FormEvent, MouseEvent, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { ReactElement, useState } from "react";
