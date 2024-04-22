@@ -7,7 +7,6 @@ import { LoginScreen } from "./LoginScreen";
 import { SchoolsScreen } from "./SchoolsScreen";
 import { SignupScreen } from "./SignUpScreen";
 
-
 export {
   FourOhFourScreen,
   FavoritesScreen,
