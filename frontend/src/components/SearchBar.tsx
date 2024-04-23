@@ -51,14 +51,14 @@ export const SearchBar = ({
             type="text"
             maxLength={5}
             placeholder={placeholder || "Enter a zipcode"}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full join-item"
             name="zipcode"
             value={searchZipcode}
             onChange={(event) => setSearchZipcode(event.target.value)}
           />
           <button
             type="submit"
-            className="btn btn-primary !absolute right-0"
+            className="btn btn-primary !absolute right-0 join-item"
             form="searchForm"
           >
             Search
