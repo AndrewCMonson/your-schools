@@ -6,3 +6,4 @@ export { SchoolScreen } from "./SchoolScreen";
 export { LoginScreen } from "./LoginScreen";
 export { SchoolsScreen } from "./SchoolsScreen";
 export { SignupScreen } from "./SignUpScreen";
+export { ProfileScreen } from "./ProfileScreen";

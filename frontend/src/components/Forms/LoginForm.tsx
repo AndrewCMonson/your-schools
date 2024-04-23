@@ -94,7 +94,7 @@ export const LoginForm = (): ReactElement => {
           </div>
           <div className="form-control mt-6">
             <button className="btn btn-primary" onClick={handleLoginFormSubmit}>
-              Signup
+              Login
             </button>
           </div>
         </form>

@@ -7,3 +7,4 @@ export { School } from "./School";
 export { Skeleton } from "./Skeleton";
 export { SearchBar } from "./SearchBar";
 export { LocationButton } from "./LocationButton";
+export { AccountSettingsForm } from "./Profile";

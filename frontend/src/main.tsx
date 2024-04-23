@@ -16,6 +16,7 @@ import {
   SchoolsScreen,
   SignupScreen,
   LoginScreen,
+  ProfileScreen,
 } from "./screens";
 import {
   ApolloClient,
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
       <Route path="*" element={<FourOhFourScreen />} />
       <Route path="/signup" element={<SignupScreen />} />
       <Route path="/login" element={<LoginScreen />} />
+      <Route path="/profile" element={<ProfileScreen />} />
     </Route>,
   ),
 );

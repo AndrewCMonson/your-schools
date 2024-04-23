@@ -1,4 +1,4 @@
-import { GET_ME } from "../utils/Graphql/queries";
+import { GET_ME } from "../utils/Graphql";
 import { REMOVE_FAVORITE } from "../utils/Graphql/";
 import { useMutation } from "@apollo/client";
 import { PageTitle, Rating } from "../components";
@@ -46,7 +46,7 @@ export const FavoritesScreen = (): ReactElement => {
   return (
     <section
       id="favoritesScreen"
-      className="flex flex-col items-center overflow-auto w-100 pt-5"
+      className="flex flex-col items-center overflow-auto w-100 pt-5 bg-base-200"
     >
       <PageTitle title="Favorites" />
       <div className="flex justify-center">

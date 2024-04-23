@@ -36,7 +36,12 @@ const resolvers: Resolvers = {
         _id: { $in: user.favoriteIds },
       });
 
-      return { ...user, favorites };
+      return {
+        favorites,
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      };
     },
     getFavorites: async (_, { username }) => {
       if (!username) throw new Error("Please provide a username");

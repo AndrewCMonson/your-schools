@@ -5,7 +5,6 @@ import Cookie from "js-cookie";
 
 interface SessionStore {
   user: User | null;
-
   setUser: (user: User) => void;
   clearSession: () => void;
 }
