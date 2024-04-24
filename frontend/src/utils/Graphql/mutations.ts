@@ -24,6 +24,26 @@ export const ADD_USER = graphql(/* GraphQL */ `
   }
 `);
 
+export const UPDATE_USER_INFO = graphql(/* GraphQL */ `
+  mutation updateUserInfo($username: String, $email: String, $zipcode: String) {
+    updateUserInfo(username: $username, email: $email, zipcode: $zipcode) {
+      id
+      username
+      email
+      zipcode
+    }
+  }
+`);
+
+export const UPDATE_USER_PASSWORD = graphql(/* GraphQL */ `
+  mutation updateUserPassword($password: String!, $newPassword: String!) {
+    updateUserPassword(password: $password, newPassword: $newPassword) {
+      id
+      username
+    }
+  }
+`);
+
 export const ADD_FAVORITE = graphql(/* GraphQL */ `
   mutation addToFavorites($schoolId: ID!) {
     addToFavorites(schoolId: $schoolId) {

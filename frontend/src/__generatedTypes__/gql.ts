@@ -15,6 +15,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  mutation login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      token\n      user {\n        id\n        username\n      }\n    }\n  }\n": types.LoginDocument,
     "\n  mutation addUser($username: String!, $email: String!, $password: String!) {\n    addUser(username: $username, email: $email, password: $password) {\n      token\n      user {\n        id\n        username\n      }\n    }\n  }\n": types.AddUserDocument,
+    "\n  mutation updateUserInfo($username: String, $email: String, $zipcode: String) {\n    updateUserInfo(username: $username, email: $email, zipcode: $zipcode) {\n      id\n      username\n      email\n      zipcode\n    }\n  }\n": types.UpdateUserInfoDocument,
+    "\n  mutation updateUserPassword($password: String!, $newPassword: String!) {\n    updateUserPassword(password: $password, newPassword: $newPassword) {\n      id\n      username\n    }\n  }\n": types.UpdateUserPasswordDocument,
     "\n  mutation addToFavorites($schoolId: ID!) {\n    addToFavorites(schoolId: $schoolId) {\n      id\n      username\n      favorites {\n        id\n        name\n      }\n    }\n  }\n": types.AddToFavoritesDocument,
     "\n  mutation removeFromFavorites($schoolId: ID!) {\n    removeFromFavorites(schoolId: $schoolId) {\n      id\n      username\n      favorites {\n        id\n        name\n      }\n    }\n  }\n": types.RemoveFromFavoritesDocument,
     "\n  mutation logout {\n    logout\n  }\n": types.LogoutDocument,
@@ -45,6 +47,14 @@ export function graphql(source: "\n  mutation login($email: String!, $password: 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation addUser($username: String!, $email: String!, $password: String!) {\n    addUser(username: $username, email: $email, password: $password) {\n      token\n      user {\n        id\n        username\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation addUser($username: String!, $email: String!, $password: String!) {\n    addUser(username: $username, email: $email, password: $password) {\n      token\n      user {\n        id\n        username\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation updateUserInfo($username: String, $email: String, $zipcode: String) {\n    updateUserInfo(username: $username, email: $email, zipcode: $zipcode) {\n      id\n      username\n      email\n      zipcode\n    }\n  }\n"): (typeof documents)["\n  mutation updateUserInfo($username: String, $email: String, $zipcode: String) {\n    updateUserInfo(username: $username, email: $email, zipcode: $zipcode) {\n      id\n      username\n      email\n      zipcode\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation updateUserPassword($password: String!, $newPassword: String!) {\n    updateUserPassword(password: $password, newPassword: $newPassword) {\n      id\n      username\n    }\n  }\n"): (typeof documents)["\n  mutation updateUserPassword($password: String!, $newPassword: String!) {\n    updateUserPassword(password: $password, newPassword: $newPassword) {\n      id\n      username\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
