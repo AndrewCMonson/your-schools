@@ -56,6 +56,11 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                     </Link>
                   </li>
                   <li>
+                    <Link to="/profile" className="text-base">
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
                     <Link to="/favorites" className="text-base">
                       Favorites
                     </Link>

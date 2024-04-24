@@ -38,7 +38,8 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach(({ message, locations, path }) => {
       if (
         message.includes("User Not Authorized") ||
-        message.includes("TokenExpiredError")
+        message.includes("TokenExpiredError") ||
+        message.includes("Not logged in")
       ) {
         useSessionStore.getState().clearSession();
       }

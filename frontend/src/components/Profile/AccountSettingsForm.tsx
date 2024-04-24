@@ -6,11 +6,16 @@ type Props = {
 
 export const AccountSettingsForm = ({ data }: Props) => {
   const [editable, setEditable] = useState<boolean>(false);
+  const [passwordEditable, setPasswordEditable] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({
     email: data.email,
     username: data.username,
     password: "",
   });
+
+  const handlePasswordEditButtonClick = () => {
+    setPasswordEditable(!passwordEditable);
+  };
 
   const handleEditButtonClick = () => {
     setEditable(!editable);
@@ -67,7 +72,57 @@ export const AccountSettingsForm = ({ data }: Props) => {
             <input
               name="password"
               type="password"
-              placeholder={!editable ? "********" : "Enter new password"}
+              placeholder="********"
+              className="input input-bordered"
+              disabled={!passwordEditable}
+            />
+            {passwordEditable && (
+              <>
+                <label className="label">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="********"
+                  className="input input-bordered"
+                />
+              </>
+            )}
+            <div>
+              {!passwordEditable ? (
+                <button
+                  className="btn btn-sm btn-ghost mt-0.5"
+                  onClick={handlePasswordEditButtonClick}
+                >
+                  Change Password
+                </button>
+              ) : (
+                <>
+                  <button
+                    className="btn btn-sm btn-primary mt-0.5"
+                    // onClick for saving password via mutation
+                  >
+                    Save Password
+                  </button>
+                  <button
+                    className="btn btn-sm btn-ghost mt-0.5"
+                    onClick={handlePasswordEditButtonClick}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Zipcode</span>
+            </label>
+            <input
+              name="zipcode"
+              type="text"
+              placeholder={!editable ? data.zipcode : "Enter your zipcode"}
               className="input input-bordered"
               disabled={!editable}
             />
@@ -85,9 +140,12 @@ export const AccountSettingsForm = ({ data }: Props) => {
             <div className="form-control mt-6">
               <button
                 className="btn btn-primary"
-                onClick={handleEditButtonClick}
+                // onClick for saving changes via mutation
               >
                 Save
+              </button>
+              <button className="btn btn-ghost" onClick={handleEditButtonClick}>
+                Cancel
               </button>
             </div>
           )}
