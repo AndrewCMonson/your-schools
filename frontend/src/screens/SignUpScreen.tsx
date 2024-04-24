@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { ReactElement, useRef } from "react";
 import { useSessionStore } from "../stores/session";
 import { useNavigate } from "react-router-dom";
-import { SignupForm } from "../components/Forms/SignUpForm";
+import { SignUpForm } from "../components/Forms/";
 
 export const SignupScreen = (): ReactElement => {
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ export const SignupScreen = (): ReactElement => {
           className="hero flex justify-center lg:flex-row lg:justify-start lg:w-1/2 w-3/4 bg-base-200 min-h-screen lg:min-h-0"
           ref={formRef}
         >
-          <SignupForm />
+          <SignUpForm />
         </div>
       </section>
     </>
