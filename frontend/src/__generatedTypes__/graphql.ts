@@ -38,7 +38,7 @@ export type Mutation = {
   login: Auth;
   logout?: Maybe<Scalars['Void']['output']>;
   removeFromFavorites?: Maybe<User>;
-  updateUserInfo?: Maybe<User>;
+  updateUserInfo: User;
   updateUserPassword?: Maybe<User>;
 };
 
@@ -167,7 +167,7 @@ export type UpdateUserInfoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo?: { __typename?: 'User', id?: string | null, username?: string | null, email?: string | null, zipcode?: string | null } | null };
+export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'User', id?: string | null, username?: string | null, email?: string | null, zipcode?: string | null } };
 
 export type UpdateUserPasswordMutationVariables = Exact<{
   password: Scalars['String']['input'];

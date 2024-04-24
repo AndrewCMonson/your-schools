@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { UPDATE_USER_INFO } from "../../utils/Graphql/";
+import { useSessionStore } from "../../stores";
 
 type Props = {
   data: any;
@@ -7,11 +10,23 @@ type Props = {
 export const AccountSettingsForm = ({ data }: Props) => {
   const [editable, setEditable] = useState<boolean>(false);
   const [passwordEditable, setPasswordEditable] = useState<boolean>(false);
-  const [formData, setFormData] = useState<any>({
+  const { setUser } = useSessionStore();
+  const [userInfo, setUserInfo] = useState<any>({
     email: data.email,
     username: data.username,
-    password: "",
     zipcode: data.zipcode,
+  });
+  const [updateUserInfo] = useMutation(UPDATE_USER_INFO, {
+    onCompleted: ({ updateUserInfo }) => {
+      setUser({
+        email: updateUserInfo.email,
+        username: updateUserInfo.username,
+        zipcode: updateUserInfo.zipcode,
+      });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
   });
 
   const handlePasswordEditButtonClick = () => {
@@ -22,12 +37,21 @@ export const AccountSettingsForm = ({ data }: Props) => {
     setEditable(!editable);
   };
 
-  const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  const handleSaveButtonClick = () => {
+    updateUserInfo({
+      variables: {
+        email: userInfo.email,
+        username: userInfo.username,
+        zipcode: userInfo.zipcode,
+      },
+    });
+    setEditable(!editable);
   };
 
-  // TODO: implement save functionality that uses a UPDATE_ME mutation
+  const handleInputChange = (event: any) => {
+    const { name, value } = event.target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
 
   return (
     <>
@@ -47,7 +71,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
                 placeholder={!editable ? data.email : "Enter new email"}
                 className="input input-bordered"
                 disabled={!editable}
-                value={formData.email}
+                value={userInfo.email}
                 onChange={handleInputChange}
               />
             </div>
@@ -61,7 +85,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
                 placeholder={!editable ? data.username : "Enter new email"}
                 className="input input-bordered"
                 disabled={!editable}
-                value={formData.username}
+                value={userInfo.username}
                 onChange={handleInputChange}
               />
             </div>
@@ -126,6 +150,8 @@ export const AccountSettingsForm = ({ data }: Props) => {
               placeholder={!editable ? data.zipcode : "Enter your zipcode"}
               className="input input-bordered"
               disabled={!editable}
+              value={userInfo.zipcode}
+              onChange={handleInputChange}
             />
           </div>
           {!editable ? (
@@ -141,7 +167,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
             <div className="form-control mt-6">
               <button
                 className="btn btn-primary"
-                // onClick for saving changes via mutation
+                onClick={handleSaveButtonClick}
               >
                 Save
               </button>

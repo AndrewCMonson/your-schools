@@ -40,7 +40,7 @@ const resolvers: Resolvers = {
         favorites,
         id: user.id,
         username: user.username,
-        zipcode: user.zipcode || "zipcode not set",
+        zipcode: user.zipcode,
         email: user.email,
       };
     },
