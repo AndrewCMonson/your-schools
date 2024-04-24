@@ -2,6 +2,7 @@ import { School, User, Session } from "../models/index.ts";
 import { UserAttributes } from "../models/UserModel.ts";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth.ts";
+import { hashPassword } from "../utils/hashPassword.ts";
 import {
   Auth,
   Resolvers,
@@ -29,20 +30,9 @@ const resolvers: Resolvers = {
 
       return school;
     },
-    me: async (_, __, { user }) => {
+    me: async (_, __, { user }): Promise<UserAttributes> => {
       if (!user) throw new AuthenticationError("Not logged in");
 
-      // const favorites = await School.find({
-      //   _id: { $in: user.favoriteIds },
-      // });
-
-      // return {
-      //   favorites,
-      //   id: user.id,
-      //   username: user.username,
-      //   zipcode: user.zipcode,
-      //   email: user.email,
-      // };
       return user;
     },
     getFavorites: async (_, { username }) => {
@@ -117,15 +107,33 @@ const resolvers: Resolvers = {
     ): Promise<UserType> => {
       if (!user) throw new AuthenticationError("You need to be logged in");
 
-      const correctPw = await user.isCorrectPassword(password);
+      const loggedInUser = await User.findById(user.id);
+
+      if (!loggedInUser) {
+        throw new AuthenticationError("Couldn't find user with this id");
+      }
+
+      if (password === "" || newPassword === "") {
+        throw new AuthenticationError(
+          "You need to provide a password and a new password",
+        );
+      }
+
+      if (password === newPassword) {
+        throw new AuthenticationError("New password cannot be the same");
+      }
+
+      const correctPw = await loggedInUser.isCorrectPassword(password);
 
       if (!correctPw) {
         throw new AuthenticationError("Incorrect password");
       }
 
+      const hashedPassword = await hashPassword(newPassword);
+
       const updatedUser = await User.findByIdAndUpdate(
         { _id: user.id },
-        { password: newPassword },
+        { password: hashedPassword },
         { new: true },
       );
 

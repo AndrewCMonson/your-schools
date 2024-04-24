@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { UPDATE_USER_INFO } from "../../utils/Graphql/";
+import { UPDATE_USER_INFO, UPDATE_USER_PASSWORD } from "../../utils/Graphql/";
 import { useSessionStore } from "../../stores";
+import { toast } from "react-toastify";
+import { User } from "../../__generatedTypes__/graphql";
 
 type Props = {
-  data: any;
+  data: User;
 };
 
 export const AccountSettingsForm = ({ data }: Props) => {
@@ -14,8 +16,11 @@ export const AccountSettingsForm = ({ data }: Props) => {
   const [userInfo, setUserInfo] = useState<any>({
     email: data.email,
     username: data.username,
-    zipcode: data.zipcode,
+    zipcode: data.zipcode || "",
+    password: "",
+    newPassword: "",
   });
+
   const [updateUserInfo] = useMutation(UPDATE_USER_INFO, {
     onCompleted: ({ updateUserInfo }) => {
       setUser({
@@ -24,13 +29,37 @@ export const AccountSettingsForm = ({ data }: Props) => {
         zipcode: updateUserInfo.zipcode,
       });
     },
+    // TODO: handle onError
     onError: (error) => {
       console.error(error);
     },
   });
 
+  const [updateUserPassword] = useMutation(UPDATE_USER_PASSWORD, {
+    onCompleted: () => {
+      setUserInfo({
+        ...userInfo,
+        password: "",
+        newPassword: "",
+      });
+      setPasswordEditable(!passwordEditable);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const handlePasswordEditButtonClick = () => {
     setPasswordEditable(!passwordEditable);
+  };
+
+  const handlePasswordSaveButtonClick = () => {
+    updateUserPassword({
+      variables: {
+        password: userInfo.password,
+        newPassword: userInfo.newPassword,
+      },
+    });
   };
 
   const handleEditButtonClick = () => {
@@ -68,7 +97,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
               <input
                 name="email"
                 type="email"
-                placeholder={!editable ? data.email : "Enter new email"}
+                placeholder={!editable ? data.email ?? "" : "Enter new email"}
                 className="input input-bordered"
                 disabled={!editable}
                 value={userInfo.email}
@@ -82,7 +111,9 @@ export const AccountSettingsForm = ({ data }: Props) => {
               <input
                 name="username"
                 type="text"
-                placeholder={!editable ? data.username : "Enter new email"}
+                placeholder={
+                  !editable ? data.username ?? "" : "Enter new username"
+                }
                 className="input input-bordered"
                 disabled={!editable}
                 value={userInfo.username}
@@ -100,6 +131,8 @@ export const AccountSettingsForm = ({ data }: Props) => {
               placeholder="********"
               className="input input-bordered"
               disabled={!passwordEditable}
+              value={userInfo.password}
+              onChange={handleInputChange}
             />
             {passwordEditable && (
               <>
@@ -107,10 +140,12 @@ export const AccountSettingsForm = ({ data }: Props) => {
                   <span className="label-text">Confirm Password</span>
                 </label>
                 <input
-                  name="confirmPassword"
+                  name="newPassword"
                   type="password"
                   placeholder="********"
                   className="input input-bordered"
+                  value={userInfo.newPassword}
+                  onChange={handleInputChange}
                 />
               </>
             )}
@@ -126,6 +161,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
                 <>
                   <button
                     className="btn btn-sm btn-primary mt-0.5"
+                    onClick={handlePasswordSaveButtonClick}
                     // onClick for saving password via mutation
                   >
                     Save Password
@@ -147,7 +183,9 @@ export const AccountSettingsForm = ({ data }: Props) => {
             <input
               name="zipcode"
               type="text"
-              placeholder={!editable ? data.zipcode : "Enter your zipcode"}
+              placeholder={
+                !editable ? data.zipcode ?? "" : "Enter your zipcode"
+              }
               className="input input-bordered"
               disabled={!editable}
               value={userInfo.zipcode}
