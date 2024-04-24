@@ -5,6 +5,7 @@ export interface UserAttributes {
   username: string;
   email: string;
   password: string;
+  zipcode: string;
   favoriteIds: Array<Types.ObjectId>;
   isCorrectPassword: (password: string) => Promise<boolean>;
 }
@@ -24,6 +25,10 @@ export const userSchema = new Schema<UserAttributes>({
   password: {
     type: String,
     required: true,
+  },
+  zipcode: {
+    type: String,
+    required: false,
   },
   // favoriteIds
   favoriteIds: [

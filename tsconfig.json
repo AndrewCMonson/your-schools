@@ -32,6 +32,7 @@
 	"references": [{ "path": "frontend/tsconfig.vite.json" }],
 	"ts-node": {
 		"esm": true,
+		"esModuleInterop": true,
 		"transpileOnly": true,
 		"compilerOptions": {
 			"module": "ESNext",

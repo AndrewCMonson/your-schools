@@ -64,6 +64,7 @@ export const GET_ME = graphql(/* GraphQL */ `
       id
       username
       email
+      zipcode
       favorites {
         id
         name
