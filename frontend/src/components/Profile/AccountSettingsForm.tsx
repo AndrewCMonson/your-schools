@@ -11,6 +11,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
     email: data.email,
     username: data.username,
     password: "",
+    zipcode: data.zipcode,
   });
 
   const handlePasswordEditButtonClick = () => {

@@ -40,6 +40,7 @@ const resolvers: Resolvers = {
         favorites,
         id: user.id,
         username: user.username,
+        zipcode: user.zipcode || "zipcode not set",
         email: user.email,
       };
     },
@@ -79,6 +80,50 @@ const resolvers: Resolvers = {
       });
 
       return { token, user };
+    },
+    updateUserInfo: async (
+      _,
+      { username, email, zipcode },
+      { user },
+    ): Promise<UserType> => {
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user.id },
+        { username, email, zipcode },
+        { new: true },
+      );
+
+      if (!updatedUser) {
+        throw new AuthenticationError("Couldn't find user with this id");
+      }
+
+      return updatedUser;
+    },
+    updateUserPassword: async (
+      _,
+      { password, newPassword },
+      { user },
+    ): Promise<UserType> => {
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password");
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user.id },
+        { password: newPassword },
+        { new: true },
+      );
+
+      if (!updatedUser) {
+        throw new AuthenticationError("Couldn't find user with this id");
+      }
+
+      return updatedUser;
     },
     login: async (_, { email, password }, { res, user }): Promise<Auth> => {
       if (user) throw new AuthenticationError("You are already logged in");
