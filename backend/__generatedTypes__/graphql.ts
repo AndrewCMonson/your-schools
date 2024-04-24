@@ -38,6 +38,8 @@ export type Mutation = {
   login: Auth;
   logout?: Maybe<Scalars['Void']['output']>;
   removeFromFavorites?: Maybe<User>;
+  updateUserInfo?: Maybe<User>;
+  updateUserPassword?: Maybe<User>;
 };
 
 
@@ -61,6 +63,20 @@ export type MutationLoginArgs = {
 
 export type MutationRemoveFromFavoritesArgs = {
   schoolId: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateUserInfoArgs = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type MutationUpdateUserPasswordArgs = {
+  newPassword: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -303,6 +319,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
+  updateUserInfo?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<MutationUpdateUserInfoArgs>>;
+  updateUserPassword?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserPasswordArgs, 'newPassword' | 'password'>>;
 };
 
 export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ObjectId'], any> {
