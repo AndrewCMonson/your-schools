@@ -1,6 +1,6 @@
-import { graphql } from "../../__generatedTypes__/gql";
+import { gql } from "@apollo/client";
 
-export const GET_SCHOOLS = graphql(/* GraphQL */ `
+export const GET_SCHOOLS = gql(/* GraphQL */ `
   query Schools($zipcode: String) {
     schools(zipcode: $zipcode) {
       id
@@ -20,7 +20,7 @@ export const GET_SCHOOLS = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_SCHOOL = graphql(/* GraphQL */ `
+export const GET_SCHOOL = gql(/* GraphQL */ `
   query School($id: ID!) {
     school(id: $id) {
       id
@@ -58,7 +58,7 @@ export const GET_SCHOOL = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ME = graphql(/* GraphQL */ `
+export const GET_ME = gql(/* GraphQL */ `
   query me {
     me {
       ...UserDetails
