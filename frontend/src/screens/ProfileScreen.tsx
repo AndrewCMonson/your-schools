@@ -1,12 +1,11 @@
 import { ReactElement } from "react";
 import { useGetMe } from "../hooks";
 import { AccountSettingsForm } from "../components";
-import { User } from "../__generatedTypes__/graphql";
 
 export const ProfileScreen = (): ReactElement => {
   const { loading, error, data } = useGetMe();
 
-  if (loading) {
+  if (!data || loading) {
     return <div>Loading...</div>;
   }
 
@@ -19,7 +18,7 @@ export const ProfileScreen = (): ReactElement => {
       id="profileScreen"
       className="flex flex-col items-center overflow-auto w-100 pt-5 bg-base-200"
     >
-      <AccountSettingsForm data={data as User} />
+      <AccountSettingsForm user={data} />
     </section>
   );
 };

@@ -1,28 +1,23 @@
-import { School, User, Session } from "../models/index.ts";
+import { SchoolModel, UserModel, SessionModel } from "../models/index.ts";
 import { UserAttributes } from "../models/UserModel.ts";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth.ts";
 import { hashPassword } from "../utils/hashPassword.ts";
-import {
-  Auth,
-  Resolvers,
-  School as SchoolType,
-  User as UserType,
-} from "../__generatedTypes__/graphql";
+import { Resolvers } from "../__generatedTypes__/graphql";
 
 const resolvers: Resolvers = {
   Query: {
-    schools: async (_, { zipcode }): Promise<SchoolType[]> => {
+    schools: async (_, { zipcode }) => {
       if (!zipcode) {
         return [];
       }
-      const schools = await School.find({ zipcode: zipcode });
+      const schools = await SchoolModel.find({ zipcode: zipcode });
       return schools;
     },
-    school: async (_, { id }): Promise<SchoolType> => {
+    school: async (_, { id }) => {
       if (!id) throw new Error("Please provide an ID");
 
-      const school = await School.findById(id);
+      const school = await SchoolModel.findById(id);
 
       if (!school) {
         throw new Error("No school found with this ID");
@@ -30,7 +25,7 @@ const resolvers: Resolvers = {
 
       return school;
     },
-    me: async (_, __, { user }): Promise<UserAttributes> => {
+    me: async (_, __, { user }) => {
       if (!user) throw new AuthenticationError("Not logged in");
 
       return user;
@@ -39,12 +34,12 @@ const resolvers: Resolvers = {
       if (!username) throw new Error("Please provide a username");
 
       const params = username ? { username } : {};
-      return User.find(params).populate("favorites");
+      return UserModel.find(params).populate("favorites");
     },
   },
   User: {
-    favorites: async (parent): Promise<SchoolType[]> => {
-      const favorites = await School.find({
+    favorites: async (parent) => {
+      const favorites = await SchoolModel.find({
         _id: { $in: parent.favoriteIds },
       });
 
@@ -52,21 +47,17 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    addUser: async (
-      _,
-      { username, email, password },
-      { res },
-    ): Promise<Auth> => {
+    addUser: async (_, { username, email, password }, { res }) => {
       if (!username || !email || !password) {
         throw new AuthenticationError(
           "You need to provide a username, email, and password",
         );
       }
 
-      const user = await User.create({ username, email, password });
+      const user = await UserModel.create({ username, email, password });
       const token = signToken(user);
 
-      await Session.create({
+      await SessionModel.create({
         user: user.id,
         token,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 3),
@@ -81,14 +72,10 @@ const resolvers: Resolvers = {
 
       return { token, user };
     },
-    updateUserInfo: async (
-      _,
-      { username, email, zipcode },
-      { user },
-    ): Promise<UserType> => {
+    updateUserInfo: async (_, { username, email, zipcode }, { user }) => {
       if (!user) throw new AuthenticationError("You need to be logged in");
 
-      const updatedUser = await User.findByIdAndUpdate(
+      const updatedUser = await UserModel.findByIdAndUpdate(
         { _id: user.id },
         { username, email, zipcode },
         { new: true },
@@ -100,14 +87,10 @@ const resolvers: Resolvers = {
 
       return updatedUser;
     },
-    updateUserPassword: async (
-      _,
-      { password, newPassword },
-      { user },
-    ): Promise<UserType> => {
+    updateUserPassword: async (_, { password, newPassword }, { user }) => {
       if (!user) throw new AuthenticationError("You need to be logged in");
 
-      const loggedInUser = await User.findById(user.id);
+      const loggedInUser = await UserModel.findById(user.id);
 
       if (!loggedInUser) {
         throw new AuthenticationError("Couldn't find user with this id");
@@ -131,7 +114,7 @@ const resolvers: Resolvers = {
 
       const hashedPassword = await hashPassword(newPassword);
 
-      const updatedUser = await User.findByIdAndUpdate(
+      const updatedUser = await UserModel.findByIdAndUpdate(
         { _id: user.id },
         { password: hashedPassword },
         { new: true },
@@ -143,7 +126,7 @@ const resolvers: Resolvers = {
 
       return updatedUser;
     },
-    login: async (_, { email, password }, { res, user }): Promise<Auth> => {
+    login: async (_, { email, password }, { res, user }) => {
       if (user) throw new AuthenticationError("You are already logged in");
 
       if (!email || !password) {
@@ -152,7 +135,7 @@ const resolvers: Resolvers = {
         );
       }
 
-      const loggedInUser = await User.findOne({ email });
+      const loggedInUser = await UserModel.findOne({ email });
       if (!loggedInUser) {
         throw new AuthenticationError("Incorrect credentials");
       }
@@ -164,7 +147,7 @@ const resolvers: Resolvers = {
 
       const token = signToken(loggedInUser);
 
-      await Session.create({
+      await SessionModel.create({
         user: loggedInUser.id,
         token,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 3),
@@ -189,7 +172,7 @@ const resolvers: Resolvers = {
 
       if (!user) throw new AuthenticationError("You need to be logged in");
 
-      const updatedUser = await User.findOneAndUpdate(
+      const updatedUser = await UserModel.findOneAndUpdate(
         { _id: user.id },
         { $addToSet: { favoriteIds: schoolId } },
         { new: true },
@@ -201,13 +184,9 @@ const resolvers: Resolvers = {
 
       return updatedUser;
     },
-    removeFromFavorites: async (
-      _,
-      { schoolId },
-      { user },
-    ): Promise<UserType> => {
+    removeFromFavorites: async (_, { schoolId }, { user }) => {
       if (user) {
-        const updatedUser = await User.findByIdAndUpdate(
+        const updatedUser = await UserModel.findByIdAndUpdate(
           { _id: user.id },
           { $pull: { favoriteIds: schoolId } },
           { new: true },
@@ -225,7 +204,7 @@ const resolvers: Resolvers = {
     logout: async (_, __, { user, res, req }): Promise<void> => {
       if (user) {
         try {
-          await Session.findOneAndDelete({ token: req.cookies.token });
+          await SessionModel.findOneAndDelete({ token: req.cookies.token });
           res.clearCookie("token");
         } catch (error) {
           console.error(error);

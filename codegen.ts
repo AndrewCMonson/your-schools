@@ -7,10 +7,11 @@ const config: CodegenConfig = {
     "backend/__generatedTypes__/graphql.ts": {
       plugins: ["typescript", "typescript-resolvers", "typescript-mongodb"],
       config: {
+        contextType: "../utils/auth#MyContext",
         mappers: {
-          User: "./models/UserModel#UserAttributes",
-          School: "./models/SchoolsModel#SchoolAttributes",
-          Session: "./models/SessionModel#SessionAttributes",
+          User: "../models/UserModel#UserAttributes",
+          School: "../models/SchoolsModel#SchoolAttributes",
+          Session: "../models/SessionModel#SessionAttributes",
         },
       },
     },

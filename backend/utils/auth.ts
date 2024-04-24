@@ -1,16 +1,15 @@
 import process from "process";
 import jwt from "jsonwebtoken";
-import { User as UserType } from "../__generatedTypes__/graphql";
 import { ContextFunction } from "@apollo/server";
 import { ExpressContextFunctionArgument } from "@apollo/server/express4";
-import { User, Session } from "../models/index.ts";
+import { UserAttributes, UserModel, SessionModel } from "../models/index.ts";
 import { Response, Request } from "express";
 
 const secret = process.env.JWT_SECRET;
 const expiration = process.env.JWT_EXPIRATION;
 
-interface MyContext {
-  user?: UserType | null;
+export interface MyContext {
+  user?: UserAttributes | null;
   res: Response;
   req: Request;
 }
@@ -22,7 +21,7 @@ interface JwtPayload {
   };
 }
 
-export const signToken = (user: UserType) => {
+export const signToken = (user: UserAttributes) => {
   const data = {
     username: user.username,
     id: user.id,
@@ -53,7 +52,7 @@ export const authMiddleware: ContextFunction<
     }
 
     // fetch session with matching token
-    const session = await Session.findOne({
+    const session = await SessionModel.findOne({
       token,
     });
 
@@ -67,7 +66,7 @@ export const authMiddleware: ContextFunction<
       throw new Error("Session expired");
     }
 
-    const user = await User.findOne({
+    const user = await UserModel.findOne({
       _id: session.user,
     }).select("-__v -password");
 

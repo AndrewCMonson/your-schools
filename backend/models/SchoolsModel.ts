@@ -1,6 +1,6 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, Types, model, Document } from "mongoose";
 
-interface ImageAttributes {
+interface ImageAttributes extends Document {
   url: string;
   alt: string;
   owner: Types.ObjectId;
@@ -19,7 +19,7 @@ export const imageSchema = new Schema<ImageAttributes>({
   },
 });
 
-export interface SchoolAttributes {
+export interface SchoolAttributes extends Document {
   name: string;
   address: string;
   city: string;
@@ -128,4 +128,4 @@ export const schoolsSchema = new Schema<SchoolAttributes>({
   images: [imageSchema],
 });
 
-export const School = model("school", schoolsSchema);
+export const SchoolModel = model("school", schoolsSchema);

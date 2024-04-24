@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import process from "process";
 import connectDB from "./config/db.ts";
-import { User, School } from "./models/index.ts";
+import { UserModel, SchoolModel } from "./models/index.ts";
 import { users, schools } from "./data/index.ts";
 
 dotenv.config();
@@ -10,12 +10,12 @@ connectDB();
 
 const importData = async () => {
   try {
-    await School.deleteMany();
-    await User.deleteMany();
+    await SchoolModel.deleteMany();
+    await UserModel.deleteMany();
 
-    await School.insertMany(schools);
+    await SchoolModel.insertMany(schools);
 
-    await User.insertMany(users);
+    await UserModel.insertMany(users);
 
     console.log("Data imported");
     process.exit();
@@ -27,8 +27,8 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    await School.deleteMany();
-    await User.deleteMany();
+    await SchoolModel.deleteMany();
+    await UserModel.deleteMany();
 
     console.log("Data destroyed");
     process.exit();

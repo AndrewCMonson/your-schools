@@ -1,3 +1,3 @@
-export { School, imageSchema, schoolsSchema } from "./SchoolsModel.ts";
-export { UserModel as User, userSchema } from "./UserModel.ts";
-export { Session, sessionSchema } from "./SessionModel.ts";
+export * from "./SchoolsModel.ts";
+export * from "./UserModel.ts";
+export * from "./SessionModel.ts";

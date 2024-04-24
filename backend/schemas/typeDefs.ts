@@ -12,7 +12,7 @@ type Auth {
   
 type User {
     id: ID
-    username: String
+    username: String 
     email: String
     password: String
     zipcode: String
@@ -52,7 +52,7 @@ type School {
   type Query {
     schools(zipcode: String): [School!]!
     school(id: ID!): School!
-    me: User!
+    me: User! 
     getFavorites(username: String): [User]!
   }
 

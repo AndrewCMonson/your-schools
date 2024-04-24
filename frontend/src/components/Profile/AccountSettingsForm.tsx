@@ -3,20 +3,20 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_USER_INFO, UPDATE_USER_PASSWORD } from "../../utils/Graphql/";
 import { useSessionStore } from "../../stores";
 import { toast } from "react-toastify";
-import { User } from "../../__generatedTypes__/graphql";
+import { UserDetailsFragment } from "../../__generatedTypes__/graphql";
 
 type Props = {
-  data: User;
+  user: UserDetailsFragment;
 };
 
-export const AccountSettingsForm = ({ data }: Props) => {
+export const AccountSettingsForm = ({ user }: Props) => {
   const [editable, setEditable] = useState<boolean>(false);
   const [passwordEditable, setPasswordEditable] = useState<boolean>(false);
   const { setUser } = useSessionStore();
   const [userInfo, setUserInfo] = useState<any>({
-    email: data.email,
-    username: data.username,
-    zipcode: data.zipcode || "",
+    email: user.email,
+    username: user.username,
+    zipcode: user.zipcode || "",
     password: "",
     newPassword: "",
   });
@@ -97,7 +97,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
               <input
                 name="email"
                 type="email"
-                placeholder={!editable ? data.email ?? "" : "Enter new email"}
+                placeholder={!editable ? user.email ?? "" : "Enter new email"}
                 className="input input-bordered"
                 disabled={!editable}
                 value={userInfo.email}
@@ -112,7 +112,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
                 name="username"
                 type="text"
                 placeholder={
-                  !editable ? data.username ?? "" : "Enter new username"
+                  !editable ? user.username ?? "" : "Enter new username"
                 }
                 className="input input-bordered"
                 disabled={!editable}
@@ -184,7 +184,7 @@ export const AccountSettingsForm = ({ data }: Props) => {
               name="zipcode"
               type="text"
               placeholder={
-                !editable ? data.zipcode ?? "" : "Enter your zipcode"
+                !editable ? user.zipcode ?? "" : "Enter your zipcode"
               }
               className="input input-bordered"
               disabled={!editable}

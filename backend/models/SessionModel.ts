@@ -1,6 +1,6 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, Types, model, Document } from "mongoose";
 
-export interface SessionAttributes {
+export interface SessionAttributes extends Document {
   user: Types.ObjectId;
   expires: Date;
   token: string;
@@ -22,4 +22,4 @@ export const sessionSchema = new Schema<SessionAttributes>({
   },
 });
 
-export const Session = model("Session", sessionSchema);
+export const SessionModel = model("Session", sessionSchema);

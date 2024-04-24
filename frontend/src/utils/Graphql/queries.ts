@@ -61,26 +61,30 @@ export const GET_SCHOOL = graphql(/* GraphQL */ `
 export const GET_ME = graphql(/* GraphQL */ `
   query me {
     me {
+      ...UserDetails
+    }
+  }
+
+  fragment UserDetails on User {
+    id
+    username
+    email
+    zipcode
+    favorites {
       id
-      username
-      email
+      name
+      address
+      city
+      state
       zipcode
-      favorites {
-        id
-        name
-        address
-        city
-        state
-        zipcode
-        latitude
-        longitude
-        phone
-        website
-        email
-        rating
-        age_range
-        max_tuition
-      }
+      latitude
+      longitude
+      phone
+      website
+      email
+      rating
+      age_range
+      max_tuition
     }
   }
 `);
