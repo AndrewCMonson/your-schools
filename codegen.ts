@@ -6,6 +6,13 @@ const config: CodegenConfig = {
   generates: {
     "backend/__generatedTypes__/graphql.ts": {
       plugins: ["typescript", "typescript-resolvers", "typescript-mongodb"],
+      config: {
+        mappers: {
+          User: "./models/UserModel#UserAttributes",
+          School: "./models/SchoolsModel#SchoolAttributes",
+          Session: "./models/SessionModel#SessionAttributes",
+        },
+      },
     },
   },
 };

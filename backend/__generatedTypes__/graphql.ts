@@ -1,4 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { UserAttributes } from './models/UserModel';
+import { SchoolAttributes } from './models/SchoolsModel';
+import { SessionAttributes } from './models/SessionModel';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -6,6 +9,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -219,36 +223,36 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Auth: ResolverTypeWrapper<Auth>;
+  Auth: ResolverTypeWrapper<Omit<Auth, 'user'> & { user: ResolversTypes['User'] }>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Image: ResolverTypeWrapper<Image>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
-  School: ResolverTypeWrapper<School>;
+  School: ResolverTypeWrapper<SchoolAttributes>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserAttributes>;
   Void: ResolverTypeWrapper<Scalars['Void']['output']>;
   AdditionalEntityFields: AdditionalEntityFields;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Auth: Auth;
+  Auth: Omit<Auth, 'user'> & { user: ResolversParentTypes['User'] };
   ID: Scalars['ID']['output'];
   Image: Image;
   String: Scalars['String']['output'];
   Mutation: {};
   ObjectId: Scalars['ObjectId']['output'];
   Query: {};
-  School: School;
+  School: SchoolAttributes;
   Int: Scalars['Int']['output'];
   Boolean: Scalars['Boolean']['output'];
   Float: Scalars['Float']['output'];
-  User: User;
+  User: UserAttributes;
   Void: Scalars['Void']['output'];
   AdditionalEntityFields: AdditionalEntityFields;
 };

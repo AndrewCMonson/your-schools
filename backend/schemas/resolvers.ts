@@ -29,26 +29,36 @@ const resolvers: Resolvers = {
 
       return school;
     },
-    me: async (_, __, { user }): Promise<UserType> => {
+    me: async (_, __, { user }) => {
       if (!user) throw new AuthenticationError("Not logged in");
 
-      const favorites = await School.find({
-        _id: { $in: user.favoriteIds },
-      });
+      // const favorites = await School.find({
+      //   _id: { $in: user.favoriteIds },
+      // });
 
-      return {
-        favorites,
-        id: user.id,
-        username: user.username,
-        zipcode: user.zipcode,
-        email: user.email,
-      };
+      // return {
+      //   favorites,
+      //   id: user.id,
+      //   username: user.username,
+      //   zipcode: user.zipcode,
+      //   email: user.email,
+      // };
+      return user;
     },
     getFavorites: async (_, { username }) => {
       if (!username) throw new Error("Please provide a username");
 
       const params = username ? { username } : {};
       return User.find(params).populate("favorites");
+    },
+  },
+  User: {
+    favorites: async (parent): Promise<SchoolType[]> => {
+      const favorites = await School.find({
+        _id: { $in: parent.favoriteIds },
+      });
+
+      return favorites;
     },
   },
   Mutation: {

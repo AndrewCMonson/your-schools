@@ -1,7 +1,7 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, Types, model, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
-export interface UserAttributes {
+export interface UserAttributes extends Document {
   username: string;
   email: string;
   password: string;
@@ -52,4 +52,4 @@ userSchema.methods.isCorrectPassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-export const User = model("user", userSchema);
+export const UserModel = model("user", userSchema);

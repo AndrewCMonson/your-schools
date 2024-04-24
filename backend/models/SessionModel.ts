@@ -1,6 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 
-interface SessionAttributes {
+export interface SessionAttributes {
   user: Types.ObjectId;
   expires: Date;
   token: string;

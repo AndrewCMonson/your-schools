@@ -19,7 +19,7 @@ export const imageSchema = new Schema<ImageAttributes>({
   },
 });
 
-interface Schools {
+export interface SchoolAttributes {
   name: string;
   address: string;
   city: string;
@@ -48,7 +48,7 @@ interface Schools {
   images: Array<ImageAttributes>;
 }
 
-export const schoolsSchema = new Schema<Schools>({
+export const schoolsSchema = new Schema<SchoolAttributes>({
   name: {
     type: String,
     required: true,
