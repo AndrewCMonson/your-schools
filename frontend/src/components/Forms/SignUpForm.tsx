@@ -11,7 +11,7 @@ interface UserFormData {
   password: string;
 }
 
-export const SignupForm = () => {
+export const SignUpForm = () => {
   const navigate = useNavigate();
   const { setUser } = useSessionStore();
 
