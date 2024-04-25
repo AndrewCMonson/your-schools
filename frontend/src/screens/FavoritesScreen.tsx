@@ -11,7 +11,7 @@ import { SearchBar } from "../components";
 export const FavoritesScreen = (): ReactElement => {
   const [removeFavorite] = useMutation(REMOVE_FAVORITE);
   const [sort, setSort] = useState<string>("");
-  const { loading, sortedFavorites } = useSortedFavorites(sort);
+  // const { loading, sortedFavorites } = useSortedFavorites(sort);
 
   if (loading) {
     return <div>Loading...</div>;

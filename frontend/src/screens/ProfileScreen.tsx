@@ -1,24 +1,23 @@
-import { ReactElement } from "react";
-import { useGetMe } from "../hooks";
+import { ReactElement, useState } from "react";
 import { AccountSettingsForm } from "../components";
+import { Favorites } from "../components/Profile/Favorites";
+import { useSearchParams } from "react-router-dom";
 
 export const ProfileScreen = (): ReactElement => {
-  const { loading, error, data } = useGetMe();
-
-  if (!data || loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [sort, setSort] = useState<string>(searchParams.get("sort") || "");
 
   return (
     <section
       id="profileScreen"
-      className="flex flex-col items-center overflow-auto w-100 pt-5 bg-base-200"
+      className="min-h-full flex flex-col xl:flex-row justify-around items-center overflow-auto w-100 pt-5 bg-base-200"
     >
-      <AccountSettingsForm user={data} />
+      <AccountSettingsForm />
+      <Favorites
+        sort={sort}
+        setSort={setSort}
+        setSearchParams={setSearchParams}
+      />
     </section>
   );
 };

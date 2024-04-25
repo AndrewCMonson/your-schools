@@ -58,13 +58,15 @@ export const GET_SCHOOL = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ME = graphql(/* GraphQL */ `
+export const GET_ME = graphql(`
   query me {
     me {
       ...UserDetails
     }
   }
+`);
 
+export const UserDetailsFragment = graphql(/* GraphQL */ `
   fragment UserDetails on User {
     id
     username

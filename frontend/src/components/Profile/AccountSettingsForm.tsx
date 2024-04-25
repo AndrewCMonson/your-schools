@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { useFragment } from "../../__generatedTypes__";
 import { UPDATE_USER_INFO, UPDATE_USER_PASSWORD } from "../../utils/Graphql/";
 import { useSessionStore } from "../../stores";
 import { toast } from "react-toastify";
-import { UserDetailsFragment } from "../../__generatedTypes__/graphql";
+import { useGetMe } from "../../hooks";
+import { UserDetailsFragment } from "../../utils/Graphql/queries";
 
-type Props = {
-  user: UserDetailsFragment;
-};
+export const AccountSettingsForm = () => {
+  const { loading, error, data } = useGetMe();
 
-export const AccountSettingsForm = ({ user }: Props) => {
+  const user = useFragment(UserDetailsFragment, data);
+
   const [editable, setEditable] = useState<boolean>(false);
   const [passwordEditable, setPasswordEditable] = useState<boolean>(false);
   const { setUser } = useSessionStore();
   const [userInfo, setUserInfo] = useState<any>({
-    email: user.email,
-    username: user.username,
-    zipcode: user.zipcode || "",
+    email: user?.email,
+    username: user?.username,
+    zipcode: user?.zipcode || "",
     password: "",
     newPassword: "",
   });
@@ -29,8 +31,8 @@ export const AccountSettingsForm = ({ user }: Props) => {
         zipcode: updateUserInfo.zipcode,
       });
     },
-    // TODO: handle onError
     onError: (error) => {
+      toast.error(error.message);
       console.error(error);
     },
   });
@@ -82,9 +84,17 @@ export const AccountSettingsForm = ({ user }: Props) => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
+  if (!user || loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <>
-      <div className="card shrink-0  shadow-2xl bg-base-100">
+      <div className="card shrink-0 shadow-2xl bg-base-100">
         <div className="card-body">
           <div>
             <h1 className="font-bold text-2xl lg:text-3xl">Account Settings</h1>
@@ -162,7 +172,6 @@ export const AccountSettingsForm = ({ user }: Props) => {
                   <button
                     className="btn btn-sm btn-primary mt-0.5"
                     onClick={handlePasswordSaveButtonClick}
-                    // onClick for saving password via mutation
                   >
                     Save Password
                   </button>
