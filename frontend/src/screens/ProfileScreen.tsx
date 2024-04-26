@@ -1,6 +1,6 @@
 import { ReactElement, useState } from "react";
 import { AccountSettingsForm } from "../components";
-import { Favorites } from "../components/Profile/Favorites";
+import { Favorites } from "../components/";
 import { useSearchParams } from "react-router-dom";
 
 export const ProfileScreen = (): ReactElement => {

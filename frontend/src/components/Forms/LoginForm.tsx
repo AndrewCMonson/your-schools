@@ -3,7 +3,7 @@ import { FormEvent, MouseEvent, useState, ReactElement } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../stores/session";
-import { LOGIN_USER } from "../../utils/Graphql";
+import { LoginUser } from "../../utils/Graphql";
 
 interface UserFormData {
   email: string;
@@ -18,7 +18,7 @@ export const LoginForm = (): ReactElement => {
     password: "",
   });
 
-  const [login] = useMutation(LOGIN_USER, {
+  const [login] = useMutation(LoginUser, {
     onCompleted: ({ login }) => {
       setUser(login.user);
       navigate("/schools");

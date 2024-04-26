@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { ReactElement, useRef } from "react";
-import { useSessionStore } from "../stores/session";
+import { useSessionStore } from "../stores/";
 import { useNavigate } from "react-router-dom";
-import { SignUpForm } from "../components/Forms/";
+import { SignUpForm } from "../components";
 
 export const SignupScreen = (): ReactElement => {
   const navigate = useNavigate();

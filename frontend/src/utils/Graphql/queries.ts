@@ -1,6 +1,6 @@
 import { graphql } from "../../__generatedTypes__/";
 
-export const GET_SCHOOLS = graphql(/* GraphQL */ `
+export const GetSchools = graphql(/* GraphQL */ `
   query Schools($zipcode: String) {
     schools(zipcode: $zipcode) {
       id
@@ -20,7 +20,7 @@ export const GET_SCHOOLS = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_SCHOOL = graphql(/* GraphQL */ `
+export const GetSchool = graphql(/* GraphQL */ `
   query School($id: ID!) {
     school(id: $id) {
       id
@@ -58,7 +58,7 @@ export const GET_SCHOOL = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ME = graphql(`
+export const GetMe = graphql(`
   query me {
     me {
       ...UserDetails

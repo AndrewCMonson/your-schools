@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useFragment } from "../../__generatedTypes__";
-import { UPDATE_USER_INFO, UPDATE_USER_PASSWORD } from "../../utils/Graphql/";
+import { UpdateUserInfo, UpdateUserPassword } from "../../utils/Graphql/";
 import { useSessionStore } from "../../stores";
 import { toast } from "react-toastify";
 import { useGetMe } from "../../hooks";
@@ -23,7 +23,7 @@ export const AccountSettingsForm = () => {
     newPassword: "",
   });
 
-  const [updateUserInfo] = useMutation(UPDATE_USER_INFO, {
+  const [updateUserInfo] = useMutation(UpdateUserInfo, {
     onCompleted: ({ updateUserInfo }) => {
       setUser({
         email: updateUserInfo.email,
@@ -37,7 +37,7 @@ export const AccountSettingsForm = () => {
     },
   });
 
-  const [updateUserPassword] = useMutation(UPDATE_USER_PASSWORD, {
+  const [updateUserPassword] = useMutation(UpdateUserPassword, {
     onCompleted: () => {
       setUserInfo({
         ...userInfo,

@@ -1,7 +1,7 @@
-import { Favorite } from "./Favorite";
+import { Favorite } from "./";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useSortedFavorites } from "../../hooks";
-import { SearchBar } from "../SearchBar";
+import { SearchBar } from "../";
 import { SetURLSearchParams } from "react-router-dom";
 
 interface FavoritesProps {

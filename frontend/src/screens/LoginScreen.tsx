@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { ReactElement } from "react";
-import { useSessionStore } from "../stores/session";
+import { useSessionStore } from "../stores/";
 import { useNavigate } from "react-router-dom";
-import { LoginForm } from "../components/Forms/LoginForm";
+import { LoginForm } from "../components/";
 
 export const LoginScreen = (): ReactElement => {
   const navigate = useNavigate();

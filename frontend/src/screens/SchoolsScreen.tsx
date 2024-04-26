@@ -2,10 +2,10 @@ import { ReactElement, useEffect } from "react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { School, PageTitle, SearchBar } from "../components";
-import { useGetSchools } from "../hooks/useGetSchools";
+import { useGetSchools } from "../hooks/";
 import { LoadingScreen } from ".";
 import { School as SchoolType } from "../__generatedTypes__/graphql";
-import { LocationButton } from "../components/LocationButton";
+import { LocationButton } from "../components/";
 import { useSessionStore } from "../stores";
 
 export const SchoolsScreen = (): ReactElement => {

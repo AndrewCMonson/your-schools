@@ -1,7 +1,7 @@
 import { ReactElement, useCallback, Dispatch, SetStateAction } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import YourSchools from "../assets/images/your-schools-logo.png";
-import { LOGOUT } from "../utils/Graphql/";
+import { Logout } from "../utils/Graphql/";
 import { useMutation } from "@apollo/client";
 import { useSessionStore } from "../stores/session";
 import { ThemeToggle } from "./ThemeToggle";
@@ -12,7 +12,7 @@ interface NavBarProps {
 }
 
 export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
-  const [logout] = useMutation(LOGOUT);
+  const [logout] = useMutation(Logout);
   const navigate = useNavigate();
   const { user, clearSession } = useSessionStore();
 

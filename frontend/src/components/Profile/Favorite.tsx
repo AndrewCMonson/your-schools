@@ -1,20 +1,20 @@
 import { School } from "../../__generatedTypes__/graphql";
 import { useMutation } from "@apollo/client";
 import { TrashCan, FollowLink } from "../Misc";
-import { REMOVE_FAVORITE, GET_ME } from "../../utils/Graphql";
+import { RemoveFavorite, GetMe } from "../../utils/Graphql";
 import { WebsiteLink } from "../Misc/WebsiteLink";
 
 type FavoriteProps = {
   favorite: School;
 };
 export const Favorite = ({ favorite }: FavoriteProps) => {
-  const [removeFavorite] = useMutation(REMOVE_FAVORITE);
+  const [removeFavorite] = useMutation(RemoveFavorite);
 
   const handleRemoveFavorite = async (schoolId: string) => {
     try {
       await removeFavorite({
         variables: { schoolId },
-        refetchQueries: [{ query: GET_ME }],
+        refetchQueries: [{ query: GetMe }],
       });
     } catch (e) {
       console.error(e);

@@ -1,8 +1,8 @@
-import { GET_ME } from "../utils/Graphql/queries";
+import { GetMe } from "../utils/Graphql/queries";
 import { useQuery } from "@apollo/client";
 
 export const useGetMe = () => {
-  const { loading, error, data } = useQuery(GET_ME);
+  const { loading, error, data } = useQuery(GetMe);
 
   return { loading, error, data: data?.me };
 };

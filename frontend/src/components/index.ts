@@ -8,3 +8,5 @@ export * from "./Skeleton";
 export * from "./SearchBar";
 export * from "./LocationButton";
 export * from "./Profile";
+export * from "./SearchBar";
+export * from "./Forms";

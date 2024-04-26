@@ -10,14 +10,14 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { GoogleMap, Rating } from "../components";
-import { ADD_FAVORITE } from "../utils/Graphql/";
+import { AddFavorite } from "../utils/Graphql/";
 import { useGetSchool, useGetMe } from "../hooks";
 
 export const SchoolScreen = (): ReactElement => {
   const { id } = useParams<string>();
   const { loading, error, data: school } = useGetSchool(id || "");
   const { data: me } = useGetMe();
-  const [addToFavorites] = useMutation(ADD_FAVORITE);
+  const [addToFavorites] = useMutation(AddFavorite);
 
   if (loading)
     return (

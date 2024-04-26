@@ -3,7 +3,7 @@ import { FormEvent, MouseEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSessionStore } from "../../stores/session";
-import { ADD_USER } from "../../utils/Graphql";
+import { AddUser } from "../../utils/Graphql";
 
 interface UserFormData {
   username: string;
@@ -21,7 +21,7 @@ export const SignUpForm = () => {
     password: "",
   });
 
-  const [addUser] = useMutation(ADD_USER, {
+  const [addUser] = useMutation(AddUser, {
     onCompleted: ({ addUser }) => {
       setUser(addUser.user);
       navigate("/");

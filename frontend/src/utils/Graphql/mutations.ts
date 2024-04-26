@@ -1,6 +1,6 @@
 import { graphql } from "../../__generatedTypes__/";
 
-export const LOGIN_USER = graphql(`
+export const LoginUser = graphql(`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
@@ -12,7 +12,7 @@ export const LOGIN_USER = graphql(`
   }
 `);
 
-export const ADD_USER = graphql(`
+export const AddUser = graphql(`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
       token
@@ -24,7 +24,7 @@ export const ADD_USER = graphql(`
   }
 `);
 
-export const UPDATE_USER_INFO = graphql(`
+export const UpdateUserInfo = graphql(`
   mutation updateUserInfo($username: String, $email: String, $zipcode: String) {
     updateUserInfo(username: $username, email: $email, zipcode: $zipcode) {
       id
@@ -35,7 +35,7 @@ export const UPDATE_USER_INFO = graphql(`
   }
 `);
 
-export const UPDATE_USER_PASSWORD = graphql(`
+export const UpdateUserPassword = graphql(`
   mutation updateUserPassword($password: String!, $newPassword: String!) {
     updateUserPassword(password: $password, newPassword: $newPassword) {
       id
@@ -44,7 +44,7 @@ export const UPDATE_USER_PASSWORD = graphql(`
   }
 `);
 
-export const ADD_FAVORITE = graphql(`
+export const AddFavorite = graphql(`
   mutation addToFavorites($schoolId: ID!) {
     addToFavorites(schoolId: $schoolId) {
       id
@@ -57,7 +57,7 @@ export const ADD_FAVORITE = graphql(`
   }
 `);
 
-export const REMOVE_FAVORITE = graphql(`
+export const RemoveFavorite = graphql(`
   mutation removeFromFavorites($schoolId: ID!) {
     removeFromFavorites(schoolId: $schoolId) {
       id
@@ -70,7 +70,7 @@ export const REMOVE_FAVORITE = graphql(`
   }
 `);
 
-export const LOGOUT = graphql(`
+export const Logout = graphql(`
   mutation logout {
     logout
   }
