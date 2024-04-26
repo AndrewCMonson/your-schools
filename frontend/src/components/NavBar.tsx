@@ -45,7 +45,6 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                 >
                   Menu
                 </div>
-
                 <ul
                   tabIndex={0}
                   className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
@@ -58,11 +57,6 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                   <li>
                     <Link to="/profile" className="text-base">
                       Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/favorites" className="text-base">
-                      Favorites
                     </Link>
                   </li>
                   <li>
@@ -84,7 +78,6 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                 >
                   Menu
                 </div>
-
                 <ul
                   tabIndex={0}
                   className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"

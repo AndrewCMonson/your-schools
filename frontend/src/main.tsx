@@ -9,7 +9,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import {
-  FavoritesScreen,
   FourOhFourScreen,
   HomeScreen,
   SchoolScreen,
@@ -61,7 +60,6 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/schools" element={<SchoolsScreen />} />
       <Route path="/schools/:id" element={<SchoolScreen />} />
-      <Route path="/favorites" element={<FavoritesScreen />} />
       <Route path="*" element={<FourOhFourScreen />} />
       <Route path="/signup" element={<SignupScreen />} />
       <Route path="/login" element={<LoginScreen />} />

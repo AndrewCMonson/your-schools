@@ -12,12 +12,14 @@ export const ProfileScreen = (): ReactElement => {
       id="profileScreen"
       className="min-h-full flex flex-col xl:flex-row justify-around items-center overflow-auto w-100 pt-5 bg-base-200"
     >
-      <AccountSettingsForm />
-      <Favorites
-        sort={sort}
-        setSort={setSort}
-        setSearchParams={setSearchParams}
-      />
+      <div className="container mx-auto flex flex-col xl:flex-row gap-4 justify-center">
+        <AccountSettingsForm />
+        <Favorites
+          sort={sort}
+          setSort={setSort}
+          setSearchParams={setSearchParams}
+        />
+      </div>
     </section>
   );
 };

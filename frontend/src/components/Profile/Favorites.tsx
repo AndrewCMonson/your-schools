@@ -1,11 +1,13 @@
 import { Favorite } from "./Favorite";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useSortedFavorites } from "../../hooks";
+import { SearchBar } from "../SearchBar";
+import { SetURLSearchParams } from "react-router-dom";
 
 interface FavoritesProps {
   sort: string;
-  setSort: (sort: string) => void;
-  setSearchParams: (params: any) => void;
+  setSort: Dispatch<SetStateAction<string>>;
+  setSearchParams: SetURLSearchParams;
 }
 
 export const Favorites = ({
@@ -13,7 +15,6 @@ export const Favorites = ({
   setSort,
   setSearchParams,
 }: FavoritesProps) => {
-  // const [sort, setSort] = useState<string>("");
   const { sortedFavorites } = useSortedFavorites(sort);
 
   const handleFavoritesSort = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -23,7 +24,7 @@ export const Favorites = ({
 
   return (
     <>
-      <div className="card shrink-0 bg-base-100 shadow-2xl">
+      <div className="card shrink-0 bg-base-100 shadow-2xl min-w-1/2 xl:w-1/2 m-4 lg:m-0">
         <div className="card-body">
           <div>
             <h1 className="font-bold text-2xl lg:text-3xl text-center">
@@ -37,7 +38,7 @@ export const Favorites = ({
                 value={sort}
                 onChange={(e) => handleFavoritesSort(e)}
               >
-                <option selected>Sort By</option>
+                <option value="">Sort By</option>
                 <option value="rating">Rating</option>
                 <option value="price_asc">Price(High to Low)</option>
                 <option value="price_desc">Price(Low to High)</option>
@@ -50,8 +51,8 @@ export const Favorites = ({
                 <tr>
                   <th></th>
                   <th>Name</th>
-                  <th>Contact</th>
-                  <th>Website</th>
+                  <th className="hidden lg:table-cell">Contact</th>
+                  <th className="hidden lg:table-cell">Website</th>
                   <th></th>
                 </tr>
               </thead>
@@ -69,6 +70,11 @@ export const Favorites = ({
                 ))}
               </tbody>
             </table>
+            {sortedFavorites?.length === 0 && (
+              <>
+                <SearchBar setSearchParams={setSearchParams} />
+              </>
+            )}
           </div>
         </div>
       </div>

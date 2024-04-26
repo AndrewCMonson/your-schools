@@ -94,13 +94,15 @@ export const AccountSettingsForm = () => {
 
   return (
     <>
-      <div className="card shrink-0 shadow-2xl bg-base-100">
+      <div className="card shrink-0 shadow-2xl bg-base-100 m-4 lg:m-0">
         <div className="card-body">
           <div>
-            <h1 className="font-bold text-2xl lg:text-3xl">Account Settings</h1>
+            <h1 className="font-bold text-2xl lg:text-3xl text-center">
+              Account Settings
+            </h1>
           </div>
-          <div className="flex gap-4">
-            <div className="form-control">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="form-control lg:w-1/2">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
@@ -114,7 +116,7 @@ export const AccountSettingsForm = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-control">
+            <div className="form-control lg:w-1/2">
               <label className="label">
                 <span className="label-text">Username</span>
               </label>
@@ -133,7 +135,9 @@ export const AccountSettingsForm = () => {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text">
+                {passwordEditable ? "Current Password" : "Password"}
+              </span>
             </label>
             <input
               name="password"
@@ -147,7 +151,7 @@ export const AccountSettingsForm = () => {
             {passwordEditable && (
               <>
                 <label className="label">
-                  <span className="label-text">Confirm Password</span>
+                  <span className="label-text">New Password</span>
                 </label>
                 <input
                   name="newPassword"
