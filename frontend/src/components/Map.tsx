@@ -20,7 +20,7 @@ export const GoogleMap = ({ location }: GoogleMapProps) => {
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-      <div className="h-full w-full">
+      <div className="h-full w-full border rounded-md">
         <Map
           zoom={12}
           center={

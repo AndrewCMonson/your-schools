@@ -35,7 +35,7 @@ export const SchoolsScreen = (): ReactElement => {
     <>
       <section
         id="schoolsScreen"
-        className="flex flex-col items-center overflow-auto w-100 pt-5"
+        className="flex flex-col items-center overflow-auto w-100 pt-5 bg-base-200 h-full"
       >
         <PageTitle title="Schools" />
         <SearchBar
@@ -54,11 +54,13 @@ export const SchoolsScreen = (): ReactElement => {
             No schools found in {zipcode}
           </div>
         ) : (
-          <div className="flex flex-col min-w-1/2 ">
-            {schools.map((school) => (
-              <School key={school.id} school={school as SchoolType} />
-            ))}
-          </div>
+          <>
+            <div className="flex flex-col min-w-1/2 ">
+              {schools.map((school) => (
+                <School key={school.id} school={school as SchoolType} />
+              ))}
+            </div>
+          </>
         )}
       </section>
     </>

@@ -6,9 +6,6 @@ export const Rating = ({ value }: RatingProps) => {
   const list = [];
 
   for (let i = 0; i < 5; i++) {
-    // determine if number is whole or half
-    // if whole, add two halfs of a star
-    // if half, add one half of a star that is full and half that is empty
     if (value - i >= 1) {
       list.push(
         <>

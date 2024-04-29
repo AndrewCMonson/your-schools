@@ -109,7 +109,9 @@ export const AccountSettingsForm = () => {
               <input
                 name="email"
                 type="email"
-                placeholder={!editable ? user.email ?? "" : "Enter new email"}
+                placeholder={
+                  !editable ? user.email ?? "" : user.email ?? "Enter new email"
+                }
                 className="input input-bordered"
                 disabled={!editable}
                 value={userInfo.email}
@@ -124,7 +126,9 @@ export const AccountSettingsForm = () => {
                 name="username"
                 type="text"
                 placeholder={
-                  !editable ? user.username ?? "" : "Enter new username"
+                  !editable
+                    ? user.username ?? ""
+                    : user.username ?? "Enter new username"
                 }
                 className="input input-bordered"
                 disabled={!editable}
@@ -197,7 +201,7 @@ export const AccountSettingsForm = () => {
               name="zipcode"
               type="text"
               placeholder={
-                !editable ? user.zipcode ?? "" : "Enter your zipcode"
+                !editable ? user.zipcode ?? "" : user.zipcode ?? "Enter zipcode"
               }
               className="input input-bordered"
               disabled={!editable}

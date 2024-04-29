@@ -7,6 +7,7 @@ export const LoginUser = graphql(`
       user {
         id
         username
+        zipcode
       }
     }
   }

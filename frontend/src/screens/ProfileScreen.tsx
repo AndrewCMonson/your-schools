@@ -23,15 +23,3 @@ export const ProfileScreen = (): ReactElement => {
     </section>
   );
 };
-
-/*
-
-User profile contents:
-
-Preferences: { light/dark mode, username, email, password, location(zipcode), type of schools?, option to add children }
-Favorites: { list of favorite schools }
-
-
-
-
-*/
