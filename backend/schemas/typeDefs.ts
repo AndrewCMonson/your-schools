@@ -24,6 +24,21 @@ type LatLng {
     lng: Float
 }
 
+type Bounds {
+    northeast: LatLng
+    southwest: LatLng
+}
+
+type LocationInfo {
+  location: LatLng
+  bounds: Bounds
+}
+
+type Schools {
+  schools: [School!]!
+  locationInfo: LocationInfo
+}
+
 type School {
     id: ID
     name: String
@@ -54,7 +69,7 @@ type School {
   }
   
   type Query {
-    schools(zipcode: String): [School!]!
+    schools(zipcode: String): Schools!
     school(id: ID!): School!
     me: User! 
     getFavorites(username: String): [User]!

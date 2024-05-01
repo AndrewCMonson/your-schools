@@ -29,6 +29,12 @@ export type Auth = {
   user: User;
 };
 
+export type Bounds = {
+  __typename?: 'Bounds';
+  northeast?: Maybe<LatLng>;
+  southwest?: Maybe<LatLng>;
+};
+
 export type Image = {
   __typename?: 'Image';
   alt?: Maybe<Scalars['String']['output']>;
@@ -40,6 +46,12 @@ export type LatLng = {
   __typename?: 'LatLng';
   lat?: Maybe<Scalars['Float']['output']>;
   lng?: Maybe<Scalars['Float']['output']>;
+};
+
+export type LocationInfo = {
+  __typename?: 'LocationInfo';
+  bounds?: Maybe<Bounds>;
+  location?: Maybe<LatLng>;
 };
 
 export type Mutation = {
@@ -95,7 +107,7 @@ export type Query = {
   getFavorites: Array<Maybe<User>>;
   me: User;
   school: School;
-  schools: Array<School>;
+  schools: Schools;
 };
 
 
@@ -141,6 +153,12 @@ export type School = {
   state?: Maybe<Scalars['String']['output']>;
   website?: Maybe<Scalars['String']['output']>;
   zipcode?: Maybe<Scalars['String']['output']>;
+};
+
+export type Schools = {
+  __typename?: 'Schools';
+  locationInfo?: Maybe<LocationInfo>;
+  schools: Array<School>;
 };
 
 export type User = {
@@ -231,16 +249,19 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Auth: ResolverTypeWrapper<Omit<Auth, 'user'> & { user: ResolversTypes['User'] }>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Bounds: ResolverTypeWrapper<Bounds>;
   Image: ResolverTypeWrapper<Image>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   LatLng: ResolverTypeWrapper<LatLng>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  LocationInfo: ResolverTypeWrapper<LocationInfo>;
   Mutation: ResolverTypeWrapper<{}>;
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
   School: ResolverTypeWrapper<SchoolAttributes>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Schools: ResolverTypeWrapper<Omit<Schools, 'schools'> & { schools: Array<ResolversTypes['School']> }>;
   User: ResolverTypeWrapper<UserAttributes>;
   Void: ResolverTypeWrapper<Scalars['Void']['output']>;
   AdditionalEntityFields: AdditionalEntityFields;
@@ -250,16 +271,19 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Auth: Omit<Auth, 'user'> & { user: ResolversParentTypes['User'] };
   ID: Scalars['ID']['output'];
+  Bounds: Bounds;
   Image: Image;
   String: Scalars['String']['output'];
   LatLng: LatLng;
   Float: Scalars['Float']['output'];
+  LocationInfo: LocationInfo;
   Mutation: {};
   ObjectId: Scalars['ObjectId']['output'];
   Query: {};
   School: SchoolAttributes;
   Int: Scalars['Int']['output'];
   Boolean: Scalars['Boolean']['output'];
+  Schools: Omit<Schools, 'schools'> & { schools: Array<ResolversParentTypes['School']> };
   User: UserAttributes;
   Void: Scalars['Void']['output'];
   AdditionalEntityFields: AdditionalEntityFields;
@@ -318,6 +342,12 @@ export type AuthResolvers<ContextType = MyContext, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type BoundsResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Bounds'] = ResolversParentTypes['Bounds']> = {
+  northeast?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
+  southwest?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ImageResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   owner?: Resolver<Maybe<ResolversTypes['ObjectId']>, ParentType, ContextType>;
@@ -328,6 +358,12 @@ export type ImageResolvers<ContextType = MyContext, ParentType extends Resolvers
 export type LatLngResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['LatLng'] = ResolversParentTypes['LatLng']> = {
   lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   lng?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LocationInfoResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['LocationInfo'] = ResolversParentTypes['LocationInfo']> = {
+  bounds?: Resolver<Maybe<ResolversTypes['Bounds']>, ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -349,7 +385,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
   getFavorites?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, Partial<QueryGetFavoritesArgs>>;
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   school?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
-  schools?: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType, Partial<QuerySchoolsArgs>>;
+  schools?: Resolver<ResolversTypes['Schools'], ParentType, ContextType, Partial<QuerySchoolsArgs>>;
 };
 
 export type SchoolResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
@@ -382,6 +418,12 @@ export type SchoolResolvers<ContextType = MyContext, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SchoolsResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Schools'] = ResolversParentTypes['Schools']> = {
+  locationInfo?: Resolver<Maybe<ResolversTypes['LocationInfo']>, ParentType, ContextType>;
+  schools?: Resolver<Array<ResolversTypes['School']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UserResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   favorites?: Resolver<Maybe<Array<ResolversTypes['School']>>, ParentType, ContextType>;
@@ -398,12 +440,15 @@ export interface VoidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type Resolvers<ContextType = MyContext> = {
   Auth?: AuthResolvers<ContextType>;
+  Bounds?: BoundsResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   LatLng?: LatLngResolvers<ContextType>;
+  LocationInfo?: LocationInfoResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   ObjectId?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   School?: SchoolResolvers<ContextType>;
+  Schools?: SchoolsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Void?: GraphQLScalarType;
 };

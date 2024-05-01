@@ -4,21 +4,26 @@ import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth.ts";
 import { hashPassword } from "../utils/hashPassword.ts";
 import { Resolvers } from "../__generatedTypes__/graphql";
-import { getLatLng } from "../services/GoogleMapsServices.ts";
+import {
+  getLatLng,
+  getLatLngFromZipcode,
+} from "../services/GoogleMapsServices.ts";
 
 const resolvers: Resolvers = {
   Query: {
     schools: async (_, { zipcode }) => {
       if (!zipcode) {
-        return [];
+        return { schools: [] };
       }
       const schools = await SchoolModel.find({ zipcode: zipcode });
 
-      if (!schools) {
+      if (!schools.length) {
         throw new Error("No schools found with this zipcode");
       }
 
-      return schools;
+      const locationInfo = await getLatLngFromZipcode(zipcode);
+
+      return { schools, locationInfo };
     },
     school: async (_, { id }) => {
       if (!id) throw new Error("Please provide an ID");
@@ -52,13 +57,6 @@ const resolvers: Resolvers = {
       return favorites;
     },
   },
-  // Schools: {
-  //   latLng: async (parent) => {
-  //     const { zipcode } = parent;
-  //     const { location, bounds } = await getLatLngFromZipcode(zipcode || ""); // Ensure zipcode is not undefined
-  //     return { location, bounds };
-  //   },
-  // },
   School: {
     latLng: async (parent) => {
       console.log("getting latlng");
