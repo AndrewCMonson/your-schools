@@ -15,6 +15,7 @@ export const Rating = ({ value }: RatingProps) => {
             className=" mask mask-star-2 mask-half-1"
             disabled={true}
             key={i}
+            style={{ cursor: "default" }}
           />
           <input
             type="radio"
@@ -22,6 +23,7 @@ export const Rating = ({ value }: RatingProps) => {
             className="mask mask-star-2 mask-half-2"
             disabled={true}
             key={i + 0.5}
+            style={{ cursor: "default" }}
           />
         </>,
       );
@@ -35,6 +37,7 @@ export const Rating = ({ value }: RatingProps) => {
             checked
             disabled={true}
             key={i}
+            style={{ cursor: "default" }}
           />
           <input
             type="radio"
@@ -42,6 +45,7 @@ export const Rating = ({ value }: RatingProps) => {
             className="mask mask-star-2 mask-half-2"
             disabled={true}
             key={i + 0.5}
+            style={{ cursor: "default" }}
           />
         </>,
       );
@@ -54,6 +58,7 @@ export const Rating = ({ value }: RatingProps) => {
             className="mask mask-star-2 mask-half-1"
             disabled={true}
             key={i}
+            style={{ cursor: "default" }}
           />
           <input
             type="radio"
@@ -61,6 +66,7 @@ export const Rating = ({ value }: RatingProps) => {
             className="mask mask-star-2 mask-half-2"
             disabled={true}
             key={i + 0.5}
+            style={{ cursor: "default" }}
           />
         </>,
       );

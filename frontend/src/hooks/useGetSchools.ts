@@ -6,5 +6,10 @@ export const useGetSchools = (zipcode: string) => {
     variables: { zipcode },
   });
 
-  return { loading, error, data: data?.schools || [] };
+  return {
+    loading,
+    error,
+    data: data?.schools?.schools || [],
+    locationInfo: data?.schools?.locationInfo,
+  };
 };

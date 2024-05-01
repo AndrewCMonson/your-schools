@@ -44,7 +44,7 @@ export const SearchBar = ({
       <div className="container mx-auto flex flex-row justify-center mt-4">
         <form
           onSubmit={handleSearchSubmit}
-          className="container mx-auto relative flex w-full max-w-[24rem]"
+          className="container m-4 relative flex w-full max-w-[24rem]"
           id="searchForm"
         >
           <input

@@ -4,10 +4,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { School, PageTitle, SearchBar } from "../components";
 import { useGetSchools } from "../hooks/";
 import { LoadingScreen } from ".";
-import { School as SchoolType } from "../__generatedTypes__/graphql";
+import {
+  School as SchoolType,
+  LocationInfo,
+} from "../__generatedTypes__/graphql";
 import { LocationButton } from "../components/";
 import { useSessionStore } from "../stores";
-import SearchMap from "../components/SearchMap";
+import SearchMap from "../components/Maps/SearchMap";
+import { SchoolSearchResults } from "../components/Schools/SchoolSearchResults";
 
 export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,8 +20,15 @@ export const SchoolsScreen = (): ReactElement => {
     searchParams.get("zipcode") || loggedInUser?.zipcode || "",
   );
   const [search, setSearch] = useState<boolean>(false);
-  const { loading, error, data: schools } = useGetSchools(zipcode);
+  const {
+    loading,
+    error,
+    data: schools,
+    locationInfo,
+  } = useGetSchools(zipcode);
   const navigate = useNavigate();
+
+  console.log(locationInfo);
 
   useEffect(() => {
     if (zipcode) {
@@ -41,34 +52,36 @@ export const SchoolsScreen = (): ReactElement => {
     <>
       <section
         id="schoolsScreen"
-        className="flex flex-col items-center overflow-auto w-100 pt-5 bg-base-200 h-full"
+        className="min-h-full h-full flex items-center w-100 bg-base-200"
       >
-        <PageTitle title="Schools" />
-        <SearchBar
-          setSearchParams={setSearchParams}
-          setSearch={setSearch}
-          setZipcode={setZipcode}
-        />
-        <div className="mt-4">
-          <LocationButton
-            setZipcode={setZipcode}
+        <div className="container mx-auto flex flex-col items-center h-full">
+          <PageTitle title="Schools" />
+          <SearchBar
             setSearchParams={setSearchParams}
+            setSearch={setSearch}
+            setZipcode={setZipcode}
+          />
+          <div className="mt-4">
+            <LocationButton
+              setZipcode={setZipcode}
+              setSearchParams={setSearchParams}
+            />
+          </div>
+          {schools && schools.length === 0 && (
+            <p className="text-center text-lg mt-4">
+              No schools found for this location
+            </p>
+          )}
+          <div className="mt-8">
+            <SchoolSearchResults schools={schools} />
+          </div>
+        </div>
+        <div className="w-full min-h-full h-full">
+          <SearchMap
+            schools={schools}
+            locationInfo={locationInfo as LocationInfo}
           />
         </div>
-        {schools.length === 0 && search ? (
-          <div className="text-center text-2xl mt-8">
-            No schools found in {zipcode}
-          </div>
-        ) : (
-          <div>
-            <div className="flex flex-col min-w-1/2 ">
-              {schools.map((school) => (
-                <School key={school.id} school={school as SchoolType} />
-              ))}
-            </div>
-            <SearchMap schools={schools} />
-          </div>
-        )}
       </section>
     </>
   );

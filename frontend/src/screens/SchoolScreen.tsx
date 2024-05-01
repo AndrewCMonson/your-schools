@@ -1,12 +1,13 @@
 import { ReactElement } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { GoogleMap, Rating } from "../components";
+import { SchoolMap, Rating } from "../components";
 import { AddFavorite, UserDetailsFragment } from "../utils/";
 import { useGetSchool, useGetMe } from "../hooks";
 import { useFragment } from "../__generatedTypes__";
 import { toast } from "react-toastify";
 import { useSessionStore } from "../stores";
+import { School } from "../__generatedTypes__/graphql";
 
 export const SchoolScreen = (): ReactElement => {
   const { id } = useParams<string>();
@@ -54,20 +55,13 @@ export const SchoolScreen = (): ReactElement => {
     return false;
   };
 
-  const schoolLocationData = {
-    name: school?.name,
-    address: school?.address,
-    latitude: school?.latLng?.lat,
-    longitude: school?.latLng?.lng,
-  };
-
   return (
     <>
       <section
         id="schoolScreen"
-        className="h-full w-full pt-5 flex flex-row overflow-scroll bg-base-200"
+        className="min-h-full flex flex-col xl:flex-row justify-around items-center overflow-auto w-100 pt-5 bg-base-200"
       >
-        <div className="container mx-auto md:flex md:flex-row md:justify-center mb-auto">
+        <div className="container mx-auto flex flex-col xl:flex-row gap-4 justify-center">
           <div className="card shrink-0 bg-base-100 shadow-2xl min-w-1/2 xl:w-1/2 m-4 lg:m-0">
             <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl p-6">
               {school?.name}
@@ -121,7 +115,7 @@ export const SchoolScreen = (): ReactElement => {
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {school?.images?.map((image, index) => (
                     <div className="flex justify-center" key={index}>
                       {image?.url && (
@@ -137,36 +131,38 @@ export const SchoolScreen = (): ReactElement => {
               </div>
             </div>
           </div>
-          <div className="card mx-5 md:h-96 lg:w-96 bg-base-100">
-            <div className="relative h-48 border rounded-md m-3">
-              <GoogleMap location={schoolLocationData} />
+          <div className="flex flex-col justify-between">
+            <div className="card mx-5 h-96 lg:w-96 bg-base-100">
+              <SchoolMap school={school as School} />
             </div>
-            {/* <div className="h-0.5 bg-black mx-3"></div> */}
-            <div className="card-body">
-              <div className="">{school?.address}</div>
-              <div className="">
-                {school?.city}, {school?.state} {school?.zipcode}
-              </div>
-              <div className="">{school?.phone}</div>
+            <div className="card mx-5 mt-5 md:h-96 lg:w-96 bg-base-100">
+              {/* <div className="h-0.5 bg-black mx-3"></div> */}
+              <div className="card-body">
+                <div className="">{school?.address}</div>
+                <div className="">
+                  {school?.city}, {school?.state} {school?.zipcode}
+                </div>
+                <div className="">{school?.phone}</div>
 
-              <div className="flex">
-                <button
-                  className="btn btn-sm btn-primary mt-0.5"
-                  onClick={() =>
-                    (window.location.href = `mailto:${school?.website}`)
-                  }
-                >
-                  Email
-                </button>
-                <Link
-                  to={school?.website ?? ""}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <button className="btn btn-sm btn-primary mt-0.5 ml-2">
-                    Website
+                <div className="flex">
+                  <button
+                    className="btn btn-sm btn-primary mt-0.5"
+                    onClick={() =>
+                      (window.location.href = `mailto:${school?.website}`)
+                    }
+                  >
+                    Email
                   </button>
-                </Link>
+                  <Link
+                    to={school?.website ?? ""}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <button className="btn btn-sm btn-primary mt-0.5 ml-2">
+                      Website
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

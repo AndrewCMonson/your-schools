@@ -3,17 +3,43 @@ import { graphql } from "../../__generatedTypes__/";
 export const GetSchools = graphql(/* GraphQL */ `
   query Schools($zipcode: String) {
     schools(zipcode: $zipcode) {
-      id
-      name
-      address
-      city
-      state
-      zipcode
-      phone
-      website
-      email
-      rating
-      max_tuition
+      schools {
+        id
+        name
+        address
+        city
+        state
+        zipcode
+        phone
+        website
+        latLng {
+          lat
+          lng
+        }
+        email
+        rating
+        images {
+          url
+          alt
+          owner
+        }
+      }
+      locationInfo {
+        location {
+          lat
+          lng
+        }
+        bounds {
+          northeast {
+            lat
+            lng
+          }
+          southwest {
+            lat
+            lng
+          }
+        }
+      }
     }
   }
 `);
