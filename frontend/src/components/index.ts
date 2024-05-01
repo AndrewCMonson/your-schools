@@ -1,5 +1,5 @@
 export * from "./Footer";
-export * from "./Map";
+export * from "./SchoolMap";
 export * from "./NavBar";
 export * from "./PageTitle";
 export * from "./Rating";

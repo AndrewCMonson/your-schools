@@ -9,8 +9,6 @@ export const GetSchools = graphql(/* GraphQL */ `
       city
       state
       zipcode
-      latitude
-      longitude
       phone
       website
       email
@@ -29,12 +27,14 @@ export const GetSchool = graphql(/* GraphQL */ `
       city
       state
       zipcode
-      latitude
-      longitude
       phone
       website
       email
       description
+      latLng {
+        lat
+        lng
+      }
       rating
       offers_daycare
       age_range
@@ -79,8 +79,6 @@ export const UserDetailsFragment = graphql(/* GraphQL */ `
       city
       state
       zipcode
-      latitude
-      longitude
       phone
       website
       email

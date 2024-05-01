@@ -4,6 +4,7 @@ import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth.ts";
 import { hashPassword } from "../utils/hashPassword.ts";
 import { Resolvers } from "../__generatedTypes__/graphql";
+import { getLatLng } from "../services/GoogleMapsServices.ts";
 
 const resolvers: Resolvers = {
   Query: {
@@ -12,6 +13,11 @@ const resolvers: Resolvers = {
         return [];
       }
       const schools = await SchoolModel.find({ zipcode: zipcode });
+
+      if (!schools) {
+        throw new Error("No schools found with this zipcode");
+      }
+
       return schools;
     },
     school: async (_, { id }) => {
@@ -46,6 +52,22 @@ const resolvers: Resolvers = {
       return favorites;
     },
   },
+  // Schools: {
+  //   latLng: async (parent) => {
+  //     const { zipcode } = parent;
+  //     const { location, bounds } = await getLatLngFromZipcode(zipcode || ""); // Ensure zipcode is not undefined
+  //     return { location, bounds };
+  //   },
+  // },
+  School: {
+    latLng: async (parent) => {
+      console.log("getting latlng");
+      const { address, city, state } = parent;
+      const { lat, lng } = await getLatLng(address, city, state);
+      return { lat, lng };
+    },
+  },
+
   Mutation: {
     addUser: async (_, { username, email, password }, { res }) => {
       if (!username || !email || !password) {
@@ -126,8 +148,10 @@ const resolvers: Resolvers = {
 
       return updatedUser;
     },
-    login: async (_, { email, password }, { res, user }) => {
-      if (user) throw new AuthenticationError("You are already logged in");
+    login: async (_, { email, password }, { req, res, user }) => {
+      if (user) {
+        return { user: user, token: req.cookies.token };
+      }
 
       if (!email || !password) {
         throw new AuthenticationError(

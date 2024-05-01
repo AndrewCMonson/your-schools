@@ -19,6 +19,11 @@ type User {
     favorites: [School!]
 }
 
+type LatLng {
+    lat: Float
+    lng: Float
+}
+
 type School {
     id: ID
     name: String
@@ -26,8 +31,7 @@ type School {
     city: String
     state: String
     zipcode: String
-    latitude: Float
-    longitude: Float
+    latLng: LatLng
     phone: String
     website: String
     email: String

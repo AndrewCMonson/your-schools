@@ -10,7 +10,7 @@
 		"render-build": "yarn install && yarn run build",
 		"client": "cd frontend && yarn run start",
 		"dev": "concurrently \"yarn run server\" \"yarn run client\"",
-		"data:import": "tsx backend/seeder.ts",
+		"data:import": "node --loader ts-node/esm backend/seeder.ts",
 		"data:destroy": "tsx backend/seeder.ts -d",
 		"lint": "eslint . --ext js,ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"generate": "graphql-codegen --config codegen.ts",

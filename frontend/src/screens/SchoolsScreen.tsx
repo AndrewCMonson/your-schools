@@ -1,27 +1,33 @@
 import { ReactElement, useEffect } from "react";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { School, PageTitle, SearchBar } from "../components";
 import { useGetSchools } from "../hooks/";
 import { LoadingScreen } from ".";
 import { School as SchoolType } from "../__generatedTypes__/graphql";
 import { LocationButton } from "../components/";
 import { useSessionStore } from "../stores";
+import SearchMap from "../components/SearchMap";
 
 export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user } = useSessionStore();
+  const { user: loggedInUser } = useSessionStore();
   const [zipcode, setZipcode] = useState<string>(
-    searchParams.get("zipcode") || user?.zipcode || "",
+    searchParams.get("zipcode") || loggedInUser?.zipcode || "",
   );
   const [search, setSearch] = useState<boolean>(false);
   const { loading, error, data: schools } = useGetSchools(zipcode);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (zipcode) {
       setSearch(true);
     }
   }, [zipcode]);
+
+  if (!loggedInUser) {
+    navigate("/login");
+  }
 
   if (loading)
     return (
@@ -54,13 +60,14 @@ export const SchoolsScreen = (): ReactElement => {
             No schools found in {zipcode}
           </div>
         ) : (
-          <>
+          <div>
             <div className="flex flex-col min-w-1/2 ">
               {schools.map((school) => (
                 <School key={school.id} school={school as SchoolType} />
               ))}
             </div>
-          </>
+            <SearchMap schools={schools} />
+          </div>
         )}
       </section>
     </>

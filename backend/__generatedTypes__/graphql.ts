@@ -36,6 +36,12 @@ export type Image = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+export type LatLng = {
+  __typename?: 'LatLng';
+  lat?: Maybe<Scalars['Float']['output']>;
+  lng?: Maybe<Scalars['Float']['output']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addToFavorites?: Maybe<User>;
@@ -120,8 +126,7 @@ export type School = {
   email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   images?: Maybe<Array<Maybe<Image>>>;
-  latitude?: Maybe<Scalars['Float']['output']>;
-  longitude?: Maybe<Scalars['Float']['output']>;
+  latLng?: Maybe<LatLng>;
   max_enrollment?: Maybe<Scalars['Int']['output']>;
   max_student_teacher_ratio?: Maybe<Scalars['Float']['output']>;
   max_tuition?: Maybe<Scalars['Int']['output']>;
@@ -228,13 +233,14 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Image: ResolverTypeWrapper<Image>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  LatLng: ResolverTypeWrapper<LatLng>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
   School: ResolverTypeWrapper<SchoolAttributes>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   User: ResolverTypeWrapper<UserAttributes>;
   Void: ResolverTypeWrapper<Scalars['Void']['output']>;
   AdditionalEntityFields: AdditionalEntityFields;
@@ -246,13 +252,14 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']['output'];
   Image: Image;
   String: Scalars['String']['output'];
+  LatLng: LatLng;
+  Float: Scalars['Float']['output'];
   Mutation: {};
   ObjectId: Scalars['ObjectId']['output'];
   Query: {};
   School: SchoolAttributes;
   Int: Scalars['Int']['output'];
   Boolean: Scalars['Boolean']['output'];
-  Float: Scalars['Float']['output'];
   User: UserAttributes;
   Void: Scalars['Void']['output'];
   AdditionalEntityFields: AdditionalEntityFields;
@@ -318,6 +325,12 @@ export type ImageResolvers<ContextType = MyContext, ParentType extends Resolvers
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type LatLngResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['LatLng'] = ResolversParentTypes['LatLng']> = {
+  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lng?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
@@ -351,8 +364,7 @@ export type SchoolResolvers<ContextType = MyContext, ParentType extends Resolver
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   images?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
-  latitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  longitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  latLng?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
   max_enrollment?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   max_student_teacher_ratio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   max_tuition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -387,6 +399,7 @@ export interface VoidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 export type Resolvers<ContextType = MyContext> = {
   Auth?: AuthResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
+  LatLng?: LatLngResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   ObjectId?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;

@@ -1,11 +1,18 @@
 import { ReactElement, useState } from "react";
 import { AccountSettingsForm } from "../components";
 import { Favorites } from "../components/";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSessionStore } from "../stores";
 
 export const ProfileScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState<string>(searchParams.get("sort") || "");
+  const { user } = useSessionStore();
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate("/login");
+  }
 
   return (
     <section

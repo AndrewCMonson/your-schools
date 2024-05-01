@@ -1,15 +1,18 @@
 import { ReactElement } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { GoogleMap, Rating } from "../components";
 import { AddFavorite, UserDetailsFragment } from "../utils/";
 import { useGetSchool, useGetMe } from "../hooks";
 import { useFragment } from "../__generatedTypes__";
 import { toast } from "react-toastify";
+import { useSessionStore } from "../stores";
 
 export const SchoolScreen = (): ReactElement => {
   const { id } = useParams<string>();
   const { loading, error, data: school } = useGetSchool(id || "");
+  const { user: loggedInUser } = useSessionStore();
+  const navigate = useNavigate();
   const { data } = useGetMe();
   const me = useFragment(UserDetailsFragment, data);
   const [addToFavorites] = useMutation(AddFavorite, {
@@ -21,6 +24,12 @@ export const SchoolScreen = (): ReactElement => {
       console.error(e);
     },
   });
+
+  console.log(school);
+
+  if (!loggedInUser) {
+    navigate("/login");
+  }
 
   if (loading)
     return (
@@ -48,8 +57,8 @@ export const SchoolScreen = (): ReactElement => {
   const schoolLocationData = {
     name: school?.name,
     address: school?.address,
-    latitude: school?.latitude,
-    longitude: school?.longitude,
+    latitude: school?.latLng?.lat,
+    longitude: school?.latLng?.lng,
   };
 
   return (

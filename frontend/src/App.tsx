@@ -4,7 +4,6 @@ import { Footer, NavBar } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSessionStore } from "./stores/session";
-import { HomeScreen } from "./screens";
 
 const App = (): ReactElement => {
   const { user } = useSessionStore();

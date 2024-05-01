@@ -20,6 +20,7 @@ export const AddUser = graphql(`
       user {
         id
         username
+        zipcode
       }
     }
   }
