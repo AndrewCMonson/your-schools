@@ -47,8 +47,6 @@ export const getLatLngFromZipcode = async (
     return data;
   });
 
-  console.log("data", data.results[0].geometry);
-
   const { location, bounds } = data.results[0].geometry;
   return { location, bounds };
 };

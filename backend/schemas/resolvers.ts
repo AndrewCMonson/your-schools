@@ -59,7 +59,6 @@ const resolvers: Resolvers = {
   },
   School: {
     latLng: async (parent) => {
-      console.log("getting latlng");
       const { address, city, state } = parent;
       const { lat, lng } = await getLatLng(address, city, state);
       return { lat, lng };
