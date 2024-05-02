@@ -1,13 +1,13 @@
-import { SchoolModel, UserModel, SessionModel } from "../models/index.ts";
-import { UserAttributes } from "../models/UserModel.ts";
-import { AuthenticationError } from "apollo-server-express";
-import { signToken } from "../utils/auth.ts";
-import { hashPassword } from "../utils/hashPassword.ts";
-import { Resolvers } from "../__generatedTypes__/graphql";
 import {
-  getLatLng,
-  getLatLngFromZipcode,
-} from "../services/GoogleMapsServices.ts";
+  SchoolModel,
+  UserModel,
+  SessionModel,
+  UserAttributes,
+} from "../models/index.ts";
+import { AuthenticationError } from "apollo-server-express";
+import { signToken, hashPassword } from "../utils/index.ts";
+import { Resolvers } from "../__generatedTypes__/graphql";
+import { getLatLng, getLatLngFromZipcode } from "../services/index.ts";
 
 const resolvers: Resolvers = {
   Query: {
@@ -16,10 +16,6 @@ const resolvers: Resolvers = {
         return { schools: [] };
       }
       const schools = await SchoolModel.find({ zipcode: zipcode });
-
-      if (!schools.length) {
-        throw new Error("No schools found with this zipcode");
-      }
 
       const locationInfo = await getLatLngFromZipcode(zipcode);
 

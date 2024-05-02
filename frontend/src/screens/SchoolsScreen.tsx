@@ -1,17 +1,15 @@
-import { ReactElement, useEffect } from "react";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { School, PageTitle, SearchBar } from "../components";
-import { useGetSchools } from "../hooks/";
-import { LoadingScreen } from ".";
 import {
-  School as SchoolType,
-  LocationInfo,
-} from "../__generatedTypes__/graphql";
-import { LocationButton } from "../components/";
+  PageTitle,
+  SearchBar,
+  SchoolSearchResults,
+  LocationButton,
+  SearchMap,
+} from "../components";
+import { useGetSchools } from "../hooks/";
+import { LatLng, LocationInfo } from "../__generatedTypes__/graphql";
 import { useSessionStore } from "../stores";
-import SearchMap from "../components/Maps/SearchMap";
-import { SchoolSearchResults } from "../components/Schools/SchoolSearchResults";
 
 export const SchoolsScreen = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +17,7 @@ export const SchoolsScreen = (): ReactElement => {
   const [zipcode, setZipcode] = useState<string>(
     searchParams.get("zipcode") || loggedInUser?.zipcode || "",
   );
-  const [search, setSearch] = useState<boolean>(false);
+  const [locationLatLng, setLocationLatLng] = useState<LatLng | null>(null);
   const {
     loading,
     error,
@@ -28,43 +26,36 @@ export const SchoolsScreen = (): ReactElement => {
   } = useGetSchools(zipcode);
   const navigate = useNavigate();
 
-  console.log(locationInfo);
-
-  useEffect(() => {
-    if (zipcode) {
-      setSearch(true);
-    }
-  }, [zipcode]);
-
   if (!loggedInUser) {
     navigate("/login");
   }
 
   if (loading)
     return (
-      <div>
-        <LoadingScreen />
+      <div className="flex justify-center items-center h-full bg-base-200">
+        <span className="loading loading-bars loading-lg"></span>
       </div>
     );
+
   if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
       <section
         id="schoolsScreen"
-        className="min-h-full h-full flex items-center w-100 bg-base-200"
+        className="min-h-full h-full flex flex-col-reverse lg:flex-row items-center w-100 bg-base-200 "
       >
-        <div className="container mx-auto flex flex-col items-center h-full">
+        <div className="container mx-auto flex flex-col items-center h-full overflow-scroll">
           <PageTitle title="Schools" />
           <SearchBar
             setSearchParams={setSearchParams}
-            setSearch={setSearch}
             setZipcode={setZipcode}
           />
           <div className="mt-4">
             <LocationButton
               setZipcode={setZipcode}
               setSearchParams={setSearchParams}
+              setLocationLatLng={setLocationLatLng}
             />
           </div>
           {schools && schools.length === 0 && (
@@ -76,10 +67,11 @@ export const SchoolsScreen = (): ReactElement => {
             <SchoolSearchResults schools={schools} />
           </div>
         </div>
-        <div className="w-full min-h-full h-full">
+        <div className="h-96 w-full lg:min-h-full lg:h-full">
           <SearchMap
             schools={schools}
             locationInfo={locationInfo as LocationInfo}
+            locationLatLng={locationLatLng}
           />
         </div>
       </section>

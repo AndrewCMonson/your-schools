@@ -12,7 +12,7 @@ type AdvancedMapMarkerProps = {
 };
 export const AdvancedMapMarker = ({ school }: AdvancedMapMarkerProps) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
-  const [infoWindowShown, setInfoWindowShown] = useState(true);
+  const [infoWindowShown, setInfoWindowShown] = useState(false);
 
   const toggleInfoWindow = () => {
     setInfoWindowShown(!infoWindowShown);

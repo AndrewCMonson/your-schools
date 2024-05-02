@@ -1,18 +1,22 @@
-import { FormEvent, ReactElement, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  ReactElement,
+  SetStateAction,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import { URLSearchParamsInit, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 interface SearchBarProps {
   setSearchParams?: (params: URLSearchParamsInit) => void;
-  setSearch?: (search: boolean) => void;
-  setZipcode?: (zipcode: string) => void;
+  setZipcode?: Dispatch<SetStateAction<string>>;
   placeholder?: string;
 }
 
 export const SearchBar = ({
   setSearchParams,
-  setSearch,
   setZipcode,
   placeholder,
 }: SearchBarProps): ReactElement => {
@@ -20,7 +24,9 @@ export const SearchBar = ({
   const location = useLocation();
   const [searchZipcode, setSearchZipcode] = useState<string>("");
 
-  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (
+    event: FormEvent<HTMLFormElement> | FormEvent<HTMLInputElement>,
+  ) => {
     event.preventDefault();
 
     const target = event.target as HTMLFormElement;
@@ -32,7 +38,6 @@ export const SearchBar = ({
     }
 
     setSearchParams ? setSearchParams({ zipcode: searchZipcode }) : null;
-    setSearch ? setSearch(true) : null;
     setZipcode ? setZipcode(zipcode) : null;
 
     if (location.pathname !== "/schools") {
@@ -55,6 +60,7 @@ export const SearchBar = ({
             name="zipcode"
             value={searchZipcode}
             onChange={(event) => setSearchZipcode(event.target.value)}
+            // onSubmit={(event) => handleSearchSubmit(event)}
           />
           <button
             type="submit"

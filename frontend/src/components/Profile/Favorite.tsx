@@ -1,12 +1,12 @@
 import { School } from "../../__generatedTypes__/graphql";
 import { useMutation } from "@apollo/client";
-import { TrashCan, FollowLink } from "../Misc";
+import { TrashCan, FollowLink, WebsiteLink } from "../Misc";
 import { RemoveFavorite, GetMe } from "../../utils/Graphql";
-import { WebsiteLink } from "../Misc/WebsiteLink";
 
-type FavoriteProps = {
+interface FavoriteProps {
   favorite: School;
-};
+}
+
 export const Favorite = ({ favorite }: FavoriteProps) => {
   const [removeFavorite] = useMutation(RemoveFavorite);
 

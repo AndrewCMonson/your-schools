@@ -1,7 +1,7 @@
 import { useGetMe } from "./useGetMe";
 import { useMemo } from "react";
-import { useFragment } from "../__generatedTypes__";
-import { UserDetailsFragment } from "../utils/Graphql/";
+import { useFragment } from "../../__generatedTypes__";
+import { UserDetailsFragment } from "../../utils/Graphql";
 
 export const useSortedFavorites = (sort: string) => {
   const { loading, data } = useGetMe();

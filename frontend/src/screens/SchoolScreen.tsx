@@ -34,7 +34,7 @@ export const SchoolScreen = (): ReactElement => {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-full">
         <span className="loading loading-bars loading-lg"></span>
       </div>
     );

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { SetURLSearchParams } from "react-router-dom";
+import { LatLng } from "../__generatedTypes__/graphql";
 
 interface LocationDataProps {
   long_name: string;
@@ -12,6 +13,7 @@ export const locationSuccess = (
   position: GeolocationPosition,
   setSearchParams: SetURLSearchParams,
   setZipcode: Dispatch<SetStateAction<string>>,
+  setLocationLatLng?: Dispatch<SetStateAction<LatLng | null>>,
 ) => {
   const { latitude, longitude } = position.coords;
   fetch(
@@ -30,6 +32,9 @@ export const locationSuccess = (
       }
       setZipcode(zipcode);
       setSearchParams({ zipcode });
+      if (setLocationLatLng) {
+        setLocationLatLng({ lat: latitude, lng: longitude });
+      }
     });
 };
 
