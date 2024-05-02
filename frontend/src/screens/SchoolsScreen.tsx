@@ -60,7 +60,7 @@ export const SchoolsScreen = (): ReactElement => {
           </div>
           {schools && schools.length === 0 && (
             <p className="text-center text-lg mt-4">
-              No schools found for this location
+              Enter a valid search or set your zipcode on your profile.
             </p>
           )}
           <div className="mt-8">

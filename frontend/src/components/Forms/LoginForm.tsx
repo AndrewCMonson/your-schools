@@ -1,53 +1,8 @@
-import { useMutation } from "@apollo/client";
-import { FormEvent, MouseEvent, useState, ReactElement } from "react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { useSessionStore } from "../../stores/session";
-import { LoginUser } from "../../utils/Graphql";
-
-interface UserFormData {
-  email: string;
-  password: string;
-}
+import { ReactElement } from "react";
+import { useLoginForm } from "../../hooks";
 
 export const LoginForm = (): ReactElement => {
-  const navigate = useNavigate();
-  const { setUser } = useSessionStore();
-  const [userFormData, setUserFormData] = useState<UserFormData>({
-    email: "",
-    password: "",
-  });
-
-  const [login] = useMutation(LoginUser, {
-    onCompleted: ({ login }) => {
-      setUser(login.user);
-      navigate("/schools");
-    },
-    onError: (e) => {
-      console.error(e);
-      toast.error("Invalid credentials");
-    },
-  });
-
-  const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
-    const { name, value } = event.target as HTMLInputElement;
-    setUserFormData({ ...userFormData, [name]: value });
-  };
-
-  const handleLoginFormSubmit = async (
-    event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-
-    if (!userFormData.email || !userFormData.password) {
-      toast.error("Please fill out all fields");
-      return;
-    }
-
-    login({
-      variables: { ...userFormData },
-    });
-  };
+  const { handleInputChange, handleLoginFormSubmit } = useLoginForm();
 
   return (
     <>

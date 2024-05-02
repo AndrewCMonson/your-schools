@@ -1,60 +1,7 @@
-import { useMutation } from "@apollo/client";
-import { FormEvent, MouseEvent, useState } from "react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { useSessionStore } from "../../stores/session";
-import { AddUser } from "../../utils/Graphql";
-
-interface UserFormData {
-  username: string;
-  email: string;
-  password: string;
-}
+import { useSignUpForm } from "../../hooks/Forms/useSignUpForm";
 
 export const SignUpForm = () => {
-  const navigate = useNavigate();
-  const { setUser } = useSessionStore();
-
-  const [userFormData, setUserFormData] = useState<UserFormData>({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const [addUser] = useMutation(AddUser, {
-    onCompleted: ({ addUser }) => {
-      setUser(addUser.user);
-      navigate("/");
-    },
-    onError: (e) => {
-      console.error(e);
-      toast.error("An error occurred. Please try again");
-    },
-  });
-
-  const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
-    const { name, value } = event.target as HTMLInputElement;
-    setUserFormData({ ...userFormData, [name]: value });
-  };
-
-  const handleSignupFormSubmit = async (
-    event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-
-    if (
-      !userFormData.username ||
-      !userFormData.email ||
-      !userFormData.password
-    ) {
-      toast.error("Please fill out all fields");
-      return;
-    }
-
-    await addUser({
-      variables: { ...userFormData },
-    });
-  };
+  const { handleInputChange, handleSignupFormSubmit } = useSignUpForm();
 
   return (
     <>

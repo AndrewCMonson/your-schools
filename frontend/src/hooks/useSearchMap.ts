@@ -14,7 +14,11 @@ export const useSearchMap = ({
   locationInfo,
   locationLatLng,
 }: UseSearchMapProps) => {
-  const { lat, lng } = locationInfo.location || {};
+  const { lat, lng } = locationInfo?.location ?? {
+    lat: 38.9072,
+    lng: -77.0369,
+  };
+
   const bounds = locationInfo?.bounds;
 
   const initialCameraProps = {
