@@ -1,4 +1,4 @@
-import { images } from "./images";
+import { images } from "./images.ts";
 
 export const schools: {
   name: string;
@@ -6,8 +6,6 @@ export const schools: {
   city: string;
   state: string;
   zipcode: string;
-  latitude: number;
-  longitude: number;
   phone: string;
   website: string;
   email: string;
@@ -37,8 +35,6 @@ export const schools: {
     city: "Virginia Beach",
     state: "VA",
     zipcode: "23465",
-    latitude: 36.82669,
-    longitude: -76.16245,
     phone: "757-499-7393",
     website: "https://www.emmanueldayschoolvb.com",
     email: "EEDS@email.com",
@@ -66,8 +62,6 @@ export const schools: {
     city: "Virginia Beach",
     state: "VA",
     zipcode: "23456",
-    latitude: 36.721,
-    longitude: -75.932,
     phone: "757-426-2180",
     website: "https://www.sjavb.org",
     email: "SJACS@email.com",
@@ -95,8 +89,6 @@ export const schools: {
     city: "Virginia Beach",
     state: "VA",
     zipcode: "23462",
-    latitude: 36.843,
-    longitude: -76.135,
     phone: "757-497-1811",
     website: "https://www.saintgregoryschool.org",
     email: "stgregs@gmail.com",
@@ -124,8 +116,6 @@ export const schools: {
     city: "Virginia Beach",
     state: "VA",
     zipcode: "23464",
-    latitude: 36.789,
-    longitude: -76.191,
     phone: "757-420-2455",
     website: "https://www.smsvb.net",
     email: "stmatts@gmail.com",
@@ -153,8 +143,6 @@ export const schools: {
     city: "Suffolk",
     state: "VA",
     zipcode: "23434",
-    latitude: 36.728,
-    longitude: -76.583,
     phone: "757-544-5182",
     website: "https://www.marymagschool.org",
     email: "preschool@marymagschool.org",
@@ -182,8 +170,6 @@ export const schools: {
     city: "Suffolk",
     state: "VA",
     zipcode: "23323",
-    latitude: 36.728,
-    longitude: -76.583,
     phone: "757-555-1234",
     website: "https://www.sunnydalemontessori.org",
     email: "info@sunnydalemontessori.org",
@@ -211,8 +197,6 @@ export const schools: {
     city: "Suffolk",
     state: "VA",
     zipcode: "23323",
-    latitude: 36.728,
-    longitude: -76.583,
     phone: "757-555-5678",
     website: "https://www.harmonylearningcenter.com",
     email: "info@harmonylearningcenter.com",
@@ -240,8 +224,6 @@ export const schools: {
     city: "Suffolk",
     state: "VA",
     zipcode: "23323",
-    latitude: 36.728,
-    longitude: -76.583,
     phone: "757-555-9101",
     website: "https://www.goddardschool.com",
     email: "contact@goddardschool.com",
@@ -269,8 +251,6 @@ export const schools: {
     city: "Virginia Beach",
     state: "VA",
     zipcode: "23462",
-    latitude: 36.826,
-    longitude: -76.162,
     phone: "757-499-7393",
     website: "https://www.kindercare.com",
     email: "contact@kindercare.com",
@@ -297,9 +277,7 @@ export const schools: {
     address: "929 Cedar Rd",
     city: "Chesapeake",
     state: "VA",
-    zipcode: "23322",
-    latitude: 36.725,
-    longitude: -76.245,
+    zipcode: "23462",
     phone: "757-482-2213",
     website: "https://www.kindercare.com",
     email: "contact@kindercare.com",
@@ -326,9 +304,7 @@ export const schools: {
     address: "2177 Upton Dr",
     city: "Virginia Beach",
     state: "VA",
-    zipcode: "23454",
-    latitude: 36.777,
-    longitude: -76.034,
+    zipcode: "23462",
     phone: "757-550-2022",
     website: "https://www.guidepostmontessori.com",
     email: "contact@guidepostmontessori.com",

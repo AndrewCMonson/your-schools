@@ -1,4 +1,6 @@
-interface PageTitleProps {
+import { HTMLAttributes } from "react";
+
+interface PageTitleProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
 }
 

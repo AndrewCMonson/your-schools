@@ -3,10 +3,10 @@ import { Outlet } from "react-router-dom";
 import { Footer, NavBar } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSessionStore } from "./stores/session";
+// import { useSessionStore } from "./stores/session";
 
 const App = (): ReactElement => {
-  const { user } = useSessionStore();
+  // const { user } = useSessionStore();
   const themeFromStorage = localStorage.getItem("theme");
   const [theme, setTheme] = useState<string>(
     themeFromStorage ? JSON.parse(themeFromStorage) : "myThemeDark",
@@ -23,7 +23,7 @@ const App = (): ReactElement => {
         <Outlet />
       </main>
       <ToastContainer />
-      {/* <Footer /> */}
+      <Footer dataTheme={theme}/>
     </>
   );
 };

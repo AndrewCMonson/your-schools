@@ -24,7 +24,10 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
 
   return (
     <>
-      <div className="navbar bg-base-200 z-10" data-theme={dataTheme}>
+      <div
+        className="navbar bg-base-200 z-10 sticky top-0"
+        data-theme={dataTheme}
+      >
         <div className="navbar-start">
           <Link to="/">
             <img

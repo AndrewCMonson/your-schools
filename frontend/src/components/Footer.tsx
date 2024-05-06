@@ -1,9 +1,16 @@
 import { ReactElement } from "react";
 import { Typography } from "@material-tailwind/react";
 
-export const Footer = (): ReactElement => {
+interface FooterProps {
+  dataTheme: string;
+}
+
+export const Footer = ({ dataTheme }): ReactElement => {
   return (
-    <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between container mx-auto ">
+    <footer
+      className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 py-6 text-center md:justify-between container mx-auto z-50 bg-base-200"
+      data-theme={dataTheme}
+    >
       <Typography color="blue-gray" className="font-normal 3xl:ml-4">
         &copy; {new Date().getFullYear()} YourSchools
       </Typography>

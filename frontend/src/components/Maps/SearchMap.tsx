@@ -21,9 +21,9 @@ export const SearchMap = ({
   });
 
   return (
-    <div className="min-h-full h-full">
+    <div className="h-full">
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-        <div className="min-h-full h-full">
+        <div className="h-full">
           <Map
             {...cameraProps}
             mapId={import.meta.env.VITE_GOOGLE_MAPS_ID}
@@ -36,7 +36,6 @@ export const SearchMap = ({
               east: bounds?.northeast?.lng || 0,
               west: bounds?.southwest?.lng || 0,
             }}
-            style={{ border: "none!important" }}
             id="searchMap"
           >
             {schools.map((school) => {

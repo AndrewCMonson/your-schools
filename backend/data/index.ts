@@ -1,5 +1,5 @@
-import { schools } from "./schools";
-import { images } from "./images";
-import { users } from "./users";
+import { schools } from "./schools.ts";
+import { images } from "./images.ts";
+import { users } from "./users.ts";
 
 export { schools, images, users };

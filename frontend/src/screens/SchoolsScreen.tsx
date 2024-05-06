@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   PageTitle,
   SearchBar,
-  SchoolSearchResults,
+  School,
   LocationButton,
   SearchMap,
 } from "../components";
@@ -43,31 +43,34 @@ export const SchoolsScreen = (): ReactElement => {
     <>
       <section
         id="schoolsScreen"
-        className="min-h-full h-full flex flex-col-reverse lg:flex-row items-center w-100 bg-base-200 "
+        className="flex flex-col-reverse lg:flex-row bg-base-200 lg:h-lvh w-full gap-2"
       >
-        <div className="container mx-auto flex flex-col items-center h-full overflow-scroll">
-          <PageTitle title="Schools" />
-          <SearchBar
-            setSearchParams={setSearchParams}
-            setZipcode={setZipcode}
-          />
-          <div className="mt-4">
-            <LocationButton
-              setZipcode={setZipcode}
+        <div className="w-full lg:w-1/3 pt-4">
+          <div className="h-1/5">
+            <PageTitle title="Schools" />
+            <SearchBar
               setSearchParams={setSearchParams}
-              setLocationLatLng={setLocationLatLng}
+              setZipcode={setZipcode}
             />
+            <div className="text-center">
+              <LocationButton
+                setZipcode={setZipcode}
+                setSearchParams={setSearchParams}
+                setLocationLatLng={setLocationLatLng}
+              />
+            </div>
+            {schools && schools.length === 0 && (
+              <p className="text-center text-lg mt-4">No schools found</p>
+            )}
           </div>
-          {schools && schools.length === 0 && (
-            <p className="text-center text-lg mt-4">
-              Enter a valid search or set your zipcode on your profile.
-            </p>
-          )}
-          <div className="mt-8">
-            <SchoolSearchResults schools={schools} />
+          <div className="h-4/5 overflow-auto mt-12 ml-2">
+            {schools &&
+              schools.map((school) => (
+                <School key={school.id} school={school} />
+              ))}
           </div>
         </div>
-        <div className="h-96 w-full lg:min-h-full lg:h-full">
+        <div className="h-96 w-full lg:h-full lg:w-2/3">
           <SearchMap
             schools={schools}
             locationInfo={locationInfo as LocationInfo}
