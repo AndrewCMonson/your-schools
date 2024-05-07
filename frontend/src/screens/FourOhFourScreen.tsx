@@ -6,14 +6,14 @@ export const FourOhFourScreen = (): ReactElement => {
     <>
       <section
         id="fourOhFourScreen"
-        className="flex flex-col items-center overflow-auto w-100 pt-5 bg-base-200 h-full"
+        className="flex flex-col items-center justify-center overflow-auto w-100 pt-5 bg-base-200 h-full"
       >
-        <h1 className="text-6xl text-indigo-800 font-bold">404</h1>
+        <h1 className="text-6xl font-bold">404</h1>
         <h2 className="text-2xl text-center">
           We&apos;re sorry, but the page you&apos;re trying to access
           doesn&apos;t exist.
         </h2>
-        <Link to="/" className="text-indigo-800 underline">
+        <Link to="/" className="underline">
           Return Home
         </Link>
       </section>

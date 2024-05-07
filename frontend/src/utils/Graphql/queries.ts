@@ -12,6 +12,7 @@ export const GetSchools = graphql(/* GraphQL */ `
         zipcode
         phone
         website
+        offers_daycare
         latLng {
           lat
           lng
@@ -23,6 +24,7 @@ export const GetSchools = graphql(/* GraphQL */ `
           alt
           owner
         }
+        avatar
       }
       locationInfo {
         location {

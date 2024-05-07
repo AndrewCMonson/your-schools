@@ -23,7 +23,7 @@ const App = (): ReactElement => {
         <Outlet />
       </main>
       <ToastContainer />
-      <Footer dataTheme={theme}/>
+      <Footer dataTheme={theme} />
     </>
   );
 };

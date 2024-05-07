@@ -46,6 +46,7 @@ export interface SchoolAttributes extends Document {
   min_student_teacher_ratio: number;
   max_student_teacher_ratio: number;
   images: Array<ImageAttributes>;
+  avatar: string;
 }
 
 export const schoolsSchema = new Schema<SchoolAttributes>({
@@ -126,6 +127,9 @@ export const schoolsSchema = new Schema<SchoolAttributes>({
     type: Number,
   },
   images: [imageSchema],
+  avatar: {
+    type: String,
+  },
 });
 
 export const SchoolModel = model("school", schoolsSchema);

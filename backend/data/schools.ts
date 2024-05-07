@@ -28,6 +28,7 @@ export const schools: {
     url: string;
     alt: string;
   }[];
+  avatar: string;
 }[] = [
   {
     name: "Emmanuel Episcopal Day School",
@@ -55,6 +56,7 @@ export const schools: {
     min_student_teacher_ratio: 5,
     max_student_teacher_ratio: 10,
     images: images,
+    avatar: images[0].url,
   },
   {
     name: "St. John the Apostle Catholic School",
@@ -82,6 +84,7 @@ export const schools: {
     min_student_teacher_ratio: 5,
     max_student_teacher_ratio: 10,
     images: images,
+    avatar: images[1].url,
   },
   {
     name: "St. Gregory the Great Catholic School",
@@ -109,6 +112,7 @@ export const schools: {
     min_student_teacher_ratio: 5,
     max_student_teacher_ratio: 5,
     images: images,
+    avatar: images[2].url,
   },
   {
     name: "St. Matthew's School",
@@ -136,6 +140,7 @@ export const schools: {
     min_student_teacher_ratio: 5,
     max_student_teacher_ratio: 10,
     images: images,
+    avatar: images[3].url,
   },
   {
     name: "Mary Magdalene Catholic School",
@@ -163,6 +168,7 @@ export const schools: {
     min_student_teacher_ratio: 8,
     max_student_teacher_ratio: 12,
     images: images,
+    avatar: images[4].url,
   },
   {
     name: "Sunnydale Montessori Academy",
@@ -190,6 +196,7 @@ export const schools: {
     min_student_teacher_ratio: 7,
     max_student_teacher_ratio: 11,
     images: images,
+    avatar: images[5].url,
   },
   {
     name: "Harmony Learning Center",
@@ -217,6 +224,7 @@ export const schools: {
     min_student_teacher_ratio: 6,
     max_student_teacher_ratio: 10,
     images: images,
+    avatar: images[6].url,
   },
   {
     name: "Children's Harbor Learning Center",
@@ -244,6 +252,7 @@ export const schools: {
     min_student_teacher_ratio: 6,
     max_student_teacher_ratio: 10,
     images: images,
+    avatar: images[7].url,
   },
   {
     name: "Mount Trashmore KinderCare",
@@ -271,6 +280,7 @@ export const schools: {
     min_student_teacher_ratio: 5,
     max_student_teacher_ratio: 6,
     images: images,
+    avatar: images[8].url,
   },
   {
     name: "Great Bridge Kindercare",
@@ -298,6 +308,7 @@ export const schools: {
     min_student_teacher_ratio: 6,
     max_student_teacher_ratio: 8,
     images: images,
+    avatar: images[1].url,
   },
   {
     name: "Guidepost Montessori at Redmill",
@@ -325,5 +336,6 @@ export const schools: {
     min_student_teacher_ratio: 3,
     max_student_teacher_ratio: 3,
     images: images,
+    avatar: images[0].url,
   },
 ];

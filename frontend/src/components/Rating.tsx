@@ -1,8 +1,9 @@
 interface RatingProps {
   value: number;
+  size?: "sm" | "md" | "lg";
 }
 
-export const Rating = ({ value }: RatingProps) => {
+export const Rating = ({ value, size }: RatingProps) => {
   const list = [];
 
   for (let i = 0; i < 5; i++) {
@@ -76,7 +77,7 @@ export const Rating = ({ value }: RatingProps) => {
   return (
     <>
       <div className="tooltip tooltip-right" data-tip="4K reviews">
-        <div className="rating rating-half">{list}</div>
+        <div className={`rating rating-half rating-${size}`}>{list}</div>
       </div>
     </>
   );

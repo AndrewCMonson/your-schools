@@ -66,6 +66,7 @@ type School {
     min_student_teacher_ratio: Float
     max_student_teacher_ratio: Float
     images: [Image]
+    avatar: String
   }
   
   type Query {

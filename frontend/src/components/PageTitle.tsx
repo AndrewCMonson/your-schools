@@ -6,7 +6,7 @@ interface PageTitleProps extends HTMLAttributes<HTMLDivElement> {
 
 export const PageTitle = ({ title }: PageTitleProps) => {
   return (
-    <div className="container mx-auto my-4">
+    <div className="container mx-auto">
       <h1 className="text-center text-4xl">{title}</h1>
     </div>
   );

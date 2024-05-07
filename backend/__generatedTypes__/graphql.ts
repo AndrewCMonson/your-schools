@@ -129,6 +129,7 @@ export type School = {
   __typename?: 'School';
   address?: Maybe<Scalars['String']['output']>;
   age_range?: Maybe<Array<Scalars['Int']['output']>>;
+  avatar?: Maybe<Scalars['String']['output']>;
   city?: Maybe<Scalars['String']['output']>;
   closing_hours?: Maybe<Scalars['String']['output']>;
   days_closed?: Maybe<Array<Scalars['String']['output']>>;
@@ -391,6 +392,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
 export type SchoolResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
   address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   age_range?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   closing_hours?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   days_closed?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;

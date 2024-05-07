@@ -7,12 +7,14 @@ interface LocationButtonProps {
   setZipcode: Dispatch<SetStateAction<string>>;
   setSearchParams: SetURLSearchParams;
   setLocationLatLng?: Dispatch<SetStateAction<LatLng | null>>;
+  size?: "sm" | "md" | "lg";
 }
 
 export const LocationButton = ({
   setZipcode,
   setSearchParams,
   setLocationLatLng,
+  size = "md",
 }: LocationButtonProps): ReactElement => {
   const handleUseLocationClick = (): void => {
     navigator.geolocation.getCurrentPosition(
@@ -28,7 +30,10 @@ export const LocationButton = ({
   };
 
   return (
-    <button className="btn btn-primary" onClick={handleUseLocationClick}>
+    <button
+      className={`btn btn-primary btn-${size}`}
+      onClick={handleUseLocationClick}
+    >
       Use My Location
     </button>
   );

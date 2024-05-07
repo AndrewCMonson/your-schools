@@ -43,10 +43,17 @@ export const SchoolsScreen = (): ReactElement => {
     <>
       <section
         id="schoolsScreen"
-        className="flex flex-col-reverse lg:flex-row bg-base-200 lg:h-lvh w-full gap-2"
+        className="flex flex-col lg:flex-row bg-base-200 lg:h-lvh w-full h-full gap-2"
       >
-        <div className="w-full lg:w-1/3 pt-4">
-          <div className="h-1/5">
+        <div className="h-60 w-full lg:h-full lg:w-2/3">
+          <SearchMap
+            schools={schools}
+            locationInfo={locationInfo as LocationInfo}
+            locationLatLng={locationLatLng}
+          />
+        </div>
+        <div className="w-full">
+          <div className="">
             <PageTitle title="Schools" />
             <SearchBar
               setSearchParams={setSearchParams}
@@ -57,25 +64,19 @@ export const SchoolsScreen = (): ReactElement => {
                 setZipcode={setZipcode}
                 setSearchParams={setSearchParams}
                 setLocationLatLng={setLocationLatLng}
+                size="sm"
               />
             </div>
             {schools && schools.length === 0 && (
               <p className="text-center text-lg mt-4">No schools found</p>
             )}
           </div>
-          <div className="h-4/5 overflow-auto mt-12 ml-2">
+          <div className="overflow-auto mt-8">
             {schools &&
               schools.map((school) => (
                 <School key={school.id} school={school} />
               ))}
           </div>
-        </div>
-        <div className="h-96 w-full lg:h-full lg:w-2/3">
-          <SearchMap
-            schools={schools}
-            locationInfo={locationInfo as LocationInfo}
-            locationLatLng={locationLatLng}
-          />
         </div>
       </section>
     </>

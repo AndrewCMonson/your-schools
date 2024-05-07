@@ -44,9 +44,10 @@ export const SearchBar = ({
       navigate(`/schools?zipcode=${zipcode}`);
     }
   };
+
   return (
     <>
-      <div className="container mx-auto flex flex-row justify-center mt-4">
+      <div className="container mx-auto flex flex-row justify-center">
         <form
           onSubmit={handleSearchSubmit}
           className="container m-4 relative flex w-full max-w-[24rem]"
@@ -60,7 +61,6 @@ export const SearchBar = ({
             name="zipcode"
             value={searchZipcode}
             onChange={(event) => setSearchZipcode(event.target.value)}
-            // onSubmit={(event) => handleSearchSubmit(event)}
           />
           <button
             type="submit"

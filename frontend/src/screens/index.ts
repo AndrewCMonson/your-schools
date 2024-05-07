@@ -1,5 +1,4 @@
 export * from "./FourOhFourScreen";
-export * from "./LoadingScreen";
 export * from "./HomeScreen";
 export * from "./SchoolScreen";
 export * from "./LoginScreen";
