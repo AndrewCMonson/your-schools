@@ -47,6 +47,7 @@ export interface SchoolAttributes extends Document {
   max_student_teacher_ratio: number;
   images: Array<ImageAttributes>;
   avatar: string;
+  isVerified: boolean;
 }
 
 export const schoolsSchema = new Schema<SchoolAttributes>({
@@ -129,6 +130,10 @@ export const schoolsSchema = new Schema<SchoolAttributes>({
   images: [imageSchema],
   avatar: {
     type: String,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { School } from "../../__generatedTypes__/graphql";
+import { useSchoolStore } from "../../stores/";
 import {
   AdvancedMarker,
   Pin,
   InfoWindow,
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
-import { useSchoolStore } from "../../stores/school";
 
 type AdvancedMapMarkerProps = {
   school: School;
@@ -14,7 +14,7 @@ type AdvancedMapMarkerProps = {
 
 export const AdvancedMapMarker = ({ school }: AdvancedMapMarkerProps) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
-  const [infoWindowShown, setInfoWindowShown] = useState(false);
+  const [infoWindowShown, setInfoWindowShown] = useState<boolean>(false);
   const { school: hoveredSchool } = useSchoolStore();
 
   useEffect(() => {
@@ -37,6 +37,9 @@ export const AdvancedMapMarker = ({ school }: AdvancedMapMarkerProps) => {
     lat: school?.latLng?.lat || 0,
     lng: school?.latLng?.lng || 0,
   };
+
+  console.log("position", position);
+  console.log(position.lat, position.lng);
 
   return (
     <>
@@ -63,6 +66,12 @@ export const AdvancedMapMarker = ({ school }: AdvancedMapMarkerProps) => {
             <div>
               <h1 className="text-black">{school.name}</h1>
               <p className="text-black">{school.address}</p>
+              <p className="text-black">{`${school.city}, ${school.state} ${school.zipcode}`}</p>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${position.lat},${position.lng}`}
+              >
+                View on Google Maps
+              </a>
             </div>
           </InfoWindow>
         )}

@@ -29,6 +29,7 @@ export const schools: {
     alt: string;
   }[];
   avatar: string;
+  isVerified?: boolean;
 }[] = [
   {
     name: "Emmanuel Episcopal Day School",
@@ -113,6 +114,7 @@ export const schools: {
     max_student_teacher_ratio: 5,
     images: images,
     avatar: images[2].url,
+    isVerified: true,
   },
   {
     name: "St. Matthew's School",
@@ -281,6 +283,7 @@ export const schools: {
     max_student_teacher_ratio: 6,
     images: images,
     avatar: images[8].url,
+    isVerified: true,
   },
   {
     name: "Great Bridge Kindercare",

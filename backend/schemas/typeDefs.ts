@@ -67,6 +67,7 @@ type School {
     max_student_teacher_ratio: Float
     images: [Image]
     avatar: String
+    isVerified: Boolean
   }
   
   type Query {

@@ -139,6 +139,7 @@ export type School = {
   email?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   images?: Maybe<Array<Maybe<Image>>>;
+  isVerified?: Maybe<Scalars['Boolean']['output']>;
   latLng?: Maybe<LatLng>;
   max_enrollment?: Maybe<Scalars['Int']['output']>;
   max_student_teacher_ratio?: Maybe<Scalars['Float']['output']>;
@@ -402,6 +403,7 @@ export type SchoolResolvers<ContextType = MyContext, ParentType extends Resolver
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   images?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
+  isVerified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   latLng?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
   max_enrollment?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   max_student_teacher_ratio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
