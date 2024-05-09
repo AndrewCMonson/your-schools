@@ -21,9 +21,9 @@ export const SearchMap = ({
   });
 
   return (
-    <div className="h-full">
+    <div className="h-full max-h-[calc(100vh-4rem)]">
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-        <div className="h-full">
+        <div className="h-full ">
           <Map
             {...cameraProps}
             mapId={import.meta.env.VITE_GOOGLE_MAPS_ID}

@@ -34,6 +34,9 @@ export default {
               color: "#ffffff",
             },
           },
+          ".border-primary": {
+            "border-color": "#ffffff",
+          },
         },
       },
       {
@@ -68,6 +71,9 @@ export default {
           },
           ".homepage-hero": {
             color: "#ffffff",
+          },
+          ".border-primary": {
+            "border-color": "#36454F",
           },
         },
       },

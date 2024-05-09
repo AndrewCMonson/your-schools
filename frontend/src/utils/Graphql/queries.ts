@@ -13,6 +13,8 @@ export const GetSchools = graphql(/* GraphQL */ `
         phone
         website
         offers_daycare
+        isVerified
+        description
         latLng {
           lat
           lng

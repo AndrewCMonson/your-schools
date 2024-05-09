@@ -5,7 +5,7 @@ interface FooterProps {
 export const Footer = ({ dataTheme }: FooterProps) => {
   return (
     <footer
-      className="flex flex-col xs:flex-row items-center justify-between py-6 bg-base-200"
+      className="flex flex-col xs:flex-row items-center justify-between py-4 xs:py-6 bg-base-200"
       data-theme={dataTheme}
     >
       <p color="blue-gray" className="font-normal xs:ml-4 flex items-center">
