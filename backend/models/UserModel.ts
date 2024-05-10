@@ -6,6 +6,7 @@ export interface UserAttributes extends Document {
   email: string;
   password: string;
   zipcode: string;
+  theme: string;
   favoriteIds: Array<Types.ObjectId>;
   isCorrectPassword: (password: string) => Promise<boolean>;
 }
@@ -30,7 +31,11 @@ export const userSchema = new Schema<UserAttributes>({
     type: String,
     required: false,
   },
-  // favoriteIds
+  theme: {
+    type: String,
+    required: false,
+    default: "lightTheme",
+  },
   favoriteIds: [
     {
       type: Schema.Types.ObjectId,

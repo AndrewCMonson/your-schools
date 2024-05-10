@@ -10,7 +10,7 @@ export const ThemeToggle = ({ theme, setTheme }: ThemeToggleProps) => {
       <button
         className="btn"
         onClick={() =>
-          setTheme(theme === "myThemeDark" ? "myThemeLight" : "myThemeDark")
+          setTheme(theme === "darkTheme" ? "lightTheme" : "darkTheme")
         }
       >
         Toggle Theme

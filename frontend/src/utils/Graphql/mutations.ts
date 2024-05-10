@@ -8,6 +8,7 @@ export const LoginUser = graphql(`
         id
         username
         zipcode
+        theme
       }
     }
   }
@@ -21,18 +22,30 @@ export const AddUser = graphql(`
         id
         username
         zipcode
+        theme
       }
     }
   }
 `);
 
 export const UpdateUserInfo = graphql(`
-  mutation updateUserInfo($username: String, $email: String, $zipcode: String) {
-    updateUserInfo(username: $username, email: $email, zipcode: $zipcode) {
+  mutation updateUserInfo(
+    $username: String
+    $email: String
+    $zipcode: String
+    $theme: String
+  ) {
+    updateUserInfo(
+      username: $username
+      email: $email
+      zipcode: $zipcode
+      theme: $theme
+    ) {
       id
       username
       email
       zipcode
+      theme
     }
   }
 `);

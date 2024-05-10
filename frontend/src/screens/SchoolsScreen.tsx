@@ -43,16 +43,16 @@ export const SchoolsScreen = (): ReactElement => {
     <>
       <section
         id="schoolsScreen"
-        className="flex flex-col lg:flex-row bg-base-200 lg:h-lvh w-full h-full gap-2 max-h-[calc(100vh-4rem)]"
+        className="flex flex-col lg:flex-row-reverse bg-base-200 lg:h-lvh w-full h-full gap-2 max-h-[calc(100vh-4rem)]"
       >
-        <div className="h-60 w-full lg:h-full lg:w-2/3">
+        <div className="h-96 w-full lg:h-full lg:w-1/2 xl:w-2/3">
           <SearchMap
             schools={schools}
             locationInfo={locationInfo as LocationInfo}
             locationLatLng={locationLatLng}
           />
         </div>
-        <div className="w-full mt-8 overflow-auto">
+        <div className="w-full mt-8 overflow-auto lg:w-1/2 xl:w-1/3">
           <div className="">
             <PageTitle title="Schools" />
             <SearchBar

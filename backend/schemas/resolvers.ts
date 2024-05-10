@@ -87,12 +87,16 @@ const resolvers: Resolvers = {
 
       return { token, user };
     },
-    updateUserInfo: async (_, { username, email, zipcode }, { user }) => {
+    updateUserInfo: async (
+      _,
+      { username, email, zipcode, theme },
+      { user },
+    ) => {
       if (!user) throw new AuthenticationError("You need to be logged in");
 
       const updatedUser = await UserModel.findByIdAndUpdate(
         { _id: user.id },
-        { username, email, zipcode },
+        { username, email, zipcode, theme },
         { new: true },
       );
 

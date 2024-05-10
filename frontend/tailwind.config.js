@@ -5,7 +5,7 @@ export default {
   daisyui: {
     themes: [
       {
-        myThemeDark: {
+        darkTheme: {
           primary: "#36454F",
 
           secondary: "#e00000",
@@ -40,7 +40,7 @@ export default {
         },
       },
       {
-        myThemeLight: {
+        lightTheme: {
           primary: "#ffffff",
 
           secondary: "#e00000",

@@ -92,6 +92,7 @@ export type MutationRemoveFromFavoritesArgs = {
 export type MutationUpdateUserInfoArgs = {
   email?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
+  theme?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
   zipcode?: InputMaybe<Scalars['String']['input']>;
 };
@@ -169,6 +170,7 @@ export type User = {
   favorites?: Maybe<Array<School>>;
   id?: Maybe<Scalars['ID']['output']>;
   password?: Maybe<Scalars['String']['output']>;
+  theme?: Maybe<Scalars['String']['output']>;
   username?: Maybe<Scalars['String']['output']>;
   zipcode?: Maybe<Scalars['String']['output']>;
 };
@@ -433,6 +435,7 @@ export type UserResolvers<ContextType = MyContext, ParentType extends ResolversP
   favorites?: Resolver<Maybe<Array<ResolversTypes['School']>>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  theme?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   zipcode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

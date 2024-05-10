@@ -102,6 +102,7 @@ export const UserDetailsFragment = graphql(/* GraphQL */ `
     username
     email
     zipcode
+    theme
     favorites {
       id
       name
