@@ -46,6 +46,7 @@ export const useLoginForm = () => {
 
     login({
       variables: { ...loginFormData },
+      refetchQueries: ["GetMe"],
     });
   };
 

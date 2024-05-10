@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { AccountSettingsForm } from "../components";
 import { Favorites } from "../components/";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -10,9 +10,11 @@ export const ProfileScreen = (): ReactElement => {
   const { user } = useSessionStore();
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   return (
     <section

@@ -5,6 +5,7 @@ import { Logout } from "../utils/Graphql/";
 import { useMutation } from "@apollo/client";
 import { useSessionStore } from "../stores/session";
 import { ThemeToggle } from "./ThemeToggle";
+import { useGetMe } from "../hooks";
 
 interface NavBarProps {
   dataTheme: string;
@@ -12,15 +13,24 @@ interface NavBarProps {
 }
 
 export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
-  const [logout] = useMutation(Logout);
+  const { client } = useGetMe();
+  const [logout] = useMutation(Logout, {
+    onCompleted: () => {
+      client.resetStore();
+      clearSession();
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
   const navigate = useNavigate();
   const { user, clearSession } = useSessionStore();
 
   const onLogout = useCallback(() => {
     logout();
-    clearSession();
     navigate("/");
-  }, [logout, clearSession, navigate]);
+    setTheme("lightTheme");
+  }, [logout, navigate, setTheme]);
 
   return (
     <>

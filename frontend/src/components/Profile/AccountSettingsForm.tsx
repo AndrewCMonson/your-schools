@@ -9,16 +9,15 @@ import { UserDetailsFragment } from "../../utils/Graphql/queries";
 
 export const AccountSettingsForm = () => {
   const { loading, error, data } = useGetMe();
-
   const user = useFragment(UserDetailsFragment, data);
-
   const [editable, setEditable] = useState<boolean>(false);
   const [passwordEditable, setPasswordEditable] = useState<boolean>(false);
   const { setUser } = useSessionStore();
   const [userInfo, setUserInfo] = useState<any>({
     email: user?.email,
     username: user?.username,
-    zipcode: user?.zipcode || "",
+    zipcode: user?.zipcode,
+    theme: user?.theme,
     password: "",
     newPassword: "",
   });
@@ -29,6 +28,7 @@ export const AccountSettingsForm = () => {
         email: updateUserInfo.email,
         username: updateUserInfo.username,
         zipcode: updateUserInfo.zipcode,
+        theme: updateUserInfo.theme,
       });
     },
     onError: (error) => {
@@ -74,6 +74,7 @@ export const AccountSettingsForm = () => {
         email: userInfo.email,
         username: userInfo.username,
         zipcode: userInfo.zipcode,
+        theme: userInfo.theme,
       },
     });
     setEditable(!editable);
@@ -207,6 +208,28 @@ export const AccountSettingsForm = () => {
               disabled={!editable}
               value={userInfo.zipcode}
               onChange={handleInputChange}
+            />
+          </div>
+          <div className="join">
+            <input
+              type="radio"
+              name="theme"
+              className="btn join-item"
+              aria-label="Light"
+              value="lightTheme"
+              disabled={!editable}
+              onChange={handleInputChange}
+              checked={userInfo.theme === "lightTheme"}
+            />
+            <input
+              type="radio"
+              name="theme"
+              className="btn join-item"
+              aria-label="Dark"
+              value="darkTheme"
+              disabled={!editable}
+              onChange={handleInputChange}
+              checked={userInfo.theme === "darkTheme"}
             />
           </div>
           {!editable ? (
