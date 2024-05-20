@@ -85,6 +85,13 @@ export const AccountSettingsForm = () => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
+  const handleThemeChange = (event: any) => {
+    const { value } = event.target;
+    setUserInfo({ ...userInfo, theme: value });
+    console.log("theme", value);
+    console.log("userInfo", userInfo);
+  };
+
   if (!user || loading) {
     return <div>Loading...</div>;
   }
@@ -210,27 +217,19 @@ export const AccountSettingsForm = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="join">
-            <input
-              type="radio"
-              name="theme"
-              className="btn join-item"
-              aria-label="Light"
-              value="lightTheme"
+          <div>
+            <label className="label">
+              <span className="label-text">Theme</span>
+            </label>
+            <select
+              className="select select-md select-bordered w-full"
+              defaultValue={`${user.theme}`}
+              onChange={handleThemeChange}
               disabled={!editable}
-              onChange={handleInputChange}
-              checked={userInfo.theme === "lightTheme"}
-            />
-            <input
-              type="radio"
-              name="theme"
-              className="btn join-item"
-              aria-label="Dark"
-              value="darkTheme"
-              disabled={!editable}
-              onChange={handleInputChange}
-              checked={userInfo.theme === "darkTheme"}
-            />
+            >
+              <option value="darkTheme">Dark</option>
+              <option value="lightTheme">Light</option>
+            </select>
           </div>
           {!editable ? (
             <div className="form-control mt-6">
