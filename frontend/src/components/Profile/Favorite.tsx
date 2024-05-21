@@ -43,12 +43,12 @@ export const Favorite = ({ favorite }: FavoriteProps) => {
             </div>
           </div>
         </td>
-        <td className="hidden lg:table-cell">
+        <td className="hidden 2xl:table-cell">
           {favorite.phone}
           <br />
           {favorite.email}
         </td>
-        <td className="hidden 3xl:table-cell">
+        <td className="hidden md:table-cell">
           <WebsiteLink link={favorite.website || ""} />
         </td>
       </tr>

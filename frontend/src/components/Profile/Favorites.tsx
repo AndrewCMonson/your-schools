@@ -51,8 +51,8 @@ export const Favorites = ({
                 <tr>
                   <th></th>
                   <th>Name</th>
-                  <th className="hidden lg:table-cell">Contact</th>
-                  <th className="hidden lg:table-cell">Website</th>
+                  <th className="hidden 2xl:table-cell">Contact</th>
+                  <th className="hidden md:table-cell">Website</th>
                   <th></th>
                 </tr>
               </thead>

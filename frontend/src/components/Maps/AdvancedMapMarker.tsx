@@ -38,8 +38,7 @@ export const AdvancedMapMarker = ({ school }: AdvancedMapMarkerProps) => {
     lng: school?.latLng?.lng || 0,
   };
 
-  console.log("position", position);
-  console.log(position.lat, position.lng);
+  const fullSchoolAddress = `${school.address}, ${school.city}, ${school.state} ${school.zipcode}`;
 
   return (
     <>
@@ -64,11 +63,14 @@ export const AdvancedMapMarker = ({ school }: AdvancedMapMarkerProps) => {
             position={position}
           >
             <div>
-              <h1 className="text-black">{school.name}</h1>
+              <h1 className="text-black font-bold text-lg">{school.name}</h1>
               <p className="text-black">{school.address}</p>
               <p className="text-black">{`${school.city}, ${school.state} ${school.zipcode}`}</p>
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${position.lat},${position.lng}`}
+                href={`https://www.google.com/maps/search/?api=1&query=${school.name},${fullSchoolAddress}`}
+                target="_blank"
+                rel="noreferrer"
+                className="underline hover:text-gray-500"
               >
                 View on Google Maps
               </a>

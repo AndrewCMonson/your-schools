@@ -6,3 +6,12 @@
     width: 0px;
     background: transparent;
 }
+
+:root {
+    --toastify-color-dark: #36454F;
+
+    --toastify-icon-color-info: #0098ea;
+    --toastify-icon-color-success: #a4f970;
+    --toastify-icon-color-warning: #ff5c00;
+    --toastify-icon-color-error: #c43447;
+}

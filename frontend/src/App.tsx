@@ -21,7 +21,10 @@ const App = (): ReactElement => {
       <main className="flex-auto w-100" data-theme={theme}>
         <Outlet />
       </main>
-      <ToastContainer />
+      <ToastContainer
+        theme={theme === "darkTheme" ? "dark" : "light"}
+        pauseOnHover={false}
+      />
       <Footer dataTheme={theme} />
     </>
   );

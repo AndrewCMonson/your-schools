@@ -34,9 +34,10 @@ export const SignupScreen = (): ReactElement => {
                 Your child&apos;s education at your fingertips.
               </h1>
               <p className="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
+                No one knows your child better than you. Our goal at YourSchools
+                is to enable parents to find the best environment for their kids
+                to learn. Search by area, find verified parent reviews, and
+                manage your student&apos;s enrollment all in one place.
               </p>
               <button
                 className="btn btn-primary lg:hidden"
