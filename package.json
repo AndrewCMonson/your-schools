@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"server": "node --loader ts-node/esm backend/server.ts",
-		"build": "yarn install && yarn install --prefix frontend && yarn run build --prefix frontend",
+		"build": "yarn install && cd frontend && yarn install && yarn run build",
 		"render-build": "yarn install && yarn run build",
 		"client": "cd frontend && yarn run start",
 		"dev": "concurrently \"yarn run server\" \"yarn run client\"",

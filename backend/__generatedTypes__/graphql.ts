@@ -1,7 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { UserAttributes } from '../models/UserModel';
 import { SchoolAttributes } from '../models/SchoolsModel';
-import { SessionAttributes } from '../models/SessionModel';
 import { MyContext } from '../utils/auth';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -470,5 +469,3 @@ export type DirectiveResolvers<ContextType = MyContext> = {
   embedded?: EmbeddedDirectiveResolver<any, any, ContextType>;
   map?: MapDirectiveResolver<any, any, ContextType>;
 };
-
-import { ObjectId } from 'mongodb';

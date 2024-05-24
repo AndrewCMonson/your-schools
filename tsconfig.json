@@ -28,7 +28,7 @@
 		"noFallthroughCasesInSwitch": true
 	},
 	"include": ["frontend/**/*.ts", "frontend/**/*.tsx", "frontend/**/*.d.ts", "backend/**/*.ts", "**/*.d.ts", "backend/schemas/resolvers.ts"],
-	"exclude": ["node_modules", "frontend/dist", "backend/dist", "backend/__generatedTypes__"],
+	"exclude": ["node_modules", "frontend/dist", "backend/dist", "backend/__generatedTypes__", "backend/__generatedTypes/graphql.ts"],
 	"references": [{ "path": "frontend/tsconfig.vite.json" }],
 	"ts-node": {
 		"esm": true,
