@@ -7,21 +7,22 @@ Your Schools is a MERN stack application that allows users to find preschools an
 ### Technologies Used
 
 - MongoDB
+- TypeScript
 - Express
 - React
 - Node.js
 - GraphQL
 - Google Maps API
 - Tailwind CSS
-- Material Tailwind Component Library
+- DaisyUI
 - JWT
 
 ### Screenshots
 
-![Screenshot](https://i.ibb.co/82H46LM/Screenshot-2024-03-11-083610.png)
-![Screenshot](https://i.ibb.co/Mn2kTbS/Screenshot-2024-03-11-083629.png)
-![Screenshot](https://i.ibb.co/cbCfLSq/Screenshot-2024-03-11-083645.png)
-![Screenshot](https://i.ibb.co/1fWXxGj/Screenshot-2024-03-11-083802.png)
+![Screenshot](https://i.ibb.co/dQpWmxv/Screenshot-2024-05-24-084314.png)
+![Screenshot](https://i.ibb.co/GCpMrbF/Screenshot-2024-05-24-084338.png)
+![Screenshot](https://i.ibb.co/SXxzndY/Screenshot-2024-05-24-084400.png)
+![Screenshot](https://i.ibb.co/pnB12yc/Screenshot-2024-05-24-084423.png)
 
 ### Deployed Application
 
