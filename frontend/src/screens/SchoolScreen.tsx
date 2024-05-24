@@ -26,8 +26,6 @@ export const SchoolScreen = (): ReactElement => {
     },
   });
 
-  console.log(school);
-
   if (!loggedInUser) {
     navigate("/login");
   }

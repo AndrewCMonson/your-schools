@@ -4,7 +4,6 @@ export * from "./NavBar";
 export * from "./PageTitle";
 export * from "./Rating";
 export * from "./School";
-export * from "./Skeleton";
 export * from "./SearchBar";
 export * from "./LocationButton";
 export * from "./Profile";

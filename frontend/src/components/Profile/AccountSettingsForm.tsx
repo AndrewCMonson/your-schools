@@ -88,8 +88,6 @@ export const AccountSettingsForm = () => {
   const handleThemeChange = (event: any) => {
     const { value } = event.target;
     setUserInfo({ ...userInfo, theme: value });
-    console.log("theme", value);
-    console.log("userInfo", userInfo);
   };
 
   if (!user || loading) {
