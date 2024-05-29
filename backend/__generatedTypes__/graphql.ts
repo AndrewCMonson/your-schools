@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { UserAttributes } from '../models/UserModel';
 import { SchoolAttributes } from '../models/SchoolsModel';
+import { SessionAttributes } from '../models/SessionModel';
 import { MyContext } from '../utils/auth';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -59,6 +60,7 @@ export type Mutation = {
   addUser: Auth;
   login: Auth;
   logout?: Maybe<Scalars['Void']['output']>;
+  recoverPassword?: Maybe<Scalars['String']['output']>;
   removeFromFavorites?: Maybe<User>;
   updateUserInfo: User;
   updateUserPassword?: Maybe<User>;
@@ -80,6 +82,11 @@ export type MutationAddUserArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+
+export type MutationRecoverPasswordArgs = {
+  email: Scalars['String']['input'];
 };
 
 
@@ -375,6 +382,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
+  recoverPassword?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;
   removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
   updateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationUpdateUserInfoArgs>>;
   updateUserPassword?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserPasswordArgs, 'newPassword' | 'password'>>;
@@ -469,3 +477,5 @@ export type DirectiveResolvers<ContextType = MyContext> = {
   embedded?: EmbeddedDirectiveResolver<any, any, ContextType>;
   map?: MapDirectiveResolver<any, any, ContextType>;
 };
+
+import { ObjectId } from 'mongodb';

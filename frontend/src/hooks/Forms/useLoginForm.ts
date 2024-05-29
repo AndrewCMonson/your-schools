@@ -8,6 +8,7 @@ import { LoginUser } from "../../utils/";
 interface LoginFormData {
   email: string;
   password: string;
+  hidePassword: boolean;
 }
 
 export const useLoginForm = () => {
@@ -16,7 +17,15 @@ export const useLoginForm = () => {
   const [loginFormData, setLoginFormData] = useState<LoginFormData>({
     email: "",
     password: "",
+    hidePassword: true,
   });
+  const handleShowPassword = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setLoginFormData({
+      ...loginFormData,
+      hidePassword: !loginFormData.hidePassword,
+    });
+  };
 
   const [login] = useMutation(LoginUser, {
     onCompleted: ({ login }) => {
@@ -46,12 +55,13 @@ export const useLoginForm = () => {
 
     login({
       variables: { ...loginFormData },
-      refetchQueries: ["GetMe"],
     });
   };
 
   return {
     handleInputChange,
     handleLoginFormSubmit,
+    handleShowPassword,
+    loginFormData,
   };
 };

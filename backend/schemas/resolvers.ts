@@ -5,9 +5,10 @@ import {
   UserAttributes,
 } from "../models/index.ts";
 import { AuthenticationError } from "apollo-server-express";
-import { signToken, hashPassword } from "../utils/index.ts";
+import { signToken, hashPassword, sendRecoveryEmail } from "../utils/index.ts";
 import { Resolvers } from "../__generatedTypes__/graphql";
 import { getLatLng, getLatLngFromZipcode } from "../services/index.ts";
+import { generate } from "generate-password";
 
 const resolvers: Resolvers = {
   Query: {
@@ -221,6 +222,30 @@ const resolvers: Resolvers = {
       }
 
       throw new AuthenticationError("You need to be logged in!");
+    },
+    recoverPassword: async (_, { email }) => {
+      if (!email) throw new Error("Please provide an email");
+
+      const user = await UserModel.findOne({ email });
+
+      if (!user) throw new Error("No user found with this email");
+
+      const tempPassword = generate({
+        length: 6,
+        numbers: true,
+      });
+
+      const hashedPassword = await hashPassword(tempPassword);
+
+      await UserModel.findByIdAndUpdate(
+        { _id: user.id },
+        { password: hashedPassword },
+        { new: true },
+      );
+
+      await sendRecoveryEmail(email, tempPassword);
+
+      return "Email sent with temporary password";
     },
     logout: async (_, __, { user, res, req }): Promise<void> => {
       if (user) {

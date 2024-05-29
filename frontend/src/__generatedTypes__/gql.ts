@@ -19,6 +19,7 @@ const documents = {
     "\n  mutation updateUserPassword($password: String!, $newPassword: String!) {\n    updateUserPassword(password: $password, newPassword: $newPassword) {\n      id\n      username\n    }\n  }\n": types.UpdateUserPasswordDocument,
     "\n  mutation addToFavorites($schoolId: ID!) {\n    addToFavorites(schoolId: $schoolId) {\n      id\n      username\n      favorites {\n        id\n        name\n      }\n    }\n  }\n": types.AddToFavoritesDocument,
     "\n  mutation removeFromFavorites($schoolId: ID!) {\n    removeFromFavorites(schoolId: $schoolId) {\n      id\n      username\n      favorites {\n        id\n        name\n      }\n    }\n  }\n": types.RemoveFromFavoritesDocument,
+    "\n  mutation recoverPassword($email: String!) {\n    recoverPassword(email: $email)\n  }\n": types.RecoverPasswordDocument,
     "\n  mutation logout {\n    logout\n  }\n": types.LogoutDocument,
     "\n  query Schools($zipcode: String) {\n    schools(zipcode: $zipcode) {\n      schools {\n        id\n        name\n        address\n        city\n        state\n        zipcode\n        phone\n        website\n        offers_daycare\n        isVerified\n        description\n        latLng {\n          lat\n          lng\n        }\n        email\n        rating\n        images {\n          url\n          alt\n          owner\n        }\n        avatar\n      }\n      locationInfo {\n        location {\n          lat\n          lng\n        }\n        bounds {\n          northeast {\n            lat\n            lng\n          }\n          southwest {\n            lat\n            lng\n          }\n        }\n      }\n    }\n  }\n": types.SchoolsDocument,
     "\n  query School($id: ID!) {\n    school(id: $id) {\n      id\n      name\n      address\n      city\n      state\n      zipcode\n      phone\n      website\n      email\n      description\n      latLng {\n        lat\n        lng\n      }\n      rating\n      offers_daycare\n      age_range\n      early_enrollment\n      min_tuition\n      max_tuition\n      days_open\n      days_closed\n      opening_hours\n      closing_hours\n      min_enrollment\n      max_enrollment\n      min_student_teacher_ratio\n      max_student_teacher_ratio\n      images {\n        url\n        alt\n        owner\n      }\n    }\n  }\n": types.SchoolDocument,
@@ -64,6 +65,10 @@ export function graphql(source: "\n  mutation addToFavorites($schoolId: ID!) {\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation removeFromFavorites($schoolId: ID!) {\n    removeFromFavorites(schoolId: $schoolId) {\n      id\n      username\n      favorites {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation removeFromFavorites($schoolId: ID!) {\n    removeFromFavorites(schoolId: $schoolId) {\n      id\n      username\n      favorites {\n        id\n        name\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation recoverPassword($email: String!) {\n    recoverPassword(email: $email)\n  }\n"): (typeof documents)["\n  mutation recoverPassword($email: String!) {\n    recoverPassword(email: $email)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -86,6 +86,7 @@ type School {
     addToFavorites(schoolId: ID!): User
     removeFromFavorites(schoolId: ID!): User
     logout: Void
+    recoverPassword(email: String!): String
   }
 
   scalar ObjectId

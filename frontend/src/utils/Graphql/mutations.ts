@@ -85,6 +85,12 @@ export const RemoveFavorite = graphql(`
   }
 `);
 
+export const RecoverPassword = graphql(`
+  mutation recoverPassword($email: String!) {
+    recoverPassword(email: $email)
+  }
+`);
+
 export const Logout = graphql(`
   mutation logout {
     logout

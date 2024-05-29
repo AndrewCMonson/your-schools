@@ -5,3 +5,4 @@ export * from "./LoginScreen";
 export * from "./SchoolsScreen";
 export * from "./SignUpScreen";
 export * from "./ProfileScreen";
+export * from "./RecoveryScreen";

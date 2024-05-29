@@ -1,8 +1,15 @@
 import { ReactElement } from "react";
 import { useLoginForm } from "../../hooks";
+import { Link } from "react-router-dom";
+import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 
 export const LoginForm = (): ReactElement => {
-  const { handleInputChange, handleLoginFormSubmit } = useLoginForm();
+  const {
+    handleInputChange,
+    handleLoginFormSubmit,
+    handleShowPassword,
+    loginFormData,
+  } = useLoginForm();
 
   return (
     <>
@@ -20,26 +27,29 @@ export const LoginForm = (): ReactElement => {
               type="email"
               placeholder="johndoe@email.com"
               className="input input-bordered"
-              required
               onChange={handleInputChange}
             />
           </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
+              <i className="btn btn-xs btn-circle" onClick={handleShowPassword}>
+                {loginFormData.hidePassword ? <EyeSlashIcon /> : <EyeIcon />}
+              </i>
             </label>
+
             <input
               name="password"
-              type="password"
+              type={loginFormData.hidePassword ? "password" : "text"}
               placeholder="password"
-              className="input input-bordered"
-              required
+              className="input input-bordered w-full"
               onChange={handleInputChange}
             />
+
             <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
+              <Link to="/recovery" className="label-text-alt link link-hover">
                 Forgot password?
-              </a>
+              </Link>
             </label>
             <label className="label">
               <a href="/signup" className="label-text-alt link link-hover">

@@ -50,11 +50,6 @@ export const SignUpForm = () => {
               onChange={handleInputChange}
             />
             <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
-                Forgot password?
-              </a>
-            </label>
-            <label className="label">
               <a href="/login" className="label-text-alt link link-hover">
                 Already have an account?
               </a>
