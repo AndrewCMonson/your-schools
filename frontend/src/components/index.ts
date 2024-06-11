@@ -11,3 +11,4 @@ export * from "./SearchBar";
 export * from "./Forms";
 export * from "./Maps";
 export * from "./Misc";
+export * from "./Review";

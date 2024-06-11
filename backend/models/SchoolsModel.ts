@@ -48,6 +48,7 @@ export interface SchoolAttributes extends Document {
   images: Array<ImageAttributes>;
   avatar: string;
   isVerified: boolean;
+  reviews: Array<Types.ObjectId>;
 }
 
 export const schoolsSchema = new Schema<SchoolAttributes>({
@@ -135,6 +136,12 @@ export const schoolsSchema = new Schema<SchoolAttributes>({
     type: Boolean,
     default: false,
   },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 export const SchoolModel = model("school", schoolsSchema);

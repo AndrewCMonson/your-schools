@@ -2,7 +2,7 @@ import {
   SchoolModel,
   UserModel,
   SessionModel,
-  UserAttributes,
+  ReviewModel,
 } from "../models/index.ts";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken, hashPassword, sendRecoveryEmail } from "../utils/index.ts";
@@ -60,8 +60,27 @@ const resolvers: Resolvers = {
       const { lat, lng } = await getLatLng(address, city, state);
       return { lat, lng };
     },
-  },
+    reviews: async (parent) => {
+      const reviews = await ReviewModel.find({ _id: { $in: parent.reviews } });
 
+      if (!reviews) {
+        throw new Error("No reviews found for this school");
+      }
+
+      return reviews;
+    },
+  },
+  Review: {
+    owner: async (parent) => {
+      const owner = await UserModel.findById(parent.owner);
+
+      if (!owner) {
+        throw new Error("No user found for this review");
+      }
+
+      return owner;
+    },
+  },
   Mutation: {
     addUser: async (_, { username, email, password }, { res }) => {
       if (!username || !email || !password) {
@@ -185,11 +204,7 @@ const resolvers: Resolvers = {
       // TODO remove token
       return { token, user: loggedInUser };
     },
-    addToFavorites: async (
-      _,
-      { schoolId },
-      { user },
-    ): Promise<UserAttributes> => {
+    addToFavorites: async (_, { schoolId }, { user }) => {
       if (!schoolId) throw new Error("Please provide a school ID");
 
       if (!user) throw new AuthenticationError("You need to be logged in");
@@ -246,6 +261,39 @@ const resolvers: Resolvers = {
       await sendRecoveryEmail(email, tempPassword);
 
       return "Email sent with temporary password";
+    },
+    addReview: async (_, { rating, review, schoolId }, { user }) => {
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      const newReview = await ReviewModel.create({
+        rating,
+        review,
+        owner: user.id,
+      });
+
+      await SchoolModel.findByIdAndUpdate(
+        { _id: schoolId },
+        { $addToSet: { reviews: newReview.id } },
+        { new: true },
+      );
+
+      const ratings = await SchoolModel.aggregate([
+        { $match: { _id: schoolId } },
+        {
+          $group: {
+            _id: null,
+            avgRating: { $avg: "$reviews.rating" },
+          },
+        },
+      ]);
+
+      await SchoolModel.findByIdAndUpdate(
+        { _id: schoolId },
+        { rating: ratings[0].avgRating },
+        { new: true },
+      );
+
+      return newReview;
     },
     logout: async (_, __, { user, res, req }): Promise<void> => {
       if (user) {

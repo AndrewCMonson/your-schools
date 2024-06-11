@@ -12,6 +12,7 @@ const config: CodegenConfig = {
           User: "../models/UserModel#UserAttributes",
           School: "../models/SchoolsModel#SchoolAttributes",
           Session: "../models/SessionModel#SessionAttributes",
+          Review: "../models/ReviewModel#ReviewAttributes",
         },
       },
     },

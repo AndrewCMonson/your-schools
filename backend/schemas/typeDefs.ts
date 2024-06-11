@@ -8,7 +8,7 @@ type Image {
 type Auth {
     token: ID! 
     user: User!
-  }
+}
   
 type User {
     id: ID
@@ -40,6 +40,13 @@ type Schools {
   locationInfo: LocationInfo
 }
 
+type Review {
+    id: ID
+    rating: Float
+    review: String
+    owner: User
+}
+
 type School {
     id: ID
     name: String
@@ -69,14 +76,15 @@ type School {
     images: [Image]
     avatar: String
     isVerified: Boolean
-  }
+    reviews: [Review!]
+}
   
   type Query {
     schools(zipcode: String): Schools!
     school(id: ID!): School!
     me: User! 
     getFavorites(username: String): [User]!
-  }
+}
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth!
@@ -87,7 +95,8 @@ type School {
     removeFromFavorites(schoolId: ID!): User
     logout: Void
     recoverPassword(email: String!): String
-  }
+    addReview(schoolId: ID!, rating: Float!, review: String!): Review
+}
 
   scalar ObjectId
   scalar Void

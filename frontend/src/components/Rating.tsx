@@ -6,74 +6,44 @@ interface RatingProps {
 }
 
 export const Rating = ({ value, size }: RatingProps) => {
-  const list = [];
+  const getStarClasses = (index: number, half: boolean) => {
+    if (index < value || (!half && index === Math.ceil(value))) {
+      return `mask mask-star-2 ${half ? "mask-half-2" : "mask-half-1"}`;
+    }
+    return `bg-base-200 mask mask-star-2 ${half ? "mask-half-2" : "mask-half-1"}`;
+  };
 
-  for (let i = 0; i < 5; i++) {
-    if (value - i >= 1) {
-      list.push(
+  const getStarInputs = () => {
+    const inputs = [];
+    for (let i = 1; i <= 5; i++) {
+      inputs.push(
         <Fragment key={i}>
           <input
             type="radio"
-            name="rating-2"
-            className=" mask mask-star-2 mask-half-1"
-            disabled={true}
+            name="rating-10"
+            className={`${getStarClasses(i, false)}`}
+            checked={i === Math.ceil(value) && value % 1 !== 0}
             style={{ cursor: "default" }}
           />
           <input
             type="radio"
-            name="rating-2"
-            className="mask mask-star-2 mask-half-2"
-            disabled={true}
-            style={{ cursor: "default" }}
-          />
-        </Fragment>,
-      );
-    } else if (value - i >= 0.5) {
-      list.push(
-        <Fragment key={i}>
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 mask-half-1"
-            checked
-            disabled={true}
-            style={{ cursor: "default" }}
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 mask-half-2"
-            disabled={true}
-            style={{ cursor: "default" }}
-          />
-        </Fragment>,
-      );
-    } else {
-      list.push(
-        <Fragment key={i}>
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 mask-half-1"
-            disabled={true}
-            style={{ cursor: "default" }}
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 mask-half-2"
-            disabled={true}
+            name="rating-10"
+            className={`${getStarClasses(i, true)}`}
+            checked={i === Math.ceil(value) && value % 1 === 0}
             style={{ cursor: "default" }}
           />
         </Fragment>,
       );
     }
-  }
+    return inputs;
+  };
 
   return (
     <>
-      <div className="tooltip tooltip-right" data-tip="4K reviews">
-        <div className={`rating rating-half rating-${size}`}>{list}</div>
+      <div className="tooltip tooltip-right" data-tip={value}>
+        <div className={`rating rating-half rating-${size}`}>
+          {getStarInputs()}
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,8 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { UserAttributes } from '../models/UserModel';
 import { SchoolAttributes } from '../models/SchoolsModel';
+import { SessionAttributes } from '../models/SessionModel';
+import { ReviewAttributes } from '../models/ReviewModel';
 import { MyContext } from '../utils/auth';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -55,6 +57,7 @@ export type LocationInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addReview?: Maybe<Review>;
   addToFavorites?: Maybe<User>;
   addUser: Auth;
   login: Auth;
@@ -63,6 +66,13 @@ export type Mutation = {
   removeFromFavorites?: Maybe<User>;
   updateUserInfo: User;
   updateUserPassword?: Maybe<User>;
+};
+
+
+export type MutationAddReviewArgs = {
+  rating: Scalars['Float']['input'];
+  review: Scalars['String']['input'];
+  schoolId: Scalars['ID']['input'];
 };
 
 
@@ -131,6 +141,14 @@ export type QuerySchoolsArgs = {
   zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Review = {
+  __typename?: 'Review';
+  id?: Maybe<Scalars['ID']['output']>;
+  owner?: Maybe<User>;
+  rating?: Maybe<Scalars['Float']['output']>;
+  review?: Maybe<Scalars['String']['output']>;
+};
+
 export type School = {
   __typename?: 'School';
   address?: Maybe<Scalars['String']['output']>;
@@ -158,6 +176,7 @@ export type School = {
   opening_hours?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   rating?: Maybe<Scalars['Float']['output']>;
+  reviews?: Maybe<Array<Review>>;
   state?: Maybe<Scalars['String']['output']>;
   website?: Maybe<Scalars['String']['output']>;
   zipcode?: Maybe<Scalars['String']['output']>;
@@ -267,6 +286,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
+  Review: ResolverTypeWrapper<ReviewAttributes>;
   School: ResolverTypeWrapper<SchoolAttributes>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -289,6 +309,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   ObjectId: Scalars['ObjectId']['output'];
   Query: {};
+  Review: ReviewAttributes;
   School: SchoolAttributes;
   Int: Scalars['Int']['output'];
   Boolean: Scalars['Boolean']['output'];
@@ -377,6 +398,7 @@ export type LocationInfoResolvers<ContextType = MyContext, ParentType extends Re
 };
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addReview?: Resolver<Maybe<ResolversTypes['Review']>, ParentType, ContextType, RequireFields<MutationAddReviewArgs, 'rating' | 'review' | 'schoolId'>>;
   addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
@@ -396,6 +418,14 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   school?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;
   schools?: Resolver<ResolversTypes['Schools'], ParentType, ContextType, Partial<QuerySchoolsArgs>>;
+};
+
+export type ReviewResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  review?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type SchoolResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['School'] = ResolversParentTypes['School']> = {
@@ -424,6 +454,7 @@ export type SchoolResolvers<ContextType = MyContext, ParentType extends Resolver
   opening_hours?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  reviews?: Resolver<Maybe<Array<ResolversTypes['Review']>>, ParentType, ContextType>;
   state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   zipcode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -460,6 +491,7 @@ export type Resolvers<ContextType = MyContext> = {
   Mutation?: MutationResolvers<ContextType>;
   ObjectId?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
+  Review?: ReviewResolvers<ContextType>;
   School?: SchoolResolvers<ContextType>;
   Schools?: SchoolsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
@@ -476,3 +508,5 @@ export type DirectiveResolvers<ContextType = MyContext> = {
   embedded?: EmbeddedDirectiveResolver<any, any, ContextType>;
   map?: MapDirectiveResolver<any, any, ContextType>;
 };
+
+import { ObjectId } from 'mongodb';

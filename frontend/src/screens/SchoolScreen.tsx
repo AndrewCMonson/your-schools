@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { SchoolMap, Rating } from "../components";
-import { AddFavorite, UserDetailsFragment } from "../utils/";
+import { SchoolMap, Rating, Review } from "../components";
+import { AddFavorite, UserDetailsFragment, AddReview } from "../utils/";
 import { useGetSchool, useGetMe } from "../hooks";
 import { useFragment } from "../__generatedTypes__";
 import { toast } from "react-toastify";
@@ -19,6 +19,15 @@ export const SchoolScreen = (): ReactElement => {
   const [addToFavorites] = useMutation(AddFavorite, {
     onCompleted: () => {
       toast.success("Added to favorites");
+    },
+    onError: (e) => {
+      toast.error(e.message);
+      console.error(e);
+    },
+  });
+  const [addReview] = useMutation(AddReview, {
+    onCompleted: () => {
+      toast.success("Review added");
     },
     onError: (e) => {
       toast.error(e.message);
@@ -45,6 +54,12 @@ export const SchoolScreen = (): ReactElement => {
     });
   };
 
+  const handleAddReview = async (rating: number, review: string) => {
+    addReview({
+      variables: { schoolId: `${id}`, rating, review },
+    });
+  };
+
   const isFavorite = (id?: string): boolean => {
     if (me) {
       const favorite = me.favorites?.find((favorite) => favorite?.id === id);
@@ -66,7 +81,7 @@ export const SchoolScreen = (): ReactElement => {
             </h1>
             <div className="flex flex-col card-body">
               <div className="flex flex-col justify-between">
-                <div>{school?.rating && <Rating value={school?.rating} />}</div>
+                <div>{<Rating value={school?.rating ?? 0} size="md" />}</div>
                 <div>
                   {isFavorite(id) ? (
                     <button className="btn btn-sm  mt-0.5" disabled>
@@ -81,6 +96,23 @@ export const SchoolScreen = (): ReactElement => {
                       Add to Favorites
                     </button>
                   )}
+                  <Link
+                    to={school?.website ?? ""}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <button className="btn btn-sm btn-primary mt-0.5 ml-2">
+                      Website
+                    </button>
+                  </Link>
+                  <button
+                    className="btn btn-sm btn-primary mt-0.5 ml-2"
+                    onClick={() =>
+                      (window.location.href = `mailto:${school?.website}`)
+                    }
+                  >
+                    Email
+                  </button>
                 </div>
               </div>
               <div className="h-0.5 bg-black my-6"></div>
@@ -134,33 +166,18 @@ export const SchoolScreen = (): ReactElement => {
               <SchoolMap school={school as School} />
             </div>
             <div className="card mx-5 mt-5 md:h-96 lg:w-96 bg-base-100">
-              {/* <div className="h-0.5 bg-black mx-3"></div> */}
+              <div className="card-title flex flex-col justify-center mt-2">
+                <h2 className="font-bold text-2xl">Reviews</h2>
+              </div>
               <div className="card-body">
-                <div className="">{school?.address}</div>
-                <div className="">
-                  {school?.city}, {school?.state} {school?.zipcode}
-                </div>
-                <div className="">{school?.phone}</div>
-
-                <div className="flex">
-                  <button
-                    className="btn btn-sm btn-primary mt-0.5"
-                    onClick={() =>
-                      (window.location.href = `mailto:${school?.website}`)
-                    }
-                  >
-                    Email
-                  </button>
-                  <Link
-                    to={school?.website ?? ""}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    <button className="btn btn-sm btn-primary mt-0.5 ml-2">
-                      Website
-                    </button>
-                  </Link>
-                </div>
+                {school?.reviews?.map((review, index) => (
+                  <Review
+                    key={index}
+                    review={review.review}
+                    owner={review.owner}
+                    rating={review.rating}
+                  />
+                ))}
               </div>
             </div>
           </div>

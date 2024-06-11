@@ -84,6 +84,15 @@ export const GetSchool = graphql(/* GraphQL */ `
         alt
         owner
       }
+      reviews {
+        id
+        rating
+        review
+        owner {
+          id
+          username
+        }
+      }
     }
   }
 `);

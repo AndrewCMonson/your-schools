@@ -1,6 +1,6 @@
 import { images } from "./images.ts";
 
-export const schools: {
+interface School {
   name: string;
   address: string;
   city: string;
@@ -30,7 +30,18 @@ export const schools: {
   }[];
   avatar: string;
   isVerified?: boolean;
-}[] = [
+  reviews?: {
+    id: string;
+    rating: number;
+    review: string;
+    owner: {
+      id: string;
+      username: string;
+    };
+  }[];
+}
+
+export const schools: School[] = [
   {
     name: "Emmanuel Episcopal Day School",
     address: "5181 Singleton Way",
@@ -58,6 +69,8 @@ export const schools: {
     max_student_teacher_ratio: 10,
     images: images,
     avatar: images[0].url,
+    isVerified: false,
+    reviews: [],
   },
   {
     name: "St. John the Apostle Catholic School",
@@ -86,6 +99,8 @@ export const schools: {
     max_student_teacher_ratio: 10,
     images: images,
     avatar: images[1].url,
+    isVerified: false,
+    reviews: [],
   },
   {
     name: "St. Gregory the Great Catholic School",
@@ -115,6 +130,7 @@ export const schools: {
     images: images,
     avatar: images[2].url,
     isVerified: true,
+    reviews: [],
   },
   {
     name: "St. Matthew's School",
@@ -143,6 +159,8 @@ export const schools: {
     max_student_teacher_ratio: 10,
     images: images,
     avatar: images[3].url,
+    isVerified: false,
+    reviews: [],
   },
   {
     name: "Mary Magdalene Catholic School",
@@ -171,6 +189,8 @@ export const schools: {
     max_student_teacher_ratio: 12,
     images: images,
     avatar: images[4].url,
+    isVerified: true,
+    reviews: [],
   },
   {
     name: "Sunnydale Montessori Academy",
@@ -199,6 +219,8 @@ export const schools: {
     max_student_teacher_ratio: 11,
     images: images,
     avatar: images[5].url,
+    isVerified: false,
+    reviews: [],
   },
   {
     name: "Harmony Learning Center",
@@ -227,6 +249,8 @@ export const schools: {
     max_student_teacher_ratio: 10,
     images: images,
     avatar: images[6].url,
+    isVerified: true,
+    reviews: [],
   },
   {
     name: "Children's Harbor Learning Center",
@@ -255,6 +279,8 @@ export const schools: {
     max_student_teacher_ratio: 10,
     images: images,
     avatar: images[7].url,
+    isVerified: false,
+    reviews: [],
   },
   {
     name: "Mount Trashmore KinderCare",
@@ -284,6 +310,7 @@ export const schools: {
     images: images,
     avatar: images[8].url,
     isVerified: true,
+    reviews: [],
   },
   {
     name: "Great Bridge Kindercare",
@@ -312,6 +339,8 @@ export const schools: {
     max_student_teacher_ratio: 8,
     images: images,
     avatar: images[1].url,
+    isVerified: false,
+    reviews: [],
   },
   {
     name: "Guidepost Montessori at Redmill",
@@ -340,5 +369,7 @@ export const schools: {
     max_student_teacher_ratio: 3,
     images: images,
     avatar: images[0].url,
+    isVerified: true,
+    reviews: [],
   },
 ];

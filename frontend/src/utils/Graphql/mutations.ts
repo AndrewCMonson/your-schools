@@ -91,6 +91,20 @@ export const RecoverPassword = graphql(`
   }
 `);
 
+export const AddReview = graphql(`
+  mutation addReview($schoolId: ID!, $rating: Float!, $review: String!) {
+    addReview(schoolId: $schoolId, rating: $rating, review: $review) {
+      id
+      rating
+      review
+      owner {
+        id
+        username
+      }
+    }
+  }
+`);
+
 export const Logout = graphql(`
   mutation logout {
     logout
