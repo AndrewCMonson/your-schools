@@ -1,6 +1,6 @@
-import { graphql } from "../../__generatedTypes__/";
+import { gql } from "graphql-tag";
 
-export const LoginUser = graphql(`
+export const LoginUser = gql(`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
@@ -14,7 +14,7 @@ export const LoginUser = graphql(`
   }
 `);
 
-export const AddUser = graphql(`
+export const AddUser = gql(`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
       token
@@ -28,7 +28,7 @@ export const AddUser = graphql(`
   }
 `);
 
-export const UpdateUserInfo = graphql(`
+export const UpdateUserInfo = gql(`
   mutation updateUserInfo(
     $username: String
     $email: String
@@ -50,7 +50,7 @@ export const UpdateUserInfo = graphql(`
   }
 `);
 
-export const UpdateUserPassword = graphql(`
+export const UpdateUserPassword = gql(`
   mutation updateUserPassword($password: String!, $newPassword: String!) {
     updateUserPassword(password: $password, newPassword: $newPassword) {
       id
@@ -59,7 +59,7 @@ export const UpdateUserPassword = graphql(`
   }
 `);
 
-export const AddFavorite = graphql(`
+export const AddFavorite = gql(`
   mutation addToFavorites($schoolId: ID!) {
     addToFavorites(schoolId: $schoolId) {
       id
@@ -72,7 +72,7 @@ export const AddFavorite = graphql(`
   }
 `);
 
-export const RemoveFavorite = graphql(`
+export const RemoveFavorite = gql(`
   mutation removeFromFavorites($schoolId: ID!) {
     removeFromFavorites(schoolId: $schoolId) {
       id
@@ -85,15 +85,15 @@ export const RemoveFavorite = graphql(`
   }
 `);
 
-export const RecoverPassword = graphql(`
+export const RecoverPassword = gql(`
   mutation recoverPassword($email: String!) {
     recoverPassword(email: $email)
   }
 `);
 
-export const AddReview = graphql(`
-  mutation addReview($schoolId: ID!, $rating: Float!, $review: String!) {
-    addReview(schoolId: $schoolId, rating: $rating, review: $review) {
+export const AddReview = gql(`
+  mutation addReview($schoolId: ID!, $rating: Float!, $review: String!, $owner: ID!) {
+    addReview(schoolId: $schoolId, rating: $rating, review: $review, owner: $owner) {
       id
       rating
       review
@@ -105,7 +105,7 @@ export const AddReview = graphql(`
   }
 `);
 
-export const Logout = graphql(`
+export const Logout = gql(`
   mutation logout {
     logout
   }

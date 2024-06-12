@@ -265,10 +265,21 @@ const resolvers: Resolvers = {
     addReview: async (_, { rating, review, schoolId }, { user }) => {
       if (!user) throw new AuthenticationError("You need to be logged in");
 
+      const userReviews = await ReviewModel.find({ owner: user.id });
+
+      const hasReviewed = userReviews.some(
+        (userReview) => userReview.school.toString() === schoolId,
+      );
+
+      if (hasReviewed) {
+        throw new Error("You have already reviewed this school");
+      }
+
       const newReview = await ReviewModel.create({
         rating,
         review,
         owner: user.id,
+        school: schoolId,
       });
 
       await SchoolModel.findByIdAndUpdate(
@@ -277,19 +288,22 @@ const resolvers: Resolvers = {
         { new: true },
       );
 
-      const ratings = await SchoolModel.aggregate([
-        { $match: { _id: schoolId } },
+      const averageRating = await ReviewModel.aggregate([
         {
           $group: {
             _id: null,
-            avgRating: { $avg: "$reviews.rating" },
+            average: { $avg: "$rating" },
           },
         },
       ]);
 
       await SchoolModel.findByIdAndUpdate(
-        { _id: schoolId },
-        { rating: ratings[0].avgRating },
+        {
+          _id: schoolId,
+        },
+        {
+          rating: averageRating[0].average,
+        },
         { new: true },
       );
 

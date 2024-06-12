@@ -11,38 +11,43 @@ export interface UserAttributes extends Document {
   isCorrectPassword: (password: string) => Promise<boolean>;
 }
 
-export const userSchema = new Schema<UserAttributes>({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  zipcode: {
-    type: String,
-    required: false,
-  },
-  theme: {
-    type: String,
-    required: false,
-    default: "lightTheme",
-  },
-  favoriteIds: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "School",
+export const userSchema = new Schema<UserAttributes>(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
     },
-  ],
-});
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    zipcode: {
+      type: String,
+      required: false,
+    },
+    theme: {
+      type: String,
+      required: false,
+      default: "lightTheme",
+    },
+    favoriteIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "School",
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  },
+);
 
 userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {

@@ -45,6 +45,8 @@ type Review {
     rating: Float
     review: String
     owner: User
+    schoolId: School
+    createdAt: String
 }
 
 type School {
@@ -91,11 +93,11 @@ type School {
     updateUserInfo(username: String, email: String, password: String, zipcode: String, theme: String): User!
     updateUserPassword(password: String!, newPassword: String!): User
     login(email: String!, password: String!): Auth!
-    addToFavorites(schoolId: ID!): User
-    removeFromFavorites(schoolId: ID!): User
-    logout: Void
-    recoverPassword(email: String!): String
-    addReview(schoolId: ID!, rating: Float!, review: String!): Review
+    addToFavorites(schoolId: ID!): User!
+    removeFromFavorites(schoolId: ID!): User!
+    logout: Void!
+    recoverPassword(email: String!): String!
+    addReview(schoolId: ID!, rating: Float!, review: String!, owner: ID!): Review!
 }
 
   scalar ObjectId

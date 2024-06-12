@@ -57,19 +57,20 @@ export type LocationInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addReview?: Maybe<Review>;
-  addToFavorites?: Maybe<User>;
+  addReview: Review;
+  addToFavorites: User;
   addUser: Auth;
   login: Auth;
-  logout?: Maybe<Scalars['Void']['output']>;
-  recoverPassword?: Maybe<Scalars['String']['output']>;
-  removeFromFavorites?: Maybe<User>;
+  logout: Scalars['Void']['output'];
+  recoverPassword: Scalars['String']['output'];
+  removeFromFavorites: User;
   updateUserInfo: User;
   updateUserPassword?: Maybe<User>;
 };
 
 
 export type MutationAddReviewArgs = {
+  owner: Scalars['ID']['input'];
   rating: Scalars['Float']['input'];
   review: Scalars['String']['input'];
   schoolId: Scalars['ID']['input'];
@@ -143,10 +144,12 @@ export type QuerySchoolsArgs = {
 
 export type Review = {
   __typename?: 'Review';
+  createdAt?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   owner?: Maybe<User>;
   rating?: Maybe<Scalars['Float']['output']>;
   review?: Maybe<Scalars['String']['output']>;
+  schoolId?: Maybe<School>;
 };
 
 export type School = {
@@ -398,13 +401,13 @@ export type LocationInfoResolvers<ContextType = MyContext, ParentType extends Re
 };
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addReview?: Resolver<Maybe<ResolversTypes['Review']>, ParentType, ContextType, RequireFields<MutationAddReviewArgs, 'rating' | 'review' | 'schoolId'>>;
-  addToFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
+  addReview?: Resolver<ResolversTypes['Review'], ParentType, ContextType, RequireFields<MutationAddReviewArgs, 'owner' | 'rating' | 'review' | 'schoolId'>>;
+  addToFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
-  logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
-  recoverPassword?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;
-  removeFromFavorites?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
+  logout?: Resolver<ResolversTypes['Void'], ParentType, ContextType>;
+  recoverPassword?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;
+  removeFromFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
   updateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationUpdateUserInfoArgs>>;
   updateUserPassword?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserPasswordArgs, 'newPassword' | 'password'>>;
 };
@@ -421,10 +424,12 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
 };
 
 export type ReviewResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
+  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   owner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   review?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  schoolId?: Resolver<Maybe<ResolversTypes['School']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

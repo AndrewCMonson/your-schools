@@ -1,4 +1,4 @@
-import { graphql } from "../../__generatedTypes__/";
+import { graphql } from "../../__generatedTypes__";
 
 export const GetSchools = graphql(/* GraphQL */ `
   query Schools($zipcode: String) {
@@ -67,6 +67,7 @@ export const GetSchool = graphql(/* GraphQL */ `
       }
       rating
       offers_daycare
+      isVerified
       age_range
       early_enrollment
       min_tuition
@@ -88,6 +89,7 @@ export const GetSchool = graphql(/* GraphQL */ `
         id
         rating
         review
+        createdAt
         owner {
           id
           username

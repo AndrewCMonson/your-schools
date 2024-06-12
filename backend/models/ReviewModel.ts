@@ -7,21 +7,26 @@ export interface ReviewAttributes extends Document {
   owner: Types.ObjectId;
 }
 
-export const reviewSchema = new Schema<ReviewAttributes>({
-  school: {
-    type: Schema.Types.ObjectId,
-    ref: "School",
+export const reviewSchema = new Schema<ReviewAttributes>(
+  {
+    school: {
+      type: Schema.Types.ObjectId,
+      ref: "School",
+    },
+    rating: {
+      type: Number,
+    },
+    review: {
+      type: String,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-  rating: {
-    type: Number,
+  {
+    timestamps: true,
   },
-  review: {
-    type: String,
-  },
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-});
+);
 
 export const ReviewModel = model("Review", reviewSchema);
