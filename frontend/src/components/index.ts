@@ -12,3 +12,4 @@ export * from "./Forms";
 export * from "./Maps";
 export * from "./Misc";
 export * from "./Review";
+export * from "./ReviewRating";

@@ -1,5 +1,5 @@
 import { useAddReviewForm } from "../../hooks";
-import { Rating } from "../Rating";
+import { ReviewRating } from "../ReviewRating";
 
 interface AddReviewFormProps {
   schoolId: string | null | undefined;
@@ -14,21 +14,11 @@ export const AddReviewForm = ({ schoolId, userId }: AddReviewFormProps) => {
 
   return (
     <div className="card shrink-0 bg-base-100 p-4 shadow-2xl min-h-96">
-      <form className="flex flex-col space-y-4">
-        <label htmlFor="rating">Rating</label>
-        <input
-          type="number"
-          name="rating"
-          id="rating"
-          step=".5"
-          min="1"
-          max="5"
-          onChange={handleInputChange}
-          className="rounded w-1/5 text-black text-center"
-          defaultValue={0}
-        />
-        <Rating value={0} size="md" readonly={false} />
-        <label htmlFor="review">Review</label>
+      <h2 className="text-2xl">Leave a Review!</h2>
+      <form className="flex flex-col space-y-2">
+        <label>Rating</label>
+        <ReviewRating handleInputChange={handleInputChange} size="md" />
+        <label>Review</label>
         <textarea
           name="review"
           id="review"
