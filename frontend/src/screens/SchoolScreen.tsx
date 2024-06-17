@@ -116,8 +116,8 @@ export const SchoolScreen = (): ReactElement => {
                     </button>
                   </div>
                 </div>
-                <div className="h-0.5 bg-black my-6"></div>
-                <div className="lg:flex lg:justify-between">
+                <div className="h-0.5 bg-black"></div>
+                <div className="lg:flex lg:justify-between mt-6">
                   <div className="lg:w-1/2 mb-6 lg:mr-6">
                     <div className="mb-2 2xl:text-xl">
                       {school?.description}
@@ -188,7 +188,7 @@ export const SchoolScreen = (): ReactElement => {
           <div className="card h-96 w-96 bg-base-100">
             <SchoolMap school={school as School} />
           </div>
-          <AddReviewForm schoolId={school?.id} userId={loggedInUser?.id} />
+          <AddReviewForm schoolId={school?.id} userId={me?.id} />
         </div>
       </div>
     </>

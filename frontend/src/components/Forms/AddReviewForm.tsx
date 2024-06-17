@@ -23,7 +23,7 @@ export const AddReviewForm = ({ schoolId, userId }: AddReviewFormProps) => {
           name="review"
           id="review"
           onChange={handleInputChange}
-          className="max-h-48 rounded min-h-48 text-black p-2"
+          className="max-h-48 rounded min-h-48 text-black p-2 border-primary border-2"
         ></textarea>
         <button
           onClick={handleAddReviewFormSubmit}
