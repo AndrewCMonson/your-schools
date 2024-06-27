@@ -128,5 +128,6 @@ export const UserDetailsFragment = graphql(/* GraphQL */ `
       age_range
       max_tuition
     }
+    isAdmin
   }
 `);

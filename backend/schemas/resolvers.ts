@@ -9,6 +9,7 @@ import { signToken, hashPassword, sendRecoveryEmail } from "../utils/index.ts";
 import { Resolvers } from "../__generatedTypes__/graphql";
 import { getLatLng, getLatLngFromZipcode } from "../services/index.ts";
 import { generate } from "generate-password";
+import Void from "./scalars.ts";
 
 const resolvers: Resolvers = {
   Query: {
@@ -95,7 +96,6 @@ const resolvers: Resolvers = {
       await SessionModel.create({
         user: user.id,
         token,
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 3),
       });
 
       res.cookie("token", token, {
@@ -314,6 +314,7 @@ const resolvers: Resolvers = {
         try {
           await SessionModel.findOneAndDelete({ token: req.cookies.token });
           res.clearCookie("token");
+          // return;
         } catch (error) {
           console.error(error);
           throw new Error("Error logging out");
@@ -321,6 +322,7 @@ const resolvers: Resolvers = {
       }
     },
   },
+  Void,
 };
 
 export default resolvers;

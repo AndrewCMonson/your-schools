@@ -62,9 +62,6 @@ export const authMiddleware: ContextFunction<
       throw new Error("Session not found");
     }
     // if session is expired, throw error
-    if (session.expires < new Date()) {
-      throw new Error("Session expired");
-    }
 
     const user = await UserModel.findOne({
       _id: session.user,

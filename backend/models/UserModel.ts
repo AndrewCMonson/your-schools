@@ -8,6 +8,7 @@ export interface UserAttributes extends Document {
   zipcode: string;
   theme: string;
   favoriteIds: Array<Types.ObjectId>;
+  isAdmin: boolean;
   isCorrectPassword: (password: string) => Promise<boolean>;
 }
 
@@ -43,6 +44,11 @@ export const userSchema = new Schema<UserAttributes>(
         ref: "School",
       },
     ],
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

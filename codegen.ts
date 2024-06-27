@@ -5,13 +5,12 @@ const config: CodegenConfig = {
   schema: "http://localhost:3005/graphql",
   generates: {
     "backend/__generatedTypes__/graphql.ts": {
-      plugins: ["typescript", "typescript-resolvers", "typescript-mongodb"],
+      plugins: ["typescript", "typescript-resolvers"],
       config: {
         contextType: "../utils/auth#MyContext",
         mappers: {
           User: "../models/UserModel#UserAttributes",
           School: "../models/SchoolsModel#SchoolAttributes",
-          Session: "../models/SessionModel#SessionAttributes",
           Review: "../models/ReviewModel#ReviewAttributes",
         },
       },

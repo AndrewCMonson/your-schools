@@ -60,7 +60,7 @@ export type Mutation = {
   addToFavorites: User;
   addUser: Auth;
   login: Auth;
-  logout: Scalars['Void']['output'];
+  logout?: Maybe<Scalars['Void']['output']>;
   recoverPassword: Scalars['String']['output'];
   removeFromFavorites: User;
   updateUserInfo: User;
@@ -195,15 +195,11 @@ export type User = {
   email?: Maybe<Scalars['String']['output']>;
   favorites?: Maybe<Array<School>>;
   id?: Maybe<Scalars['ID']['output']>;
+  isAdmin?: Maybe<Scalars['Boolean']['output']>;
   password?: Maybe<Scalars['String']['output']>;
   theme?: Maybe<Scalars['String']['output']>;
   username?: Maybe<Scalars['String']['output']>;
   zipcode?: Maybe<Scalars['String']['output']>;
-};
-
-export type AdditionalEntityFields = {
-  path?: InputMaybe<Scalars['String']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -278,95 +274,46 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Auth: ResolverTypeWrapper<Omit<Auth, 'user'> & { user: ResolversTypes['User'] }>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Bounds: ResolverTypeWrapper<Bounds>;
-  Image: ResolverTypeWrapper<Image>;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
-  LatLng: ResolverTypeWrapper<LatLng>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Image: ResolverTypeWrapper<Image>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  LatLng: ResolverTypeWrapper<LatLng>;
   LocationInfo: ResolverTypeWrapper<LocationInfo>;
   Mutation: ResolverTypeWrapper<{}>;
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
   Query: ResolverTypeWrapper<{}>;
   Review: ResolverTypeWrapper<ReviewAttributes>;
   School: ResolverTypeWrapper<SchoolAttributes>;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Schools: ResolverTypeWrapper<Omit<Schools, 'schools'> & { schools: Array<ResolversTypes['School']> }>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<UserAttributes>;
   Void: ResolverTypeWrapper<Scalars['Void']['output']>;
-  AdditionalEntityFields: AdditionalEntityFields;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Auth: Omit<Auth, 'user'> & { user: ResolversParentTypes['User'] };
-  ID: Scalars['ID']['output'];
+  Boolean: Scalars['Boolean']['output'];
   Bounds: Bounds;
-  Image: Image;
-  String: Scalars['String']['output'];
-  LatLng: LatLng;
   Float: Scalars['Float']['output'];
+  ID: Scalars['ID']['output'];
+  Image: Image;
+  Int: Scalars['Int']['output'];
+  LatLng: LatLng;
   LocationInfo: LocationInfo;
   Mutation: {};
   ObjectId: Scalars['ObjectId']['output'];
   Query: {};
   Review: ReviewAttributes;
   School: SchoolAttributes;
-  Int: Scalars['Int']['output'];
-  Boolean: Scalars['Boolean']['output'];
   Schools: Omit<Schools, 'schools'> & { schools: Array<ResolversParentTypes['School']> };
+  String: Scalars['String']['output'];
   User: UserAttributes;
   Void: Scalars['Void']['output'];
-  AdditionalEntityFields: AdditionalEntityFields;
 };
-
-export type UnionDirectiveArgs = {
-  discriminatorField?: Maybe<Scalars['String']['input']>;
-  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
-};
-
-export type UnionDirectiveResolver<Result, Parent, ContextType = MyContext, Args = UnionDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type AbstractEntityDirectiveArgs = {
-  discriminatorField: Scalars['String']['input'];
-  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
-};
-
-export type AbstractEntityDirectiveResolver<Result, Parent, ContextType = MyContext, Args = AbstractEntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type EntityDirectiveArgs = {
-  embedded?: Maybe<Scalars['Boolean']['input']>;
-  additionalFields?: Maybe<Array<Maybe<AdditionalEntityFields>>>;
-};
-
-export type EntityDirectiveResolver<Result, Parent, ContextType = MyContext, Args = EntityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type ColumnDirectiveArgs = {
-  overrideType?: Maybe<Scalars['String']['input']>;
-};
-
-export type ColumnDirectiveResolver<Result, Parent, ContextType = MyContext, Args = ColumnDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type IdDirectiveArgs = { };
-
-export type IdDirectiveResolver<Result, Parent, ContextType = MyContext, Args = IdDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type LinkDirectiveArgs = {
-  overrideType?: Maybe<Scalars['String']['input']>;
-};
-
-export type LinkDirectiveResolver<Result, Parent, ContextType = MyContext, Args = LinkDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type EmbeddedDirectiveArgs = { };
-
-export type EmbeddedDirectiveResolver<Result, Parent, ContextType = MyContext, Args = EmbeddedDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type MapDirectiveArgs = {
-  path: Scalars['String']['input'];
-};
-
-export type MapDirectiveResolver<Result, Parent, ContextType = MyContext, Args = MapDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type AuthResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
   token?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -404,7 +351,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   addToFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
-  logout?: Resolver<ResolversTypes['Void'], ParentType, ContextType>;
+  logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   recoverPassword?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;
   removeFromFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
   updateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationUpdateUserInfoArgs>>;
@@ -475,6 +422,7 @@ export type UserResolvers<ContextType = MyContext, ParentType extends ResolversP
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   favorites?: Resolver<Maybe<Array<ResolversTypes['School']>>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  isAdmin?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   theme?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -502,13 +450,3 @@ export type Resolvers<ContextType = MyContext> = {
   Void?: GraphQLScalarType;
 };
 
-export type DirectiveResolvers<ContextType = MyContext> = {
-  union?: UnionDirectiveResolver<any, any, ContextType>;
-  abstractEntity?: AbstractEntityDirectiveResolver<any, any, ContextType>;
-  entity?: EntityDirectiveResolver<any, any, ContextType>;
-  column?: ColumnDirectiveResolver<any, any, ContextType>;
-  id?: IdDirectiveResolver<any, any, ContextType>;
-  link?: LinkDirectiveResolver<any, any, ContextType>;
-  embedded?: EmbeddedDirectiveResolver<any, any, ContextType>;
-  map?: MapDirectiveResolver<any, any, ContextType>;
-};

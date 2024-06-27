@@ -18,6 +18,7 @@ type User {
     zipcode: String
     theme: String
     favorites: [School!]
+    isAdmin: Boolean
 }
 
 type LatLng {
@@ -95,7 +96,7 @@ type School {
     login(email: String!, password: String!): Auth!
     addToFavorites(schoolId: ID!): User!
     removeFromFavorites(schoolId: ID!): User!
-    logout: Void!
+    logout: Void
     recoverPassword(email: String!): String!
     addReview(schoolId: ID!, rating: Float!, review: String!, owner: ID!): Review!
 }
