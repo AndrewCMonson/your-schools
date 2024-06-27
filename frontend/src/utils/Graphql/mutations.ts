@@ -9,6 +9,7 @@ export const LoginUser = gql(`
         username
         zipcode
         theme
+        isAdmin
       }
     }
   }

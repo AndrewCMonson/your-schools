@@ -7,10 +7,11 @@ interface AddReviewFormProps {
 }
 
 export const AddReviewForm = ({ schoolId, userId }: AddReviewFormProps) => {
-  const { handleInputChange, handleAddReviewFormSubmit } = useAddReviewForm({
-    schoolId,
-    userId,
-  });
+  const { handleInputChange, handleAddReviewFormSubmit, addReviewFormData } =
+    useAddReviewForm({
+      schoolId,
+      userId,
+    });
 
   return (
     <div className="card shrink-0 bg-base-100 p-4 shadow-2xl min-h-96">
@@ -24,6 +25,7 @@ export const AddReviewForm = ({ schoolId, userId }: AddReviewFormProps) => {
           id="review"
           onChange={handleInputChange}
           className="max-h-48 rounded min-h-48 text-black p-2 border-primary border-2"
+          value={addReviewFormData.review}
         ></textarea>
         <button
           onClick={handleAddReviewFormSubmit}

@@ -5,7 +5,6 @@ import { Logout } from "../utils/Graphql/";
 import { useMutation } from "@apollo/client";
 import { useSessionStore } from "../stores/session";
 import { ThemeToggle } from "./ThemeToggle";
-import { useGetMe } from "../hooks";
 
 interface NavBarProps {
   dataTheme: string;
@@ -13,18 +12,19 @@ interface NavBarProps {
 }
 
 export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
-  const { client } = useGetMe();
+  const navigate = useNavigate();
+  const { user, clearSession } = useSessionStore();
+
+  // const { client } = useGetMe();
   const [logout] = useMutation(Logout, {
     onCompleted: () => {
-      client.resetStore();
+      // client.resetStore(); removed because it causes a bug
       clearSession();
     },
     onError: (error) => {
       console.error(error);
     },
   });
-  const navigate = useNavigate();
-  const { user, clearSession } = useSessionStore();
 
   const onLogout = useCallback(() => {
     logout();
@@ -72,6 +72,14 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                       Profile
                     </Link>
                   </li>
+
+                  {user.isAdmin && (
+                    <li>
+                      <Link to="/admin" className="text-base">
+                        Admin Dashboard
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <button onClick={onLogout} className="text-base">
                       Logout

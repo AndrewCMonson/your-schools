@@ -23,6 +23,7 @@ export const useAddReviewForm = ({ schoolId, userId }: AddReviewFormProps) => {
   const [addReview] = useMutation(AddReview, {
     onCompleted: () => {
       toast.success("Review added");
+      setAddReviewFormData({ rating: 0, review: "" });
     },
     onError: (e) => {
       toast.error(e.message);
@@ -61,5 +62,6 @@ export const useAddReviewForm = ({ schoolId, userId }: AddReviewFormProps) => {
   return {
     handleInputChange,
     handleAddReviewFormSubmit,
+    addReviewFormData,
   };
 };
