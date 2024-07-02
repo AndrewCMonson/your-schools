@@ -84,6 +84,7 @@ type School {
   
   type Query {
     schools(zipcode: String): Schools!
+    allSchools: [School]!
     school(id: ID!): School!
     me: User! 
     getFavorites(username: String): [User]!

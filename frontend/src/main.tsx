@@ -27,6 +27,7 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { useSessionStore } from "./stores/session";
+import AdminScreen from "./screens/AdminScreen";
 
 const link = createHttpLink({
   uri: "/graphql",
@@ -66,6 +67,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
       <Route path="/recovery" element={<RecoveryScreen />} />
+      <Route path="/admin" element={<AdminScreen />} />
     </Route>,
   ),
 );

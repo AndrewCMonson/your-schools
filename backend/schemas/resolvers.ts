@@ -23,6 +23,11 @@ const resolvers: Resolvers = {
 
       return { schools, locationInfo };
     },
+    allSchools: async () => {
+      const schools = await SchoolModel.find();
+
+      return schools;
+    },
     school: async (_, { id }) => {
       if (!id) throw new Error("Please provide an ID");
 

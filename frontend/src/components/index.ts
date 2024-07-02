@@ -1,13 +1,10 @@
-export * from "./Footer";
-export * from "./Maps/SchoolMap";
-export * from "./NavBar";
-export * from "./PageTitle";
-export * from "./Rating";
+export * from "./Header and Footer/Footer";
+export * from "./Maps";
+export * from "./Header and Footer/NavBar";
+export * from "./Misc";
 export * from "./School";
-export * from "./SearchBar";
-export * from "./LocationButton";
 export * from "./Profile";
-export * from "./SearchBar";
+export * from "./Search/";
 export * from "./Forms";
 export * from "./Maps";
 export * from "./Misc";

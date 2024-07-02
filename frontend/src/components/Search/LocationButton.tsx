@@ -1,7 +1,7 @@
 import { ReactElement, Dispatch, SetStateAction } from "react";
 import { SetURLSearchParams } from "react-router-dom";
-import { locationSuccess, locationError } from "../utils/geolocation";
-import { LatLng } from "../__generatedTypes__/graphql";
+import { locationSuccess, locationError } from "../../utils/geolocation";
+import { LatLng } from "../../__generatedTypes__/graphql";
 
 interface LocationButtonProps {
   setZipcode: Dispatch<SetStateAction<string>>;

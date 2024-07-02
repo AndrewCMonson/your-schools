@@ -48,6 +48,57 @@ export const GetSchools = graphql(/* GraphQL */ `
   }
 `);
 
+export const GetAllSchools = graphql(/* GraphQL */ `
+  query AllSchools {
+    allSchools {
+      id
+      name
+      address
+      city
+      state
+      zipcode
+      phone
+      website
+      email
+      description
+      latLng {
+        lat
+        lng
+      }
+      rating
+      offers_daycare
+      isVerified
+      age_range
+      early_enrollment
+      min_tuition
+      max_tuition
+      days_open
+      days_closed
+      opening_hours
+      closing_hours
+      min_enrollment
+      max_enrollment
+      min_student_teacher_ratio
+      max_student_teacher_ratio
+      images {
+        url
+        alt
+        owner
+      }
+      reviews {
+        id
+        rating
+        review
+        createdAt
+        owner {
+          id
+          username
+        }
+      }
+    }
+  }
+`);
+
 export const GetSchool = graphql(/* GraphQL */ `
   query School($id: ID!) {
     school(id: $id) {

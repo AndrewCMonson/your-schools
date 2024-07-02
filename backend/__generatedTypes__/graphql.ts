@@ -120,6 +120,7 @@ export type MutationUpdateUserPasswordArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  allSchools: Array<Maybe<School>>;
   getFavorites: Array<Maybe<User>>;
   me: User;
   school: School;
@@ -363,6 +364,7 @@ export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  allSchools?: Resolver<Array<Maybe<ResolversTypes['School']>>, ParentType, ContextType>;
   getFavorites?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType, Partial<QueryGetFavoritesArgs>>;
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   school?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<QuerySchoolArgs, 'id'>>;

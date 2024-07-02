@@ -54,7 +54,6 @@ export const SchoolsScreen = (): ReactElement => {
         </div>
         <div className="w-full mt-8 overflow-auto lg:w-1/2 xl:w-1/3">
           <div className="">
-            <PageTitle title="Schools" />
             <SearchBar
               setSearchParams={setSearchParams}
               setZipcode={setZipcode}

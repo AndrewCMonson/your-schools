@@ -1,5 +1,5 @@
 import { Review as ReviewType } from "../__generatedTypes__/graphql";
-import { Rating } from "./Rating";
+import { Rating } from "./Misc";
 
 export const Review = ({ review, owner, rating, createdAt }: ReviewType) => {
   return (

@@ -1,10 +1,11 @@
 import { ReactElement, useCallback, Dispatch, SetStateAction } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import YourSchools from "../assets/images/your-schools-logo.png";
-import { Logout } from "../utils/Graphql/";
+import YourSchools from "../../assets/images/your-schools-logo.png";
+import { Logout } from "../../utils/Graphql";
 import { useMutation } from "@apollo/client";
-import { useSessionStore } from "../stores/session";
-import { ThemeToggle } from "./ThemeToggle";
+import { useSessionStore } from "../../stores/session";
+import { ThemeToggle } from "../Misc";
+import { useGetMe } from "../../hooks";
 
 interface NavBarProps {
   dataTheme: string;
@@ -15,10 +16,11 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
   const navigate = useNavigate();
   const { user, clearSession } = useSessionStore();
 
-  // const { client } = useGetMe();
+  const { client } = useGetMe();
+
   const [logout] = useMutation(Logout, {
     onCompleted: () => {
-      // client.resetStore(); removed because it causes a bug
+      client.clearStore();
       clearSession();
     },
     onError: (error) => {
@@ -72,7 +74,6 @@ export const NavBar = ({ dataTheme, setTheme }: NavBarProps): ReactElement => {
                       Profile
                     </Link>
                   </li>
-
                   {user.isAdmin && (
                     <li>
                       <Link to="/admin" className="text-base">
