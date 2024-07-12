@@ -17,6 +17,7 @@ import {
   LoginScreen,
   ProfileScreen,
   RecoveryScreen,
+  AdminScreen,
 } from "./screens";
 import {
   ApolloClient,
@@ -27,7 +28,6 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { useSessionStore } from "./stores/session";
-import AdminScreen from "./screens/AdminScreen";
 
 const link = createHttpLink({
   uri: "/graphql",

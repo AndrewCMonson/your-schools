@@ -6,3 +6,4 @@ export * from "./SchoolsScreen";
 export * from "./SignUpScreen";
 export * from "./ProfileScreen";
 export * from "./RecoveryScreen";
+export * from "./AdminScreen";

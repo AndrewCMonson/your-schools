@@ -10,3 +10,4 @@ export * from "./Maps";
 export * from "./Misc";
 export * from "./Review";
 export * from "./ReviewRating";
+export * from "./Admin";

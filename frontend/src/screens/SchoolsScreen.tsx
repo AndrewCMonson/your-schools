@@ -1,12 +1,6 @@
 import { ReactElement, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  PageTitle,
-  SearchBar,
-  School,
-  LocationButton,
-  SearchMap,
-} from "../components";
+import { SearchBar, School, LocationButton, SearchMap } from "../components";
 import { useGetSchools } from "../hooks/";
 import { LatLng, LocationInfo } from "../__generatedTypes__/graphql";
 import { useSessionStore } from "../stores";

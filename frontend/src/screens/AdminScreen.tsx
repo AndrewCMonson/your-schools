@@ -1,11 +1,12 @@
 import { useSessionStore } from "../stores";
 import { useNavigate } from "react-router-dom";
 import { useGetAllSchools } from "../hooks";
+import { AdminSchool } from "../components";
 
-const AdminScreen = () => {
+export const AdminScreen = () => {
   const { user } = useSessionStore();
   const navigate = useNavigate();
-  const { data } = useGetAllSchools();
+  const { data, loading, error } = useGetAllSchools();
 
   console.log(data);
 
@@ -13,16 +14,19 @@ const AdminScreen = () => {
     navigate("/login");
   }
 
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-full bg-base-200">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
+
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <>
       {data &&
-        data.map((school) => (
-          <div key={school?.id}>
-            <h1>{school?.name}</h1>
-            <p>{school?.phone}</p>
-          </div>
-        ))}
+        data.map((school) => <AdminSchool key={school?.id} school={school} />)}
     </>
   );
 };
-export default AdminScreen;

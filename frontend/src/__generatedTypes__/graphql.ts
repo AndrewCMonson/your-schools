@@ -116,7 +116,7 @@ export type MutationUpdateUserPasswordArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  allSchools: Array<Maybe<School>>;
+  allSchools: Array<School>;
   getFavorites: Array<Maybe<User>>;
   me: User;
   school: School;
@@ -280,7 +280,7 @@ export type SchoolsQuery = { __typename?: 'Query', schools: { __typename?: 'Scho
 export type AllSchoolsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllSchoolsQuery = { __typename?: 'Query', allSchools: Array<{ __typename?: 'School', id?: string | null, name?: string | null, address?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, phone?: string | null, website?: string | null, email?: string | null, description?: string | null, rating?: number | null, offers_daycare?: boolean | null, isVerified?: boolean | null, age_range?: Array<number> | null, early_enrollment?: boolean | null, min_tuition?: number | null, max_tuition?: number | null, days_open?: Array<string> | null, days_closed?: Array<string> | null, opening_hours?: string | null, closing_hours?: string | null, min_enrollment?: number | null, max_enrollment?: number | null, min_student_teacher_ratio?: number | null, max_student_teacher_ratio?: number | null, latLng?: { __typename?: 'LatLng', lat?: number | null, lng?: number | null } | null, images?: Array<{ __typename?: 'Image', url?: string | null, alt?: string | null, owner?: any | null } | null> | null, reviews?: Array<{ __typename?: 'Review', id?: string | null, rating?: number | null, review?: string | null, createdAt?: string | null, owner?: { __typename?: 'User', id?: string | null, username?: string | null } | null }> | null } | null> };
+export type AllSchoolsQuery = { __typename?: 'Query', allSchools: Array<{ __typename?: 'School', id?: string | null, name?: string | null, address?: string | null, city?: string | null, state?: string | null, zipcode?: string | null, phone?: string | null, website?: string | null, email?: string | null, description?: string | null, rating?: number | null, offers_daycare?: boolean | null, isVerified?: boolean | null, age_range?: Array<number> | null, early_enrollment?: boolean | null, min_tuition?: number | null, max_tuition?: number | null, days_open?: Array<string> | null, days_closed?: Array<string> | null, opening_hours?: string | null, closing_hours?: string | null, min_enrollment?: number | null, max_enrollment?: number | null, min_student_teacher_ratio?: number | null, max_student_teacher_ratio?: number | null, latLng?: { __typename?: 'LatLng', lat?: number | null, lng?: number | null } | null, images?: Array<{ __typename?: 'Image', url?: string | null, alt?: string | null, owner?: any | null } | null> | null, reviews?: Array<{ __typename?: 'Review', id?: string | null, rating?: number | null, review?: string | null, createdAt?: string | null, owner?: { __typename?: 'User', id?: string | null, username?: string | null } | null }> | null }> };
 
 export type SchoolQueryVariables = Exact<{
   id: Scalars['ID']['input'];
