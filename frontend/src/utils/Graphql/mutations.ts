@@ -106,6 +106,93 @@ export const AddReview = gql(`
   }
 `);
 
+export const UpdateSchoolInfo = gql(`
+  mutation updateSchoolInfo(
+    $id: ID!
+    $name: String
+    $address: String
+    $city: String
+    $state: String
+    $zipcode: String
+    $phone: String
+    $website: String
+    $email: String
+    $description: String
+    $rating: Float
+    $offers_daycare: Boolean
+    $age_range: [Int!]
+    $early_enrollment: Boolean
+    $min_tuition: Int
+    $max_tuition: Int
+    $days_open: [String!]
+    $days_closed: [String!]
+    $opening_hours: String
+    $closing_hours: String
+    $min_enrollment: Int
+    $max_enrollment: Int
+    $min_student_teacher_ratio: Float
+    $max_student_teacher_ratio: Float
+    $avatar: String
+    $isVerified: Boolean
+  ) {
+    updateSchoolInfo(
+      id: $id
+      name: $name
+      address: $address
+      city: $city
+      state: $state
+      zipcode: $zipcode
+      phone: $phone
+      website: $website
+      email: $email
+      description: $description
+      rating: $rating
+      offers_daycare: $offers_daycare
+      age_range: $age_range
+      early_enrollment: $early_enrollment
+      min_tuition: $min_tuition
+      max_tuition: $max_tuition
+      days_open: $days_open
+      days_closed: $days_closed
+      opening_hours: $opening_hours
+      closing_hours: $closing_hours
+      min_enrollment: $min_enrollment
+      max_enrollment: $max_enrollment
+      min_student_teacher_ratio: $min_student_teacher_ratio
+      max_student_teacher_ratio: $max_student_teacher_ratio
+      avatar: $avatar
+      isVerified: $isVerified
+    ) {
+      id
+      name
+      address
+      city
+      state
+      zipcode
+      phone
+      website
+      email
+      description
+      rating
+      offers_daycare
+      age_range
+      early_enrollment
+      min_tuition
+      max_tuition
+      days_open
+      days_closed
+      opening_hours
+      closing_hours
+      min_enrollment
+      max_enrollment
+      min_student_teacher_ratio
+      max_student_teacher_ratio
+      avatar
+      isVerified
+    }
+  }
+`);
+
 export const Logout = gql(`
   mutation logout {
     logout

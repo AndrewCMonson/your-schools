@@ -314,6 +314,80 @@ const resolvers: Resolvers = {
 
       return newReview;
     },
+    updateSchoolInfo: async (
+      _,
+      {
+        id,
+        name,
+        address,
+        city,
+        state,
+        zipcode,
+        phone,
+        website,
+        email,
+        description,
+        rating,
+        offers_daycare,
+        age_range,
+        early_enrollment,
+        min_tuition,
+        max_tuition,
+        days_open,
+        days_closed,
+        opening_hours,
+        closing_hours,
+        min_enrollment,
+        max_enrollment,
+        min_student_teacher_ratio,
+        max_student_teacher_ratio,
+        avatar,
+        isVerified,
+      },
+      { user },
+    ) => {
+      if (!id) throw new Error("Please provide a school ID");
+
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      const updatedSchool = await SchoolModel.findByIdAndUpdate(
+        { _id: id },
+        {
+          name,
+          address,
+          city,
+          state,
+          zipcode,
+          phone,
+          website,
+          email,
+          description,
+          rating,
+          offers_daycare,
+          age_range,
+          early_enrollment,
+          min_tuition,
+          max_tuition,
+          days_open,
+          days_closed,
+          opening_hours,
+          closing_hours,
+          min_enrollment,
+          max_enrollment,
+          min_student_teacher_ratio,
+          max_student_teacher_ratio,
+          avatar,
+          isVerified,
+        },
+        { new: true },
+      );
+
+      if (!updatedSchool) {
+        throw new Error("Couldn't find school with this id");
+      }
+
+      return updatedSchool;
+    },
     logout: async (_, __, { user, res, req }): Promise<void> => {
       if (user) {
         try {

@@ -63,6 +63,7 @@ export type Mutation = {
   logout?: Maybe<Scalars['Void']['output']>;
   recoverPassword: Scalars['String']['output'];
   removeFromFavorites: User;
+  updateSchoolInfo: School;
   updateUserInfo: User;
   updateUserPassword?: Maybe<User>;
 };
@@ -101,6 +102,36 @@ export type MutationRecoverPasswordArgs = {
 
 export type MutationRemoveFromFavoritesArgs = {
   schoolId: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateSchoolInfoArgs = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  age_range?: InputMaybe<Array<Scalars['Int']['input']>>;
+  avatar?: InputMaybe<Scalars['String']['input']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  closing_hours?: InputMaybe<Scalars['String']['input']>;
+  days_closed?: InputMaybe<Array<Scalars['String']['input']>>;
+  days_open?: InputMaybe<Array<Scalars['String']['input']>>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  early_enrollment?: InputMaybe<Scalars['Boolean']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  max_enrollment?: InputMaybe<Scalars['Int']['input']>;
+  max_student_teacher_ratio?: InputMaybe<Scalars['Float']['input']>;
+  max_tuition?: InputMaybe<Scalars['Int']['input']>;
+  min_enrollment?: InputMaybe<Scalars['Int']['input']>;
+  min_student_teacher_ratio?: InputMaybe<Scalars['Float']['input']>;
+  min_tuition?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  offers_daycare?: InputMaybe<Scalars['Boolean']['input']>;
+  opening_hours?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  rating?: InputMaybe<Scalars['Float']['input']>;
+  state?: InputMaybe<Scalars['String']['input']>;
+  website?: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -355,6 +386,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   recoverPassword?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;
   removeFromFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveFromFavoritesArgs, 'schoolId'>>;
+  updateSchoolInfo?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<MutationUpdateSchoolInfoArgs, 'id'>>;
   updateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationUpdateUserInfoArgs>>;
   updateUserPassword?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserPasswordArgs, 'newPassword' | 'password'>>;
 };

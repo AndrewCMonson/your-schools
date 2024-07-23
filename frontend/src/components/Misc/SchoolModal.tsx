@@ -1,6 +1,8 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, MouseEvent } from "react";
 import { School as SchoolType } from "../../__generatedTypes__/graphql";
+import { UpdateSchoolInfo } from "../../utils";
+import { useMutation } from "@apollo/client";
 
 interface SchoolModalProps {
   school: SchoolType;
@@ -29,6 +31,32 @@ export const SchoolModal = ({ school }: SchoolModalProps) => {
 
   const close = () => {
     setIsOpen(false);
+  };
+
+  const [updateSchoolInfo] = useMutation(UpdateSchoolInfo, {
+    variables: {
+      id: school.id,
+      name: schoolFormData.name,
+      address: schoolFormData.address,
+      city: schoolFormData.city,
+      state: schoolFormData.state,
+      zipcode: schoolFormData.zipcode,
+    },
+
+    onCompleted: (data) => {
+      console.log(data);
+    },
+
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const handleSaveChanges = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    updateSchoolInfo();
+
+    close();
   };
 
   return (
@@ -96,7 +124,7 @@ export const SchoolModal = ({ school }: SchoolModalProps) => {
               <div className="mt-4">
                 <button
                   className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                  onClick={close}
+                  onClick={handleSaveChanges}
                 >
                   Save Changes
                 </button>
