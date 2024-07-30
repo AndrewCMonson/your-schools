@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SchoolMap, Rating, Review } from "../components";
@@ -29,9 +29,11 @@ export const SchoolScreen = (): ReactElement => {
     },
   });
 
-  if (!loggedInUser) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!loggedInUser) {
+      navigate("/login");
+    }
+  }, [loggedInUser, navigate]);
 
   if (loading)
     return (

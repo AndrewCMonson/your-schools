@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { SearchBar, School, LocationButton, SearchMap } from "../components";
 import { useGetSchools } from "../hooks/";
@@ -20,9 +20,11 @@ export const SchoolsScreen = (): ReactElement => {
   } = useGetSchools(zipcode);
   const navigate = useNavigate();
 
-  if (!loggedInUser) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!loggedInUser) {
+      navigate("/login");
+    }
+  }, [loggedInUser, navigate]);
 
   if (loading)
     return (
