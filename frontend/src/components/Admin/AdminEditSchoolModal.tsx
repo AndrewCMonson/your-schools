@@ -10,7 +10,7 @@ interface SchoolModalProps {
   school: SchoolType;
 }
 
-export const AdminSchoolModal = ({ school }: SchoolModalProps) => {
+export const AdminEditSchoolModal = ({ school }: SchoolModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [schoolFormData, setSchoolFormData] = useState({
@@ -81,12 +81,12 @@ export const AdminSchoolModal = ({ school }: SchoolModalProps) => {
         className="relative z-10 focus:outline-none"
         onClose={close}
       >
-        <DialogBackdrop className="fixed inset-0 bg-black/50" />
+        <DialogBackdrop className="fixed inset-0 bg-black/90" />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
-              className="w-full max-w-md rounded-xl bg-base-200 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+              className="w-full max-w-md rounded-xl p-6 backdrop-blur-3xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0 border"
             >
               <h1 className="text-2xl font-medium">{school.name}</h1>
               <input

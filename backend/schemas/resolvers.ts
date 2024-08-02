@@ -388,6 +388,48 @@ const resolvers: Resolvers = {
 
       return updatedSchool;
     },
+    addSchool: async (_, { name, address, city, state, zipcode }, { user }) => {
+      if (!name || !address || !city || !state || !zipcode) {
+        throw new Error(
+          "You need to provide a name, address, city, state, and zipcode",
+        );
+      }
+
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      if (!user.isAdmin)
+        throw new AuthenticationError(
+          "You need to be an admin to add a school",
+        );
+
+      const newSchool = await SchoolModel.create({
+        name,
+        address,
+        city,
+        state,
+        zipcode,
+      });
+
+      return newSchool;
+    },
+    deleteSchool: async (_, { id }, { user }) => {
+      if (!id) throw new Error("Please provide a school ID");
+
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      if (!user.isAdmin)
+        throw new AuthenticationError(
+          "You need to be an admin to delete a school",
+        );
+
+      const deletedSchool = await SchoolModel.findByIdAndDelete(id);
+
+      if (!deletedSchool) {
+        throw new Error("Couldn't find school with this id");
+      }
+
+      return "School deleted successfully";
+    },
     logout: async (_, __, { user, res, req }): Promise<void> => {
       if (user) {
         try {

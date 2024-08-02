@@ -3,6 +3,7 @@ import { AdminSchool, AdminFuzzySearch } from "../../components";
 import { FuseResult } from "fuse.js";
 import { useState } from "react";
 import { School as SchoolType } from "../../__generatedTypes__/graphql";
+import { AdminAddSchoolModal } from "./AdminAddSchoolModal";
 
 export const AdminSchools = () => {
   const { data, loading, error } = useGetAllSchools();
@@ -20,7 +21,7 @@ export const AdminSchools = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex justify-between mt-4 mx-10">
         <AdminFuzzySearch
           searchKeys={["city", "name"]}
           placeholder="Search for a school by city or name"
@@ -29,15 +30,18 @@ export const AdminSchools = () => {
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
+        <AdminAddSchoolModal />
       </div>
-      <div className="w-full h-96 overflow-x-auto">
-        <table className="table">
-          <thead>
+
+      <div className="w-full overflow-x-auto">
+        <table className="table mt-4">
+          <thead className="sticky top-0 bg-base-100 z-100">
             <tr>
               <th></th>
               <th className="text-2xl">Name</th>
               <th className="hidden 2xl:table-cell text-2xl">Contact</th>
               <th className="hidden md:table-cell text-2xl">ID</th>
+              <th></th>
             </tr>
           </thead>
           <tbody className="h-full">

@@ -1,4 +1,5 @@
 export const stateList = [
+  "",
   "AL",
   "AK",
   "AZ",

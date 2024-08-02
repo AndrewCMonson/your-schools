@@ -193,6 +193,25 @@ export const UpdateSchoolInfo = gql(`
   }
 `);
 
+export const AddSchool = gql(`
+  mutation addSchool($name: String!, $address: String!, $city: String!, $state: String!, $zipcode: String!) {
+    addSchool(name: $name, address: $address, city: $city, state: $state, zipcode: $zipcode) {
+      id
+      name
+      address
+      city
+      state
+      zipcode
+    }
+  }
+`);
+
+export const DeleteSchool = gql(`
+  mutation deleteSchool($id: ID!) {
+    deleteSchool(id: $id)
+  }
+`);
+
 export const Logout = gql(`
   mutation logout {
     logout

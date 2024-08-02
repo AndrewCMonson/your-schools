@@ -29,6 +29,7 @@ export const AccountSettingsForm = () => {
         username: updateUserInfo.username,
         zipcode: updateUserInfo.zipcode,
         theme: updateUserInfo.theme,
+        isAdmin: user?.isAdmin,
       });
     },
     onError: (error) => {

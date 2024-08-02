@@ -30,7 +30,7 @@ export const AdminFuzzySearch = ({
     <input
       type="text"
       placeholder={placeholder}
-      className="input input-bordered m-4 w-1/2"
+      className="input input-bordered  w-1/2"
       value={searchTerm}
       onChange={handleSearch}
     />

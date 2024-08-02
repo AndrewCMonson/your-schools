@@ -57,8 +57,10 @@ export type LocationInfo = {
 export type Mutation = {
   __typename?: 'Mutation';
   addReview: Review;
+  addSchool: School;
   addToFavorites: User;
   addUser: Auth;
+  deleteSchool?: Maybe<Scalars['String']['output']>;
   login: Auth;
   logout?: Maybe<Scalars['Void']['output']>;
   recoverPassword: Scalars['String']['output'];
@@ -77,6 +79,15 @@ export type MutationAddReviewArgs = {
 };
 
 
+export type MutationAddSchoolArgs = {
+  address: Scalars['String']['input'];
+  city: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  state: Scalars['String']['input'];
+  zipcode: Scalars['String']['input'];
+};
+
+
 export type MutationAddToFavoritesArgs = {
   schoolId: Scalars['ID']['input'];
 };
@@ -86,6 +97,11 @@ export type MutationAddUserArgs = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteSchoolArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -380,8 +396,10 @@ export type LocationInfoResolvers<ContextType = MyContext, ParentType extends Re
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addReview?: Resolver<ResolversTypes['Review'], ParentType, ContextType, RequireFields<MutationAddReviewArgs, 'owner' | 'rating' | 'review' | 'schoolId'>>;
+  addSchool?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<MutationAddSchoolArgs, 'address' | 'city' | 'name' | 'state' | 'zipcode'>>;
   addToFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
+  deleteSchool?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteSchoolArgs, 'id'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   recoverPassword?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;

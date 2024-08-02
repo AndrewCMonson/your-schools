@@ -1,4 +1,4 @@
 export * from "./AdminSchool";
-export * from "./AdminSchoolModal";
+export * from "./AdminEditSchoolModal";
 export * from "./AdminFuzzySearch";
 export * from "./AdminSchools";
