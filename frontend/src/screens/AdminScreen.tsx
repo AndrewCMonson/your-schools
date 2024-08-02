@@ -1,7 +1,7 @@
 import { useSessionStore } from "../stores";
 import { useNavigate } from "react-router-dom";
 import { useGetAllSchools } from "../hooks";
-import { AdminSchools } from "../components";
+import { AdminSchools, AdminUsers } from "../components";
 import { useEffect, useState } from "react";
 import { AdminTabs } from "../components/Admin/AdminTabs";
 
@@ -50,13 +50,7 @@ export const AdminScreen = () => {
               screenSelected={screenSelected}
             />
             <div>
-              {screenSelected === "schools" ? (
-                <AdminSchools />
-              ) : (
-                <div>
-                  <div className="h-96">Users</div>
-                </div>
-              )}
+              {screenSelected === "schools" ? <AdminSchools /> : <AdminUsers />}
             </div>
           </div>
         </div>

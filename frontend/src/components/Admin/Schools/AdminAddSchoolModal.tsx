@@ -1,9 +1,9 @@
 import { Dialog, DialogPanel, DialogBackdrop } from "@headlessui/react";
 import { useState, ChangeEvent, MouseEvent } from "react";
-import { AddSchool, GetAllSchools } from "../../utils";
+import { AddSchool, GetAllSchools } from "../../../utils";
 import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
-import { stateList } from "../../utils/stateList";
+import { stateList } from "../../../utils/stateList";
 
 export const AdminAddSchoolModal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,16 +31,21 @@ export const AdminAddSchoolModal = () => {
 
   const close = () => {
     setIsOpen(false);
+    setSchoolFormData({
+      name: "",
+      address: "",
+      city: "",
+      state: "",
+      zipcode: "",
+    });
   };
 
   const [addSchool] = useMutation(AddSchool, {
-    onCompleted: (data) => {
-      console.log(data);
+    onCompleted: () => {
       toast.success("School added successfully");
     },
 
     onError: (error) => {
-      console.error(error);
       toast.error(error.message);
     },
   });
@@ -91,7 +96,7 @@ export const AdminAddSchoolModal = () => {
                   name="name"
                   value={schoolFormData.name}
                   onChange={handleFormChange}
-                  className="mb-2 w-full rounded-md text-black py-1.5 px-3 text-sm shadow-black focus:outline-none"
+                  className="my-2 w-full rounded-md text-black py-1.5 px-3  shadow-black focus:outline-none"
                 />
                 <label htmlFor="address">Address</label>
                 <input

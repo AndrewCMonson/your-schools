@@ -50,6 +50,16 @@ const resolvers: Resolvers = {
       const params = username ? { username } : {};
       return UserModel.find(params).populate("favorites");
     },
+    allUsers: async (_, __, { user }) => {
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      if (!user.isAdmin)
+        throw new AuthenticationError("You need to be an admin to view users");
+
+      const users = await UserModel.find();
+
+      return users;
+    },
   },
   User: {
     favorites: async (parent) => {

@@ -88,6 +88,7 @@ type School {
     school(id: ID!): School!
     me: User! 
     getFavorites(username: String): [User]!
+    allUsers: [User!]!
 }
 
   type Mutation {

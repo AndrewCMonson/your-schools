@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import Fuse, { FuseResult } from "fuse.js";
-import { School as SchoolType } from "../../__generatedTypes__/graphql";
+import { School as SchoolType } from "../../../__generatedTypes__/graphql";
 
 interface AdminFuzzySearchProps {
   searchKeys: string[];

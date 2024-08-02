@@ -1,4 +1,3 @@
-export * from "./AdminSchool";
-export * from "./AdminEditSchoolModal";
-export * from "./AdminFuzzySearch";
-export * from "./AdminSchools";
+export * from "./Schools/";
+export * from "./Schools/AdminSchoolsFuzzySearch";
+export * from "./Users/";

@@ -158,7 +158,35 @@ export const GetMe = graphql(`
   }
 `);
 
-export const UserDetailsFragment = graphql(/* GraphQL */ `
+export const GetAllUsers = graphql(`
+  query AllUsers {
+    allUsers {
+      email
+      favorites {
+        id
+        name
+        address
+        city
+        state
+        zipcode
+        phone
+        website
+        email
+        rating
+        age_range
+        max_tuition
+      }
+      id
+      isAdmin
+      password
+      theme
+      username
+      zipcode
+    }
+  }
+`);
+
+export const UserDetailsFragment = graphql(`
   fragment UserDetails on User {
     id
     username

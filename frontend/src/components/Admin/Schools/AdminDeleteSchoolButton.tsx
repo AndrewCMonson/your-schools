@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
-import { DeleteSchool, GetAllSchools } from "../../utils";
+import { DeleteSchool, GetAllSchools } from "../../../utils";
 import { Maybe } from "graphql/jsutils/Maybe";
 import { useState } from "react";
 import {
@@ -52,7 +52,7 @@ const AdminDeleteSchoolButton = ({
           <DialogBackdrop className="fixed inset-0 bg-black/90" />
           <DialogPanel className="w-full max-w-md rounded-xl p-6 backdrop-blur-3xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0 border">
             <DialogTitle className="font-bold text-2xl">
-              Deactivate account
+              Delete School
             </DialogTitle>
             <Description className="my-4">
               This will permanently delete the school and all of it&apos;s data

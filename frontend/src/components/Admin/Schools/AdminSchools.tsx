@@ -1,8 +1,8 @@
-import { useGetAllSchools } from "../../hooks";
-import { AdminSchool, AdminFuzzySearch } from "../../components";
+import { useGetAllSchools } from "../../../hooks";
+import { AdminSchool, AdminFuzzySearch } from "../..";
 import { FuseResult } from "fuse.js";
 import { useState } from "react";
-import { School as SchoolType } from "../../__generatedTypes__/graphql";
+import { School as SchoolType } from "../../../__generatedTypes__/graphql";
 import { AdminAddSchoolModal } from "./AdminAddSchoolModal";
 
 export const AdminSchools = () => {

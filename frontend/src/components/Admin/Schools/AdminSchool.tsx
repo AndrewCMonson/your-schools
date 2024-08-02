@@ -1,4 +1,4 @@
-import { School as SchoolType } from "../../__generatedTypes__/graphql";
+import { School as SchoolType } from "../../../__generatedTypes__/graphql";
 import { AdminEditSchoolModal } from "./AdminEditSchoolModal";
 import AdminDeleteSchoolButton from "./AdminDeleteSchoolButton";
 
