@@ -4,13 +4,15 @@ import { School as SchoolType } from "../../__generatedTypes__/graphql";
 import { UpdateSchoolInfo } from "../../utils";
 import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
+import { stateList } from "../../utils/stateList";
 
 interface SchoolModalProps {
   school: SchoolType;
 }
 
-export const SchoolModal = ({ school }: SchoolModalProps) => {
+export const AdminSchoolModal = ({ school }: SchoolModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const [schoolFormData, setSchoolFormData] = useState({
     name: school?.name || "",
     address: school?.address || "",
@@ -19,7 +21,9 @@ export const SchoolModal = ({ school }: SchoolModalProps) => {
     zipcode: school?.zipcode || "",
   });
 
-  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+  ) => {
     setSchoolFormData({
       ...schoolFormData,
       [e.target.name]: e.target.value,
@@ -82,7 +86,7 @@ export const SchoolModal = ({ school }: SchoolModalProps) => {
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
-              className="w-full max-w-md rounded-xl bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+              className="w-full max-w-md rounded-xl bg-base-200 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
             >
               <h1 className="text-2xl font-medium">{school.name}</h1>
               <input
@@ -106,13 +110,18 @@ export const SchoolModal = ({ school }: SchoolModalProps) => {
                 onChange={handleFormChange}
                 className="mt-4 w-full rounded-md bg-base-100 py-1.5 px-3 text-sm text-white shadow-black focus:outline-none"
               />
-              <input
-                type="text"
+              <select
                 name="state"
                 value={schoolFormData.state}
                 onChange={handleFormChange}
                 className="mt-4 w-full rounded-md bg-base-100 py-1.5 px-3 text-sm text-white shadow-black focus:outline-none"
-              />
+              >
+                {stateList.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
               <input
                 type="text"
                 name="zipcode"

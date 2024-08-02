@@ -1,5 +1,5 @@
 import { School as SchoolType } from "../../__generatedTypes__/graphql";
-import { SchoolModal } from "../Misc/SchoolModal";
+import { AdminSchoolModal } from "./AdminSchoolModal";
 
 interface AdminSchoolProps {
   school: SchoolType;
@@ -27,7 +27,7 @@ export const AdminSchool = ({ school }: AdminSchoolProps) => {
         <td className="hidden md:table-cell">{school.id}</td>
         <td>
           <div className="flex gap-4">
-            <SchoolModal school={school} />
+            <AdminSchoolModal school={school} />
             <button className="btn btn-warning">Delete</button>
           </div>
         </td>

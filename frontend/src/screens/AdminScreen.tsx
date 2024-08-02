@@ -1,32 +1,32 @@
 import { useSessionStore } from "../stores";
 import { useNavigate } from "react-router-dom";
 import { useGetAllSchools } from "../hooks";
-import { AdminSchool } from "../components";
-import Fuse, { FuseResult } from "fuse.js";
-import { useState, ChangeEvent, useEffect } from "react";
-import { School as SchoolType } from "../__generatedTypes__/graphql";
+import { AdminSchools } from "../components";
+import { useEffect, useState } from "react";
+import { MouseEvent } from "react";
 
 export const AdminScreen = () => {
   const { user } = useSessionStore();
   const navigate = useNavigate();
-  const { data, loading, error } = useGetAllSchools();
-  const [results, setResults] = useState<FuseResult<SchoolType[]>[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    const fuse = new Fuse(data, {
-      keys: ["name", "city"],
-    });
-    setSearchTerm(e.target.value);
-    setResults(fuse.search(e.target.value));
-    console.log(results);
-  };
+  const { loading, error } = useGetAllSchools();
+  const [screenSelected, setScreenSelected] = useState("schools");
 
   useEffect(() => {
-    if (!user || !user.isAdmin) {
+    if (!user) {
       navigate("/login");
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    if (!user?.isAdmin) {
+      navigate("/schools");
+    }
+  });
+
+  const handleTabClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setScreenSelected(e.currentTarget.id);
+  };
 
   if (loading)
     return (
@@ -49,49 +49,33 @@ export const AdminScreen = () => {
               <h1 className="font-bold text-2xl lg:text-3xl text-center">
                 Admin Dashboard
               </h1>
-              <input
-                type="text"
-                placeholder="Search for a school"
-                className="input input-bordered m-4 w-1/2"
-                value={searchTerm}
-                onChange={handleSearch}
-              />
             </div>
-            <div className="w-full h-96 overflow-x-auto">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th className="text-2xl">Name</th>
-                    <th className="hidden 2xl:table-cell text-2xl">Contact</th>
-                    <th className="hidden md:table-cell text-2xl">ID</th>
-                  </tr>
-                </thead>
-                <tbody className="h-full">
-                  {searchTerm === "" &&
-                    data &&
-                    data.map((school) => (
-                      <AdminSchool key={school?.id} school={school} />
-                    ))}
-                  {searchTerm && (
-                    <>
-                      {results.map((result) => (
-                        <AdminSchool
-                          key={result.refIndex}
-                          school={result.item as SchoolType}
-                        />
-                      ))}
-                    </>
-                  )}
-                  {searchTerm && results.length === 0 && (
-                    <tr>
-                      <td colSpan={4} className="text-center">
-                        No results found.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+            <div role="tablist" className="tabs tabs-boxed">
+              <a
+                role="tab"
+                id="users"
+                className={`tab ${screenSelected === "users" ? "tab-active" : null}`}
+                onClick={handleTabClick}
+              >
+                Users
+              </a>
+              <a
+                role="tab"
+                className={`tab ${screenSelected === "schools" ? "tab-active" : null}`}
+                id="schools"
+                onClick={handleTabClick}
+              >
+                Schools
+              </a>
+            </div>
+            <div>
+              {screenSelected === "schools" ? (
+                <AdminSchools />
+              ) : (
+                <div>
+                  <div className="h-96">Users</div>
+                </div>
+              )}
             </div>
           </div>
         </div>
