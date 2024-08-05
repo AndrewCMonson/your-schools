@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
-import { DeleteSchool, GetAllSchools } from "../../../utils";
+import { DeleteUser, GetAllUsers } from "../../../utils";
 import { Maybe } from "graphql/jsutils/Maybe";
 import { useState } from "react";
 import {
@@ -11,16 +11,16 @@ import {
   DialogBackdrop,
 } from "@headlessui/react";
 
-interface AdminDeleteSchoolButtonProps {
+interface AdminDeleteUserButtonProps {
   schoolId: Maybe<string> | undefined;
 }
-export const AdminDeleteSchoolButton = ({
+export const AdminDeleteUserButton = ({
   schoolId,
-}: AdminDeleteSchoolButtonProps) => {
+}: AdminDeleteUserButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [deleteSchool] = useMutation(DeleteSchool, {
+  const [deleteUser] = useMutation(DeleteUser, {
     onCompleted: (data) => {
-      toast.success("School deleted successfully");
+      toast.success("User deleted successfully");
       console.log(data);
     },
     onError: (error) => {
@@ -30,11 +30,11 @@ export const AdminDeleteSchoolButton = ({
   });
 
   const handleDeleteButtonClick = () => {
-    deleteSchool({
+    deleteUser({
       variables: {
         id: schoolId,
       },
-      refetchQueries: [{ query: GetAllSchools }],
+      refetchQueries: [{ query: GetAllUsers }],
     });
     setIsOpen(false);
   };
@@ -55,10 +55,10 @@ export const AdminDeleteSchoolButton = ({
               Delete School
             </DialogTitle>
             <Description className="my-4">
-              This will permanently delete the school and all of it&apos;s data
+              This will permanently delete the user and all of it&apos;s data
             </Description>
             <p>
-              Are you sure you want to delete the school? This action cannot be
+              Are you sure you want to delete this user? This action cannot be
               undone.
             </p>
             <div className="flex gap-4 mt-4">

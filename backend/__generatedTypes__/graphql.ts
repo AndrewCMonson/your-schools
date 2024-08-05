@@ -61,6 +61,7 @@ export type Mutation = {
   addToFavorites: User;
   addUser: Auth;
   deleteSchool?: Maybe<Scalars['String']['output']>;
+  deleteUser?: Maybe<Scalars['String']['output']>;
   login: Auth;
   logout?: Maybe<Scalars['Void']['output']>;
   recoverPassword: Scalars['String']['output'];
@@ -101,6 +102,11 @@ export type MutationAddUserArgs = {
 
 
 export type MutationDeleteSchoolArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteUserArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -401,6 +407,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   addToFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
   deleteSchool?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteSchoolArgs, 'id'>>;
+  deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   logout?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType>;
   recoverPassword?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationRecoverPasswordArgs, 'email'>>;

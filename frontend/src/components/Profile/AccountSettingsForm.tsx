@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { useFragment } from "../../__generatedTypes__";
 import { UpdateUserInfo, UpdateUserPassword } from "../../utils/Graphql/";
@@ -81,12 +81,12 @@ export const AccountSettingsForm = () => {
     setEditable(!editable);
   };
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handleThemeChange = (event: any) => {
+  const handleThemeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     setUserInfo({ ...userInfo, theme: value });
   };

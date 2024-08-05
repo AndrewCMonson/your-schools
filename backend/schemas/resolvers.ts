@@ -180,6 +180,24 @@ const resolvers: Resolvers = {
 
       return updatedUser;
     },
+    deleteUser: async (_, { id }, { user }) => {
+      if (!id) throw new Error("Please provide a user ID");
+
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      if (!user.isAdmin)
+        throw new AuthenticationError(
+          "You need to be an admin to delete a user",
+        );
+
+      const deletedUser = await UserModel.findByIdAndDelete(id);
+
+      if (!deletedUser) {
+        throw new Error("Couldn't find user with this id");
+      }
+
+      return "User deleted successfully";
+    },
     login: async (_, { email, password }, { req, res, user }) => {
       if (user) {
         return { user: user, token: req.cookies.token };
