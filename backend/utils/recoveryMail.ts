@@ -1,11 +1,22 @@
 import { createTransport } from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-export const sendRecoveryEmail = async (
-  email: string,
-  tempPassword: string,
+interface MailOptions {
+  from: string | undefined;
+  to: string;
+  subject: string;
+  text: string;
+}
+
+interface SendRecoveryEmail {
+  (email: string, tempPassword: string): Promise<void>;
+}
+
+export const sendRecoveryEmail: SendRecoveryEmail = async (
+  email,
+  tempPassword,
 ) => {
-  const mailOptions = {
+  const mailOptions: MailOptions = {
     from: process.env.EMAIL,
     to: email,
     subject: "Password Recovery",
