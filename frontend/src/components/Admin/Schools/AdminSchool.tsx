@@ -7,6 +7,8 @@ interface AdminSchoolProps {
 }
 
 export const AdminSchool = ({ school }: AdminSchoolProps) => {
+  const { name, city, phone, email, id } = school;
+
   return (
     <>
       <tr>
@@ -14,22 +16,22 @@ export const AdminSchool = ({ school }: AdminSchoolProps) => {
         <td>
           <div className="flex items-center gap-3">
             <div>
-              <div className="font-bold flex gap-1">{school.name}</div>
-              <div className="text-sm ">{school.city}</div>
+              <div className="font-bold flex gap-1">{name}</div>
+              <div className="text-sm ">{city}</div>
             </div>
           </div>
         </td>
         <td className="hidden 2xl:table-cell">
-          {school.phone}
+          {phone}
           <br />
-          {school.email}
+          {email}
         </td>
         {/* <td className="hidden md:table-cell">{school.owner}</td> */}
-        <td className="hidden md:table-cell">{school.id}</td>
+        <td className="hidden md:table-cell">{id?.substring(18)}</td>
         <td>
           <div className="flex gap-4">
             <AdminEditSchoolModal school={school} />
-            <AdminDeleteSchoolButton schoolId={school.id} />
+            <AdminDeleteSchoolButton schoolId={id} />
           </div>
         </td>
       </tr>

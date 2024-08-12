@@ -1,24 +1,16 @@
 import { Dialog, DialogPanel, DialogBackdrop } from "@headlessui/react";
 import { useState, ChangeEvent, MouseEvent } from "react";
-import { User as UserType } from "../../../__generatedTypes__/graphql";
-import { AdminUpdateUserInfo, GetAllUsers } from "../../../utils";
+import { AdminAddUser, GetAllUsers } from "../../../utils";
 import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
 
-interface AdminEditUserModalProps {
-  user: UserType;
-}
-
-export const AdminEditUserModal = ({ user }: AdminEditUserModalProps) => {
+export const AdminAddUserModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { id, username, email, theme, zipcode } = user;
-
   const [userFormData, setUserFormData] = useState({
-    username: username || "",
-    email: email || "",
-    theme: theme || "",
-    zipcode: zipcode || "",
+    username: "",
+    email: "",
+    isAdmin: false,
   });
 
   const handleFormChange = (
@@ -36,32 +28,46 @@ export const AdminEditUserModal = ({ user }: AdminEditUserModalProps) => {
 
   const close = () => {
     setIsOpen(false);
+    setUserFormData({
+      username: "",
+      email: "",
+      isAdmin: false,
+    });
   };
 
-  const [updateUserInfo] = useMutation(AdminUpdateUserInfo, {
+  const [adminAddUser] = useMutation(AdminAddUser, {
     onCompleted: () => {
-      toast.success("User info updated successfully");
+      toast.success("User added successfully");
     },
 
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message.includes("E11000 duplicate key error collection")) {
+        toast.error("User already exists");
+      }
     },
   });
 
   const handleSaveChanges = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    updateUserInfo({
+    adminAddUser({
       variables: {
-        id: id,
         username: userFormData.username,
         email: userFormData.email,
-        theme: userFormData.theme,
-        zipcode: userFormData.zipcode,
+        isAdmin: userFormData.isAdmin,
       },
       refetchQueries: [{ query: GetAllUsers }],
     });
 
     close();
+  };
+
+  const handleBoxCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    setUserFormData({
+      ...userFormData,
+      isAdmin: true,
+    });
   };
 
   return (
@@ -70,7 +76,7 @@ export const AdminEditUserModal = ({ user }: AdminEditUserModalProps) => {
         onClick={open}
         className="rounded-md bg-base-200 py-2 px-4 text-sm font-bold text-base hover:bg-base-300 focus:outline-none"
       >
-        Edit User
+        Add User
       </button>
 
       <Dialog
@@ -86,7 +92,7 @@ export const AdminEditUserModal = ({ user }: AdminEditUserModalProps) => {
               transition
               className="w-full max-w-md rounded-xl p-6 backdrop-blur-3xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0 border"
             >
-              <h1 className="text-2xl font-medium">Edit User {username}</h1>
+              <h1 className="text-2xl font-medium">Add a new user</h1>
               <div className="mt-4">
                 <label htmlFor="username">Username</label>
                 <input
@@ -94,7 +100,7 @@ export const AdminEditUserModal = ({ user }: AdminEditUserModalProps) => {
                   name="username"
                   value={userFormData.username}
                   onChange={handleFormChange}
-                  className="my-2 w-full rounded-md text-black py-1.5 px-3 shadow-black focus:outline-none"
+                  className="my-2 w-full rounded-md text-black py-1.5 px-3  shadow-black focus:outline-none"
                 />
                 <label htmlFor="email">Email</label>
                 <input
@@ -104,26 +110,15 @@ export const AdminEditUserModal = ({ user }: AdminEditUserModalProps) => {
                   onChange={handleFormChange}
                   className="my-2 w-full rounded-md  py-1.5 px-3 shadow-black text-black focus:outline-none"
                 />
-                <label htmlFor="theme">Theme</label>
-                <select
-                  name="theme"
-                  value={userFormData.theme}
-                  onChange={handleFormChange}
-                  className="my-2 w-full rounded-md  py-1.5 px-3 shadow-black text-black focus:outline-none"
-                >
-                  <option value="lightTheme">Light</option>
-                  <option value="darkTheme">Dark</option>
-                </select>
-                <label htmlFor="zipcode" className="">
-                  Zipcode
-                </label>
-                <input
-                  type="text"
-                  name="zipcode"
-                  value={userFormData.zipcode}
-                  onChange={handleFormChange}
-                  className="my-2 w-full rounded-md  py-1.5 px-3 shadow-black text-black focus:outline-none"
-                />
+                <div className="flex gap-2 my-2 py-1.5">
+                  <label htmlFor="isAdmin">Admin?</label>
+                  <input
+                    type="checkbox"
+                    name="isAdmin"
+                    onChange={handleBoxCheck}
+                    className="checkbox"
+                  />
+                </div>
               </div>
               <div className="mt-4 flex gap-4">
                 <button className="btn btn-primary" onClick={handleSaveChanges}>

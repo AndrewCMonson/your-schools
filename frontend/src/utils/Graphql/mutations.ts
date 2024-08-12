@@ -29,6 +29,44 @@ export const AddUser = gql(`
   }
 `);
 
+export const AdminUpdateUserInfo = gql(`
+  mutation adminUpdateUserInfo(
+    $id: ID!
+    $username: String
+    $email: String
+    $zipcode: String
+    $theme: String
+    $isAdmin: Boolean
+  ) {
+    adminUpdateUserInfo(
+      id: $id
+      username: $username
+      email: $email
+      zipcode: $zipcode
+      theme: $theme
+      isAdmin: $isAdmin
+    ) {
+      id
+      username
+      email
+      zipcode
+      theme
+      isAdmin
+    }
+  }
+`);
+
+export const AdminAddUser = gql(`
+  mutation adminAddUser($username: String!, $email: String!, $isAdmin: Boolean!) {
+    adminAddUser(username: $username, email: $email, isAdmin: $isAdmin) {
+      id
+      username
+      email
+      isAdmin
+    }
+  }
+`);
+
 export const DeleteUser = gql(`
   mutation deleteUser($id: ID!) {
     deleteUser(id: $id)

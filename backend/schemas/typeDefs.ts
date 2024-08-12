@@ -105,6 +105,8 @@ type School {
     deleteSchool(id: ID!): String
     addSchool(name: String!, address: String!, city: String!, state: String!, zipcode: String!) : School!
     deleteUser(id: ID!): String
+    adminUpdateUserInfo(id: ID!, username: String, email: String, zipcode: String, theme: String, isAdmin: Boolean): User!
+    adminAddUser(username: String!, email: String!, isAdmin: Boolean!) : User!
 }
 
   scalar ObjectId

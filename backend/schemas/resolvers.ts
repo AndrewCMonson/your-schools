@@ -180,6 +180,62 @@ const resolvers: Resolvers = {
 
       return updatedUser;
     },
+    adminUpdateUserInfo: async (
+      _,
+      { id, username, email, zipcode, theme, isAdmin },
+      { user },
+    ) => {
+      if (!id) throw new Error("Please provide a user ID");
+
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      if (!user.isAdmin)
+        throw new AuthenticationError(
+          "You need to be an admin to update a user",
+        );
+
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        { _id: id },
+        { username, email, zipcode, theme, isAdmin },
+        { new: true },
+      );
+
+      if (!updatedUser) {
+        throw new Error("Couldn't find user with this id");
+      }
+
+      return updatedUser;
+    },
+    adminAddUser: async (_, { username, email, isAdmin }, { user }) => {
+      if (!user) throw new AuthenticationError("You need to be logged in");
+
+      if (!user.isAdmin)
+        throw new Error(
+          "You need to be an admin to add a user via the admin dashboard",
+        );
+
+      if (!username || !email) {
+        throw new Error("You need to provide a username and email");
+      }
+
+      const tempPassword = generate({
+        length: 6,
+        numbers: true,
+      });
+
+      const hashedPassword = await hashPassword(tempPassword);
+
+      const newUser = await UserModel.create({
+        username,
+        email,
+        isAdmin,
+        password: hashedPassword,
+      });
+
+      await sendRecoveryEmail(email, tempPassword);
+
+      return newUser;
+    },
     deleteUser: async (_, { id }, { user }) => {
       if (!id) throw new Error("Please provide a user ID");
 

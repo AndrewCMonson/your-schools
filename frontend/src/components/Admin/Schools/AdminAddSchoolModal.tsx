@@ -46,7 +46,9 @@ export const AdminAddSchoolModal = () => {
     },
 
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message.includes("E11000 duplicate key error collection")) {
+        toast.error("School already exists");
+      }
     },
   });
 

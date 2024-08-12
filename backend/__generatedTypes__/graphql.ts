@@ -60,6 +60,8 @@ export type Mutation = {
   addSchool: School;
   addToFavorites: User;
   addUser: Auth;
+  adminAddUser: User;
+  adminUpdateUserInfo: User;
   deleteSchool?: Maybe<Scalars['String']['output']>;
   deleteUser?: Maybe<Scalars['String']['output']>;
   login: Auth;
@@ -98,6 +100,23 @@ export type MutationAddUserArgs = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
+};
+
+
+export type MutationAdminAddUserArgs = {
+  email: Scalars['String']['input'];
+  isAdmin: Scalars['Boolean']['input'];
+  username: Scalars['String']['input'];
+};
+
+
+export type MutationAdminUpdateUserInfoArgs = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  isAdmin?: InputMaybe<Scalars['Boolean']['input']>;
+  theme?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
+  zipcode?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -406,6 +425,8 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   addSchool?: Resolver<ResolversTypes['School'], ParentType, ContextType, RequireFields<MutationAddSchoolArgs, 'address' | 'city' | 'name' | 'state' | 'zipcode'>>;
   addToFavorites?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddToFavoritesArgs, 'schoolId'>>;
   addUser?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password' | 'username'>>;
+  adminAddUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAdminAddUserArgs, 'email' | 'isAdmin' | 'username'>>;
+  adminUpdateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAdminUpdateUserInfoArgs, 'id'>>;
   deleteSchool?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteSchoolArgs, 'id'>>;
   deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   login?: Resolver<ResolversTypes['Auth'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;

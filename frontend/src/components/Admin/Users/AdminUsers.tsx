@@ -3,7 +3,7 @@ import { AdminUser, AdminUserFuzzySearch } from "./";
 import { FuseResult } from "fuse.js";
 import { useState } from "react";
 import { User as UserType } from "../../../__generatedTypes__/graphql";
-// import { AdminAddSchoolModal } from "./AdminAddSchoolModal";
+import { AdminAddUserModal } from "./AdminAddUserModal";
 
 export const AdminUsers = () => {
   const { data, loading, error } = useGetAllUsers();
@@ -30,7 +30,7 @@ export const AdminUsers = () => {
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
-        {/* <AdminAddSchoolModal /> */}
+        <AdminAddUserModal />
       </div>
 
       <div className="w-full overflow-x-auto">
@@ -42,7 +42,6 @@ export const AdminUsers = () => {
               <th className="hidden 2xl:table-cell text-2xl">Email</th>
               <th className="hidden md:table-cell text-2xl">ID</th>
               <th className="hidden md:table-cell text-2xl">Role</th>
-              <th></th>
             </tr>
           </thead>
           <tbody className="h-full">

@@ -11,14 +11,15 @@ interface SchoolModalProps {
 }
 
 export const AdminEditSchoolModal = ({ school }: SchoolModalProps) => {
+  const { id, name, address, city, state, zipcode } = school;
   const [isOpen, setIsOpen] = useState(false);
 
   const [schoolFormData, setSchoolFormData] = useState({
-    name: school?.name || "",
-    address: school?.address || "",
-    city: school?.city || "",
-    state: school?.state || "",
-    zipcode: school?.zipcode || "",
+    name: name || "",
+    address: address || "",
+    city: city || "",
+    state: state || "",
+    zipcode: zipcode || "",
   });
 
   const handleFormChange = (
@@ -52,7 +53,7 @@ export const AdminEditSchoolModal = ({ school }: SchoolModalProps) => {
     e.preventDefault();
     updateSchoolInfo({
       variables: {
-        id: school.id,
+        id: id,
         name: schoolFormData.name,
         address: schoolFormData.address,
         city: schoolFormData.city,

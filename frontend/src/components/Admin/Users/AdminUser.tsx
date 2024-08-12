@@ -1,6 +1,7 @@
 import { User as UserType } from "../../../__generatedTypes__/graphql";
 import { AdminDeleteUserButton } from "./AdminDeleteUserButton";
 import { AdminEditUserModal } from "./AdminEditUserModal";
+import { AdminResetUserPasswordModal } from "./AdminResetUserPassword";
 interface AdminUserProps {
   user: UserType;
 }
@@ -21,11 +22,12 @@ export const AdminUser = ({ user }: AdminUserProps) => {
         </td>
         <td className="hidden 2xl:table-cell">{email}</td>
         {/* <td className="hidden md:table-cell">{school.owner}</td> */}
-        <td className="hidden md:table-cell">{id}</td>
+        <td className="hidden md:table-cell">{id?.substring(18)}</td>
         <td className="hidden md:table-cell">{isAdmin ? "Admin" : "User"}</td>
         <td>
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-center">
             <AdminEditUserModal user={user} />
+            <AdminResetUserPasswordModal email={email} />
             <AdminDeleteUserButton schoolId={id} />
           </div>
         </td>
