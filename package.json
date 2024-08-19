@@ -5,12 +5,12 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"server": "node --loader ts-node/esm backend/server.ts",
+		"server": "tsx watch backend/server.ts",
 		"build": "yarn install && cd frontend && yarn install && yarn run build",
 		"render-build": "yarn install && yarn run build",
 		"client": "cd frontend && yarn run start",
 		"dev": "concurrently \"yarn run server\" \"yarn run client\"",
-		"data:import": "node --loader ts-node/esm backend/seeder.ts",
+		"data:import": "tsx backend/seeder.ts",
 		"data:destroy": "tsx backend/seeder.ts -d",
 		"lint": "eslint . --ext js,ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"generate": "graphql-codegen --config codegen.ts",
@@ -60,6 +60,7 @@
 		"prettier": "^3.2.5",
 		"ts-node": "^10.9.2",
 		"tslib": "^2.6.2",
+		"tsx": "^4.17.0",
 		"typescript": "^5.4.3"
 	}
 }
